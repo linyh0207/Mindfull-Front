@@ -1,21 +1,38 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { AppRegistry } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
 
-export default class App extends React.Component {
+import Home from './src/Home.js'
+import Search from './src/Search.js'
+import Reminder from './src/Reminder.js'
+import ObjectRecognition from './src/ObjectRecognition.js'  
+
+const RootStack = createStackNavigator(
+  {
+    Home: {
+      screen: Home,
+    },
+    Search: {
+      screen: Search,
+    },
+    Reminder: {
+      screen: Reminder,
+    },
+    ObjectRecognition: {
+      screen: ObjectRecognition,
+    },
+  },
+  {
+    initialRouteName: 'Home',
+    },
+);
+
+class App extends React.Component {
   render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
-    );
+    return <RootStack />;
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+AppRegistry.registerComponent('MindFull', () => App)
+
+export default App;
