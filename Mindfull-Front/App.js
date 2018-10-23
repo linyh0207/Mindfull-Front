@@ -3,7 +3,8 @@ import { AppRegistry } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 import Search from './src/Search.js'
-import ObjectRecognition from './src/ObjectRecognition.js'  
+import ObjectRecognition from './src/ObjectRecognition.js'
+import BarcodeScanner from './src/BarcodeScanner.js'  
 
 const RootStack = createStackNavigator(
   {
@@ -12,6 +13,9 @@ const RootStack = createStackNavigator(
     },
     ObjectRecognition: {
       screen: ObjectRecognition,
+    },
+    BarcodeScanner: {
+      screen: BarcodeScanner,
     },
   },
   {
