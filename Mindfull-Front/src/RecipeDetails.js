@@ -18,6 +18,7 @@ class RecipeDetails extends Component {
   render() {
     return (
       <View style={styles.container}>
+      <Text>Recipe Details</Text>
       </View>
     );
   };
