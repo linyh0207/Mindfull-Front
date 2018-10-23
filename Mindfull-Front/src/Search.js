@@ -41,6 +41,13 @@ class Search extends Component {
           textStyle={{textAlign: 'center'}}
           onPress={() => this.props.navigation.navigate('ObjectRecognition')}
         />
+        <Button 
+          raised
+          title="Barcode Scanner"
+          buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, padding: 10, marginBottom: 20, width: 300}}
+          textStyle={{textAlign: 'center'}}
+          onPress={() => this.props.navigation.navigate('BarcodeScanner')}
+        />
       </View>
     );
   }
