@@ -4,7 +4,9 @@ import { createStackNavigator } from 'react-navigation';
 
 import Search from './src/Search.js'
 import ObjectRecognition from './src/ObjectRecognition.js'
-import BarcodeScanner from './src/BarcodeScanner.js'  
+import BarcodeScanner from './src/BarcodeScanner.js'
+import Recipes from './src/Recipes.js' 
+import RecipeDetails from './src/RecipeDetails.js' 
 
 const RootStack = createStackNavigator(
   {
@@ -16,6 +18,12 @@ const RootStack = createStackNavigator(
     },
     BarcodeScanner: {
       screen: BarcodeScanner,
+    },
+    Recipes: {
+      screen: Recipes,
+    },
+    RecipeDetails: {
+      screen: RecipeDetails,
     },
   },
   {
