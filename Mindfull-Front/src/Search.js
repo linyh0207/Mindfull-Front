@@ -61,34 +61,34 @@ class Search extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
+    
     return (
-      <View style={styles.container}>
+        <View style={styles.container}>
 
-        <SearchBar
-        style={styles.searchInput}
-        value={this.state.text}
-        round
-        searchIcon={{ size: 24 }}
-        inputStyle={{backgroundColor: 'white'}}
-        containerStyle={{backgroundColor: 'white', width: 300}}
-        onChangeText={(text) => this.setState({text})}
-        placeholder='Search Ingredient' />
+          <SearchBar
+          style={styles.searchInput}
+          value={this.state.text}
+          round
+          searchIcon={{ size: 24 }}
+          inputStyle={{backgroundColor: 'white'}}
+          containerStyle={{backgroundColor: 'white', width: 300}}
+          onChangeText={(text) => this.setState({text})}
+          placeholder='Search Ingredient' />
           
-        <Button 
-        onPress={() => {this.addItem()}}
-        color='black'
-        title='Add Item'
-        />
-
-        <Button 
-          raised
-          title="Object Recognition"
+          <Button 
+          onPress={() => {this.addItem()}}
           color='black'
-          buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, width: 300}}
-          textStyle={{textAlign: 'center'}}
-          onPress={() => this.props.navigation.navigate('ObjectRecognition')}
-        />
+          title='Add Item'
+          />
 
+          <Button 
+            raised
+            title="Object Recognition"
+            color='black'
+            buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, width: 300}}
+            textStyle={{textAlign: 'center'}}
+            onPress={() => this.props.navigation.navigate('ObjectRecognition')}
+          />
         <Button 
           raised
           color='black'
@@ -97,7 +97,6 @@ class Search extends React.Component {
           textStyle={{textAlign: 'center'}}
           onPress={() => this.props.navigation.navigate('BarcodeScanner')}
         />
-
         <Button 
           raised
           color='black'
@@ -107,26 +106,46 @@ class Search extends React.Component {
           onPress={() => this.props.navigation.navigate('Recipes')}
         />
 
-        <FlatList
-          data={this.state.ingredients}
-          renderItem={({ item }) => (
-            <Text>{item}</Text>
-          )}
-        />
+        {/* // <FlatList
+        // {...this.state.data.ingredients.map(item => {
+        //   return (
+        //   <Text key={item}> {item}</Text>
+        //   )
+        // })}
+
+        // /> */}
+
+
+
+<FlatList
+data={this.state.ingredients}
+renderItem={({ item }) => (
+  <View style={{backgroundColor: 'pink', width: 300, padding: 10, margin: 10}}>
+  <Text style={{fontSize: 20}}>{item}</Text>
+  </View>
+)}
+/>
+
+
+
 
         <TouchableHighlight>
           <Button
-            onPress={() =>  this.props.navigation.navigate('Recipes')}
-            color='black'
-            title='Submit'
-          />
-        </TouchableHighlight>
-      </View>
+              onPress={() =>  this.props.navigation.navigate('Recipes')}
+              color='black'
+              title='Submit'
+            />
+            </TouchableHighlight>
+        </View>
 
 
     );
   }
 }
+
+
+
+
 
 
 
@@ -137,6 +156,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
 });
 
 
