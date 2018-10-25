@@ -3,7 +3,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  Button,
+  FlatList
 } from 'react-native';
 
 
@@ -15,11 +16,68 @@ class Recipes extends Component {
       fontWeight: 'bold',
     },
   };
+
+  constructor (){
+    super();
+    this.state = {
+      list: []
+    };
+  }
+
+
+  componentDidMount = () => {
+    fetch('https://api.yummly.com/v1/api/recipes?_app_id=21580375&_app_key=da87403dad4e077ff0e40d912cd1051a&allowedIngredient[]=garlic&allowedIngredient[]=cognac', {
+       method: 'GET'
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      let recipeList = [];
+      responseJson.matches.forEach(key => (
+        recipeList.push(key.recipeName)
+      ))
+       let newList = {...this.state.list}
+         newList = recipeList
+          this.setState({
+             list: newList
+          }, () => console.log('newList is...',this.state.list))
+    })
+    .catch((error) => {
+       console.error(error);
+    });
+
+    // var ingredients = {ingredients: 'apple'};
+    // // console.log(test)
+    // fetch("http://192.168.88.99:3000/recipes", {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body:  JSON.stringify(ingredients)
+    // })
+    // .then((response) => response.json())
+    // .then((responseJson) => {
+    //   let newList = {...this.state.list}
+    //   newList = responseJson.result
+    //    this.setState({
+    //       list: newList
+    //    }, () => console.log('newList is...',this.state.list))
+       
+    // })
+    // .catch((error) => {
+    //    console.error(error);
+    // });
+
+
+ }
+
+
   render() {
     // let recipeList = this.props.recipes.map(recipe => {
     // });
     return (
       <View style={styles.container}>
+        <Text>Total ingredients</Text>
         <Text>Recipes page</Text>
         <Button 
           raised
@@ -28,6 +86,13 @@ class Recipes extends Component {
           buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, padding: 10, marginBottom: 20, width: 300}}
           textStyle={{textAlign: 'center'}}
           onPress={() => this.props.navigation.navigate('RecipeDetails')}
+        />
+        <FlatList
+        data={this.state.list}
+        renderItem={({item}) => (
+          <Text>{item}</Text>
+        )}
+        keyExtractor={(item, index) => index.toString()}
         />
       </View>
     );

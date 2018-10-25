@@ -54,12 +54,12 @@ class Search extends React.Component {
     });
   }
   /*method that updates chosen filter value*/
-  onValueChangeSort(value: string) {
-    this.setState({
-      selectedOptions: value
-    });
-    console.log(value);
-  }
+  // onValueChangeSort(value: string) {
+  //   this.setState({
+  //     selectedOptions: value
+  //   });
+  //   console.log(value);
+  // }
   render() {
     const { selectedItems } = this.state;
     const { navigate } = this.props.navigation;
