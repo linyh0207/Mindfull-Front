@@ -47,6 +47,7 @@ class Search extends React.Component {
     const newItems = this.state.text
     const ingredients = this.state.ingredients.concat(newItems)
     this.setState({ingredients})
+    this.state.text = ''
   }
 
   deleteItem(key) {
