@@ -36,9 +36,14 @@ class Recipes extends Component {
     console.log('ingredients', ingredients)
     let url = `https://api.yummly.com/v1/api/recipes?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
     
+    if (ingredients.length <= 0) {
+      console.log('no input')
+      this.props.navigation.navigate('Search')
+    } else {
     ingredients.forEach(ingredient => 
       url += `&allowedIngredient[]=${ingredient}`
-    )
+      )
+    
     fetch(`${url}`, {
        method: 'GET'
     })
@@ -57,7 +62,7 @@ class Recipes extends Component {
     .catch((error) => {
        console.error(error);
     });
-
+  }
     // var ingredients = {ingredients: 'apple'};
     // // console.log(test)
     // fetch("http://192.168.88.99:3000/recipes", {
@@ -90,7 +95,14 @@ class Recipes extends Component {
     // });
     return (
       <View style={styles.container}>
-        <Text>Total ingredients</Text>
+        <Text>Ingredients I have:</Text>
+        <FlatList
+        data={this.props.navigation.state.params.ingredients}
+        renderItem={({item}) => (
+          <Text>{item}</Text>
+        )}
+        keyExtractor={(item, index) => index.toString()}
+        />
         <Text>Recipes page</Text>
         <Button 
           raised
