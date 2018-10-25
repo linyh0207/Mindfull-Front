@@ -20,13 +20,23 @@ class Recipes extends Component {
   constructor (){
     super();
     this.state = {
-      list: []
+      list: [],
+      api: {
+        id: 21580375,
+        key: 'da87403dad4e077ff0e40d912cd1051a'
+      }
     };
   }
 
 
   componentDidMount = () => {
-    fetch('https://api.yummly.com/v1/api/recipes?_app_id=21580375&_app_key=da87403dad4e077ff0e40d912cd1051a&allowedIngredient[]=garlic&allowedIngredient[]=cognac', {
+    let ingredients = ['garlic', 'cognac']
+    let url = `https://api.yummly.com/v1/api/recipes?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
+    ingredients.forEach(ingredient => 
+       url += `&allowedIngredient[]=${ingredient}`
+    )
+
+    fetch(`${url}`, {
        method: 'GET'
     })
     .then((response) => response.json())
