@@ -8,13 +8,15 @@ import {
   ScrollView,
   TextInput,
   TouchableHighlight,
+  TouchableOpacity,
   Image,
   AsyncStorage,
   FlatList
 } from 'react-native';
 import Octicon from 'react-native-vector-icons/Octicons';
 import { 
-  SearchBar 
+  SearchBar,
+  Icon
 } from 'react-native-elements';
 import { 
   Camera, 
@@ -44,20 +46,16 @@ class Search extends React.Component {
   addItem() {
     const newItems = this.state.text
     const ingredients = this.state.ingredients.concat(newItems)
-    // const newData = {...this.state.data};
-    // newData.ingredients = ingredients;
-    // this.setState({data: newData});
     this.setState({ingredients})
   }
 
-  searchList() {
-    // const newItems = this.state.text
-    // const ingredients = this.state.ingredients.concat(newItems)
-    // const newData = {...this.state.data};
-    // newData.ingredients = ingredients;
-    // this.setState({data: newData});
-    // this.setState({ingredients})
+  deleteItem(key) {
+    console.log('my key', key)
+    const ingredients = this.state.ingredients.filter(ingr => ingr != key);
+    // const ingredients = this.state.ingredients.splice(key, 1)
+    this.setState({ingredients})
   }
+
 
   render() {
     const { navigate } = this.props.navigation;
@@ -118,12 +116,17 @@ class Search extends React.Component {
 
 
 <FlatList
-data={this.state.ingredients}
-renderItem={({ item }) => (
-  <View style={{backgroundColor: 'pink', width: 300, padding: 10, margin: 10}}>
-  <Text style={{fontSize: 20}}>{item}</Text>
+  data={this.state.ingredients}
+  renderItem={({ item }) => (
+    <View style={{backgroundColor: 'pink', width: 300, padding: 10, margin: 10}}>
+    <Text style={{fontSize: 20}}>{item}</Text>
+    <TouchableOpacity
+  onPress={() => {this.deleteItem(item)}}>
+    <Icon name="delete" size={24} color="white" />
+  </TouchableOpacity>
   </View>
 )}
+  keyExtractor={(item, index) => index.toString()}
 />
 
 
