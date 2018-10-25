@@ -9,7 +9,8 @@ import {
   TextInput,
   TouchableHighlight,
   Image,
-  AsyncStorage
+  AsyncStorage,
+  FlatList
 } from 'react-native';
 import Octicon from 'react-native-vector-icons/Octicons';
 import { 
@@ -21,50 +22,47 @@ import {
 } from 'expo';
 
 
-const API_ID = '21580375';
-const API_KEY = 'da87403dad4e077ff0e40d912cd1051a';
-
-
-
 class Search extends React.Component {
   static navigationOptions = {
-        title: 'Search',
-        headerTintColor: 'black',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-      };
+    title: 'Search',
+    headerTintColor: 'black',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
+      ingredients:[],
       url: '',
       error: '',
+      text:'',
     }
-    this.handlePress = this.handlePress.bind(this);
+    this.addItem = this.addItem.bind(this);
   };
-  /*once sumbit button is pressed, the text input is added as a query paremeter to url for the API Get Request*/
-  handlePress() {
-    const { text } = this.state ;
-    this.setState({ text: this.state.text});
-    this.setState({ url: 'http://api.yummly.com/v1/api/recipes?_app_id=' + API_ID + '&_app_key=' + API_KEY + '&q=' + text.replace(" ", "+")+'&maxResult=50&start=20'});
-    AsyncStorage.setItem("search_text", (this.state.text), () => {
-    });
-    AsyncStorage.setItem("search_url", ('http://api.yummly.com/v1/api/recipes?_app_id=' + API_ID + '&_app_key=' + API_KEY + '&q=' + text.replace(" ", "+")+ this.state.selectedOptions+'&maxResult=50&start=20'), () => {
-    });
+  
+  addItem() {
+    const newItems = this.state.text
+    const ingredients = this.state.ingredients.concat(newItems)
+    // const newData = {...this.state.data};
+    // newData.ingredients = ingredients;
+    // this.setState({data: newData});
+    this.setState({ingredients})
   }
-  /*method that updates chosen filter value*/
-  // onValueChangeSort(value: string) {
-  //   this.setState({
-  //     selectedOptions: value
-  //   });
-  //   console.log(value);
-  // }
+
+  searchList() {
+    // const newItems = this.state.text
+    // const ingredients = this.state.ingredients.concat(newItems)
+    // const newData = {...this.state.data};
+    // newData.ingredients = ingredients;
+    // this.setState({data: newData});
+    // this.setState({ingredients})
+  }
+
   render() {
-    const { selectedItems } = this.state;
     const { navigate } = this.props.navigation;
+    
     return (
- 
         <View style={styles.container}>
 
           <SearchBar
@@ -76,21 +74,21 @@ class Search extends React.Component {
           containerStyle={{backgroundColor: 'white', width: 300}}
           onChangeText={(text) => this.setState({text})}
           placeholder='Search Ingredient' />
-  
-
-
-
-            
-  
-
-        <Button 
-          raised
-          title="Object Recognition"
+          
+          <Button 
+          onPress={() => {this.addItem()}}
           color='black'
-          buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, width: 300}}
-          textStyle={{textAlign: 'center'}}
-          onPress={() => this.props.navigation.navigate('ObjectRecognition')}
-        />
+          title='Add Item'
+          />
+
+          <Button 
+            raised
+            title="Object Recognition"
+            color='black'
+            buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, width: 300}}
+            textStyle={{textAlign: 'center'}}
+            onPress={() => this.props.navigation.navigate('ObjectRecognition')}
+          />
         <Button 
           raised
           color='black'
@@ -107,9 +105,33 @@ class Search extends React.Component {
           textStyle={{textAlign: 'center'}}
           onPress={() => this.props.navigation.navigate('Recipes')}
         />
-        <TouchableHighlight onPress={() =>  navigate('Recipes')}>
+
+        {/* // <FlatList
+        // {...this.state.data.ingredients.map(item => {
+        //   return (
+        //   <Text key={item}> {item}</Text>
+        //   )
+        // })}
+
+        // /> */}
+
+
+
+<FlatList
+data={this.state.ingredients}
+renderItem={({ item }) => (
+  <View style={{backgroundColor: 'pink', width: 300, padding: 10, margin: 10}}>
+  <Text style={{fontSize: 20}}>{item}</Text>
+  </View>
+)}
+/>
+
+
+
+
+        <TouchableHighlight>
           <Button
-              onPress={() => { this.handlePress()}}
+              onPress={() =>  this.props.navigation.navigate('Recipes')}
               color='black'
               title='Submit'
             />
@@ -134,6 +156,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
 });
 
 
