@@ -47,7 +47,13 @@ class Search extends React.Component {
     const newItems = this.state.text
     const ingredients = this.state.ingredients.concat(newItems)
     this.setState({ingredients})
+<<<<<<< HEAD
     this.state.text = ''
+=======
+    // console.log('123',ingredients)
+    this.state.text = ''
+    // console.log('aftre',ingredients)
+>>>>>>> c759a5b7dc435641cc84c656382f43dbc149e623
   }
 
   deleteItem(key) {
@@ -66,7 +72,7 @@ class Search extends React.Component {
 
           <SearchBar
           style={styles.searchInput}
-          value={this.state.text}
+          value={this.state.text.toLowerCase()}
           round
           searchIcon={{ size: 24 }}
           inputStyle={{backgroundColor: 'white'}}
@@ -102,7 +108,7 @@ class Search extends React.Component {
           title="Recipe Page"
           buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, padding: 10, marginBottom: 20, width: 300}}
           textStyle={{textAlign: 'center'}}
-          onPress={() => this.props.navigation.navigate('Recipes')}
+          onPress={() => navigate('Recipes')}
         />
 
         {/* // <FlatList
@@ -135,7 +141,7 @@ class Search extends React.Component {
 
         <TouchableHighlight>
           <Button
-              onPress={() =>  this.props.navigation.navigate('Recipes')}
+              onPress={() =>  navigate('Recipes',{ingredients: this.state.ingredients})}
               color='black'
               title='Submit'
             />
