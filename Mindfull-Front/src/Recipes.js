@@ -7,6 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  ScrollView
 } from 'react-native';
 import { 
   Icon
@@ -63,6 +64,7 @@ class Recipes extends Component {
       const newList = responseJson.matches.map(match => {
         return ({
           food: match.recipeName,
+          image: match.smallImageUrls,
           id: match.id,
           color: 'black',
         });
@@ -121,12 +123,14 @@ class Recipes extends Component {
 
     return (
 
-      <View style={styles.container}>
+      <ScrollView contentContainerstyle={styles.container}>
         <Text>Ingredients I have:</Text>
+        
         {this.state.list.map(item => {
           return (
             <View>
               <Text key={item.id}>{item.food}</Text>
+              <Image source={{uri: `${item.image}`}} style={{width: 100, height: 100}} />
                 <Button 
                 onPress={this.changeHeartColor.bind(null, item)}
                 title='♥'
@@ -136,13 +140,13 @@ class Recipes extends Component {
           );
         })}
         
-        <FlatList
+        {/* <FlatList
         data={this.props.navigation.state.params.ingredients}
         renderItem={({item}) => (
           <Text>{item}</Text>
         )}
         keyExtractor={(item, index) => index.toString()}
-        />
+        /> */}
         <Text>Recipes page</Text>
         <Button 
           raised
@@ -152,7 +156,7 @@ class Recipes extends Component {
           textStyle={{textAlign: 'center'}}
           onPress={() => this.props.navigation.navigate('RecipeDetails')}
         />
-        <FlatList
+        {/* <FlatList
         data={this.state.list}
         renderItem={({item}) => (
           <View>
@@ -161,8 +165,8 @@ class Recipes extends Component {
           </View>
         )}
         keyExtractor={(item, index) => index.toString()}
-        />
-      </View>
+        /> */}
+      </ScrollView>
     );
   };
 };
