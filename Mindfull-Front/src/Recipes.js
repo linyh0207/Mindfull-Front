@@ -41,7 +41,7 @@ class Recipes extends Component {
   componentDidMount = () => {  
     let ingredients = this.props.navigation.state.params.ingredients
     let url = `https://api.yummly.com/v1/api/recipes?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
-    
+  
     if (ingredients.length <= 0) {
       this.props.navigation.navigate('Search')
     } else {
@@ -54,6 +54,18 @@ class Recipes extends Component {
     })
     .then((response) => response.json())
     .then((responseJson) => {
+      console.log("matchIngredients",responseJson.matches[0].ingredients)
+      console.log("ingredientsOnHand",ingredients)
+      let matchIngredients = responseJson.matches[0].ingredients
+      let diffIng = matchIngredients.filter(function(x){
+        return ingredients.indexOf(x) < 0;
+      })
+      console.log("diff",diffIng)
+
+
+
+
+
       const newList = responseJson.matches.map(match => {
         return ({
           food: match.recipeName,
@@ -123,6 +135,7 @@ class Recipes extends Component {
           <Text>{item}</Text>
         )
       })}
+
 
         
         {this.state.list.map(item => {
