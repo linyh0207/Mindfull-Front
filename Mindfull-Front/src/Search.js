@@ -135,6 +135,7 @@ class Search extends React.Component {
 
 
 
+      
         <TouchableHighlight>
           <Button
               onPress={() =>  navigate('Recipes',{ingredients: this.state.ingredients})}

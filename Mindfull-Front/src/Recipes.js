@@ -4,7 +4,8 @@ import {
   Text,
   View,
   Button,
-  FlatList
+  FlatList,
+  Image
 } from 'react-native';
 
 
@@ -51,7 +52,10 @@ class Recipes extends Component {
     .then((responseJson) => {
       let recipeList = [];
       responseJson.matches.forEach(key => (
-        recipeList.push(key.recipeName)
+        recipe = {name: key.recipeName, url: key.smallImageUrls},
+        console.log("recipe", recipe),
+        recipeList.push(recipe),
+        console.log("recipeList", recipeList)
       ))
        let newList = {...this.state.list}
          newList = recipeList
@@ -115,7 +119,10 @@ class Recipes extends Component {
         <FlatList
         data={this.state.list}
         renderItem={({item}) => (
-          <Text>{item}</Text>
+          <View>
+          <Text>{item.name}</Text>
+          <Image source={{uri: `${item.url}`}} style={{width: 100, height: 100}} />
+          </View>
         )}
         keyExtractor={(item, index) => index.toString()}
         />
