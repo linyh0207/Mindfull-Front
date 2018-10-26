@@ -5,7 +5,8 @@ import {
   View,
   Button,
   FlatList,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from 'react-native';
 import { 
   Icon
@@ -54,7 +55,10 @@ class Recipes extends Component {
     .then((responseJson) => {
       let recipeList = [];
       responseJson.matches.forEach(key => (
-        recipeList.push(key.recipeName)
+        recipe = {name: key.recipeName, url: key.smallImageUrls},
+        console.log("recipe", recipe),
+        recipeList.push(recipe),
+        console.log("recipeList", recipeList)
       ))
       const newList = responseJson.matches.map(match => {
         return ({
@@ -147,22 +151,16 @@ class Recipes extends Component {
           textStyle={{textAlign: 'center'}}
           onPress={() => this.props.navigation.navigate('RecipeDetails')}
         />
-        {/* <FlatList
-          data={this.state.list}
-          renderItem={({item}) => (
-            <View>
-              <Text>{item}</Text>
-              <Button 
-              onPress={this.changeHeartColor}
-              // title='♥'
-              title={this.state.heartColor}
-              color={this.state.heartColor}
-              />
-
-            </View>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-        /> */}
+        <FlatList
+        data={this.state.list}
+        renderItem={({item}) => (
+          <View>
+          <Text>{item.name}</Text>
+          <Image source={{uri: `${item.url}`}} style={{width: 100, height: 100}} />
+          </View>
+        )}
+        keyExtractor={(item, index) => index.toString()}
+        />
       </View>
     );
   };
