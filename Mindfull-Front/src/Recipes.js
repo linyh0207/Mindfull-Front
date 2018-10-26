@@ -54,13 +54,6 @@ class Recipes extends Component {
     })
     .then((response) => response.json())
     .then((responseJson) => {
-      let recipeList = [];
-      responseJson.matches.forEach(key => (
-        recipe = {name: key.recipeName, url: key.smallImageUrls},
-        console.log("recipe", recipe),
-        recipeList.push(recipe),
-        console.log("recipeList", recipeList)
-      ))
       const newList = responseJson.matches.map(match => {
         return ({
           food: match.recipeName,
@@ -125,6 +118,12 @@ class Recipes extends Component {
 
       <ScrollView contentContainerstyle={styles.container}>
         <Text>Ingredients I have:</Text>
+      {this.props.navigation.state.params.ingredients.map(item => {
+        return(
+          <Text>{item}</Text>
+        )
+      })}
+
         
         {this.state.list.map(item => {
           return (
@@ -139,14 +138,6 @@ class Recipes extends Component {
             </View>
           );
         })}
-        
-        {/* <FlatList
-        data={this.props.navigation.state.params.ingredients}
-        renderItem={({item}) => (
-          <Text>{item}</Text>
-        )}
-        keyExtractor={(item, index) => index.toString()}
-        /> */}
         <Text>Recipes page</Text>
         <Button 
           raised
@@ -156,16 +147,6 @@ class Recipes extends Component {
           textStyle={{textAlign: 'center'}}
           onPress={() => this.props.navigation.navigate('RecipeDetails')}
         />
-        {/* <FlatList
-        data={this.state.list}
-        renderItem={({item}) => (
-          <View>
-          <Text>{item.name}</Text>
-          <Image source={{uri: `${item.url}`}} style={{width: 100, height: 100}} />
-          </View>
-        )}
-        keyExtractor={(item, index) => index.toString()}
-        /> */}
       </ScrollView>
     );
   };
