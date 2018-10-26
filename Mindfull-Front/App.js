@@ -2,14 +2,19 @@ import React from 'react';
 import { AppRegistry } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
+import Index from './src/Index.js'
 import Search from './src/Search.js'
 import ObjectRecognition from './src/ObjectRecognition.js'
 import BarcodeScanner from './src/BarcodeScanner.js'
 import Recipes from './src/Recipes.js' 
 import RecipeDetails from './src/RecipeDetails.js' 
 
+
 const RootStack = createStackNavigator(
   {
+    Index: {
+      screen: Index,
+    },
     Search: {
       screen: Search,
     },
@@ -27,7 +32,7 @@ const RootStack = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'Search',
+    initialRouteName: 'Index',
     },
 );
 
@@ -38,5 +43,8 @@ class App extends React.Component {
 }
 
 AppRegistry.registerComponent('MindFull', () => App)
+
+
+
 
 export default App;
