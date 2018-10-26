@@ -36,6 +36,8 @@ class Recipes extends Component {
     console.log('ingredients', ingredients)
     let url = `https://api.yummly.com/v1/api/recipes?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
     
+    // let recipeUrl = 'https://www.yummly.com/recipe/'
+
     if (ingredients.length <= 0) {
       console.log('no input')
       this.props.navigation.navigate('Search')
@@ -43,16 +45,22 @@ class Recipes extends Component {
     ingredients.forEach(ingredient => 
       url += `&allowedIngredient[]=${ingredient}`
       )
-    
+      console.log('url', url)
+
     fetch(`${url}`, {
        method: 'GET'
     })
     .then((response) => response.json())
     .then((responseJson) => {
       let recipeList = [];
+      let recipe = {};
       responseJson.matches.forEach(key => (
+        //recipe[name] = key.recipeName,
+        //recipe[url] = key.smallImageUrls,        
         recipeList.push(key.recipeName)
+        //recipeList.push(recipe)
       ))
+      console.log('123', recipeList)
        let newList = {...this.state.list}
          newList = recipeList
           this.setState({
@@ -63,6 +71,9 @@ class Recipes extends Component {
        console.error(error);
     });
   }
+
+
+
     // var ingredients = {ingredients: 'apple'};
     // // console.log(test)
     // fetch("http://192.168.88.99:3000/recipes", {
@@ -116,6 +127,10 @@ class Recipes extends Component {
         data={this.state.list}
         renderItem={({item}) => (
           <Text>{item}</Text>
+          // <View>
+          // <Text>{item.name}</Text>,
+          // <Text>{item.smallImageUrls}</Text>
+          // </View>
         )}
         keyExtractor={(item, index) => index.toString()}
         />
