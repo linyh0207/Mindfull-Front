@@ -6,7 +6,7 @@ import {
   Button,
   FlatList,
   TouchableOpacity,
-  Image
+  Image,
 } from 'react-native';
 import { 
   Icon
@@ -99,6 +99,7 @@ class Recipes extends Component {
 
 
  }
+
 
  changeHeartColor(item) {
   const list = this.state.list.map(li => {

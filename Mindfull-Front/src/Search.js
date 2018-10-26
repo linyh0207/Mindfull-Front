@@ -11,7 +11,8 @@ import {
   TouchableOpacity,
   Image,
   AsyncStorage,
-  FlatList
+  FlatList,
+  Modal
 } from 'react-native';
 import Octicon from 'react-native-vector-icons/Octicons';
 import { 
@@ -39,6 +40,7 @@ class Search extends React.Component {
       url: '',
       error: '',
       text:'',
+      modalVisible: false
     }
     this.addItem = this.addItem.bind(this);
   };
@@ -47,15 +49,16 @@ class Search extends React.Component {
     const newItems = this.state.text
     const ingredients = this.state.ingredients.concat(newItems)
     this.setState({ingredients})
-    // console.log('123',ingredients)
     this.state.text = ''
-    // console.log('aftre',ingredients)
   }
 
   deleteItem(key) {
     const ingredients = this.state.ingredients.filter(ingr => ingr != key);
-    // const ingredients = this.state.ingredients.splice(key, 1)
     this.setState({ingredients})
+  }
+
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
   }
 
 
@@ -97,52 +100,63 @@ class Search extends React.Component {
           textStyle={{textAlign: 'center'}}
           onPress={() => this.props.navigation.navigate('BarcodeScanner')}
         />
-        <Button 
-          raised
-          color='black'
-          title="Recipe Page"
-          buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, padding: 10, marginBottom: 20, width: 300}}
-          textStyle={{textAlign: 'center'}}
-          onPress={() => navigate('Recipes')}
-        />
-
-        {/* // <FlatList
-        // {...this.state.data.ingredients.map(item => {
-        //   return (
-        //   <Text key={item}> {item}</Text>
-        //   )
-        // })}
-
-        // /> */}
 
 
-
-<FlatList
-  data={this.state.ingredients}
-  renderItem={({ item }) => (
-    <View style={{backgroundColor: 'pink', width: 300, padding: 10, margin: 10}}>
-    <Text style={{fontSize: 20}}>{item}</Text>
-    <TouchableOpacity
-  onPress={() => {this.deleteItem(item)}}>
-    <Icon name="delete" size={24} color="white" />
-  </TouchableOpacity>
-  </View>
-)}
-  keyExtractor={(item, index) => index.toString()}
-/>
-
-
-
-
+    
+    <Modal 
+      animationType="slide"
+      transparent={true}
+      visible={this.state.modalVisible}
+      >
+      <View style={{
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          }}>
       
-        <TouchableHighlight>
-          <Button
-              onPress={() =>  navigate('Recipes',{ingredients: this.state.ingredients})}
-              color='black'
-              title='Submit'
-            />
-            </TouchableHighlight>
+    <View style={{marginTop: 22, padding: 20, width: 300, backgroundColor: 'gray', justifyContent: 'center'}}>
+      <FlatList
+        data={this.state.ingredients}
+        renderItem={({ item }) => (
+          <View style={{backgroundColor: 'pink', width: 200, padding: 10, margin: 10}}>
+          <Text style={{fontSize: 20}}>{item}</Text>
+          <TouchableOpacity
+        onPress={() => {this.deleteItem(item)}}>
+          <Icon name="delete" size={24} color="white" />
+        </TouchableOpacity>
         </View>
+      )}
+        keyExtractor={(item, index) => index.toString()}
+      />
+      
+      <TouchableHighlight>
+        <Button
+          onPress={() =>  navigate('Recipes',{ingredients: this.state.ingredients})}
+          color='black'
+          title='Submit'
+        />
+        </TouchableHighlight>
+        <TouchableHighlight
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}>
+                <Text>Hide Modal</Text>
+              </TouchableHighlight>
+        </View>
+        </View>
+      
+      </Modal>
+
+      <TouchableHighlight
+          onPress={() => {
+            this.setModalVisible(true);
+          }}>
+          <Text>Show Modal</Text>
+        </TouchableHighlight>
+        
+        
+  </View>
 
 
     );
