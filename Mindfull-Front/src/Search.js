@@ -67,6 +67,7 @@ class Search extends React.Component {
     
     return (
         <View style={styles.container}>
+        <View style={{flex: 1, paddingTop: 280}}>
 
           <SearchBar
           style={styles.searchInput}
@@ -148,12 +149,16 @@ class Search extends React.Component {
       
       </Modal>
 
+      </View>
+
+      <View style={{backgroundColor: 'pink', width: 100, padding: 5, borderTopRightRadius: 10, borderTopLeftRadius: 10}}>
       <TouchableHighlight
           onPress={() => {
             this.setModalVisible(true);
           }}>
-          <Text>Show Modal</Text>
+          <Text style={{textAlign: 'center'}}>Your Ingredients</Text>
         </TouchableHighlight>
+      </View>
         
         
   </View>
