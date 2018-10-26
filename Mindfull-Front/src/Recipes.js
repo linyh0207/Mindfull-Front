@@ -41,7 +41,7 @@ class Recipes extends Component {
   componentDidMount = () => {  
     let ingredients = this.props.navigation.state.params.ingredients
     let url = `https://api.yummly.com/v1/api/recipes?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
-    
+  
     if (ingredients.length <= 0) {
       this.props.navigation.navigate('Search')
     } else {
@@ -54,17 +54,15 @@ class Recipes extends Component {
     })
     .then((response) => response.json())
     .then((responseJson) => {
-      let recipeList = [];
-      responseJson.matches.forEach(key => (
-        recipe = {name: key.recipeName, url: key.smallImageUrls},
-        console.log("recipe", recipe),
-        recipeList.push(recipe),
-        console.log("recipeList", recipeList)
-      ))
       const newList = responseJson.matches.map(match => {
+        let matchIngredients = match.ingredients
+        let missingIngredients = matchIngredients.filter(function(x){
+          return ingredients.indexOf(x) < 0;
+        })
         return ({
           food: match.recipeName,
           image: match.smallImageUrls,
+          missingIngredients: missingIngredients,
           id: match.id,
           color: 'black',
         });
@@ -125,28 +123,39 @@ class Recipes extends Component {
 
       <ScrollView contentContainerstyle={styles.container}>
         <Text>Ingredients I have:</Text>
+      {this.props.navigation.state.params.ingredients.map(item => {
+        return(
+          <Text>{item}</Text>
+        )
+      })}
+
+
         
         {this.state.list.map(item => {
           return (
             <View>
               <Text key={item.id}>{item.food}</Text>
               <Image source={{uri: `${item.image}`}} style={{width: 100, height: 100}} />
+              <Text>Do you have?</Text>
+              {item.missingIngredients.map(ing=>{
+                return(
+                  <Text>{ing}</Text>
+                )
+              })}
                 <Button 
                 onPress={this.changeHeartColor.bind(null, item)}
                 title='♥'
                 color={item.color}
               />
+              <Text>
+
+
+
+
+              </Text>
             </View>
           );
         })}
-        
-        {/* <FlatList
-        data={this.props.navigation.state.params.ingredients}
-        renderItem={({item}) => (
-          <Text>{item}</Text>
-        )}
-        keyExtractor={(item, index) => index.toString()}
-        /> */}
         <Text>Recipes page</Text>
         <Button 
           raised
@@ -156,16 +165,6 @@ class Recipes extends Component {
           textStyle={{textAlign: 'center'}}
           onPress={() => this.props.navigation.navigate('RecipeDetails')}
         />
-        {/* <FlatList
-        data={this.state.list}
-        renderItem={({item}) => (
-          <View>
-          <Text>{item.name}</Text>
-          <Image source={{uri: `${item.url}`}} style={{width: 100, height: 100}} />
-          </View>
-        )}
-        keyExtractor={(item, index) => index.toString()}
-        /> */}
       </ScrollView>
     );
   };

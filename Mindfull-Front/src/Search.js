@@ -148,7 +148,10 @@ class Search extends React.Component {
       
       <TouchableHighlight>
         <Button
-          onPress={() =>  navigate('Recipes',{ingredients: this.state.ingredients})}
+          onPress={() =>  {
+            this.setModalVisible(!this.state.modalVisible),
+            navigate('Recipes',{ingredients: this.state.ingredients})}
+          }
           color='black'
           title='Submit'
         />
