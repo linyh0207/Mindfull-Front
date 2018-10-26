@@ -53,7 +53,6 @@ class Search extends React.Component {
   }
 
   deleteItem(key) {
-    console.log('my key', key)
     const ingredients = this.state.ingredients.filter(ingr => ingr != key);
     // const ingredients = this.state.ingredients.splice(key, 1)
     this.setState({ingredients})

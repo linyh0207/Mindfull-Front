@@ -4,8 +4,12 @@ import {
   Text,
   View,
   Button,
-  FlatList
+  FlatList,
+  TouchableOpacity
 } from 'react-native';
+import { 
+  Icon
+} from 'react-native-elements';
 
 
 class Recipes extends Component {
@@ -25,23 +29,22 @@ class Recipes extends Component {
         id: 21580375,
         key : 'da87403dad4e077ff0e40d912cd1051a'
       },
+      heartColor: 'black',
     };
+    this.changeHeartColor = this.changeHeartColor.bind(this);
   }
 
 
 
-  componentDidMount = () => {
-    console.log('passing data :P', this.props.navigation.state.params.ingredients)
+  componentDidMount = () => {  
     let ingredients = this.props.navigation.state.params.ingredients
-    console.log('ingredients', ingredients)
     let url = `https://api.yummly.com/v1/api/recipes?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
     
     if (ingredients.length <= 0) {
-      console.log('no input')
       this.props.navigation.navigate('Search')
     } else {
-    ingredients.forEach(ingredient => 
-      url += `&allowedIngredient[]=${ingredient}`
+      ingredients.forEach(ingredient => 
+        url += `&allowedIngredient[]=${ingredient}`
       )
     
     fetch(`${url}`, {
@@ -53,18 +56,22 @@ class Recipes extends Component {
       responseJson.matches.forEach(key => (
         recipeList.push(key.recipeName)
       ))
-       let newList = {...this.state.list}
-         newList = recipeList
-          this.setState({
-             list: newList
-          }, () => console.log('newList is...',this.state.list))
+      const newList = responseJson.matches.map(match => {
+        return ({
+          food: match.recipeName,
+          id: match.id,
+          color: 'black',
+        });
+      });
+      this.setState({
+        list: newList
+      });
     })
     .catch((error) => {
        console.error(error);
     });
   }
     // var ingredients = {ingredients: 'apple'};
-    // // console.log(test)
     // fetch("http://192.168.88.99:3000/recipes", {
     //   method: "POST",
     //   headers: {
@@ -89,13 +96,41 @@ class Recipes extends Component {
 
  }
 
+ changeHeartColor(item) {
+  const list = this.state.list.map(li => {
+    if (li.id === item.id) {
+      return {
+        ...li,
+        color: li.color === 'black' ? 'pink' : 'black',
+      };
+    }
+    return li;
+  });
+  this.setState({list});
+}
+
 
   render() {
-    // let recipeList = this.props.recipes.map(recipe => {
-    // });
+    const firstThing = this.state.list[0];
+
+
     return (
+
       <View style={styles.container}>
         <Text>Ingredients I have:</Text>
+        {this.state.list.map(item => {
+          return (
+            <View>
+              <Text key={item.id}>{item.food}</Text>
+                <Button 
+                onPress={this.changeHeartColor.bind(null, item)}
+                title='♥'
+                color={item.color}
+              />
+            </View>
+          );
+        })}
+        
         <FlatList
         data={this.props.navigation.state.params.ingredients}
         renderItem={({item}) => (
@@ -112,13 +147,22 @@ class Recipes extends Component {
           textStyle={{textAlign: 'center'}}
           onPress={() => this.props.navigation.navigate('RecipeDetails')}
         />
-        <FlatList
-        data={this.state.list}
-        renderItem={({item}) => (
-          <Text>{item}</Text>
-        )}
-        keyExtractor={(item, index) => index.toString()}
-        />
+        {/* <FlatList
+          data={this.state.list}
+          renderItem={({item}) => (
+            <View>
+              <Text>{item}</Text>
+              <Button 
+              onPress={this.changeHeartColor}
+              // title='♥'
+              title={this.state.heartColor}
+              color={this.state.heartColor}
+              />
+
+            </View>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        /> */}
       </View>
     );
   };
