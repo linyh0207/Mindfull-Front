@@ -67,9 +67,14 @@ class Recipes extends Component {
 
 
       const newList = responseJson.matches.map(match => {
+        let matchIngredients = match.ingredients
+        let missingIngredients = matchIngredients.filter(function(x){
+          return ingredients.indexOf(x) < 0;
+        })
         return ({
           food: match.recipeName,
           image: match.smallImageUrls,
+          missingIngredients: missingIngredients,
           id: match.id,
           color: 'black',
         });
@@ -143,11 +148,23 @@ class Recipes extends Component {
             <View>
               <Text key={item.id}>{item.food}</Text>
               <Image source={{uri: `${item.image}`}} style={{width: 100, height: 100}} />
+              <Text>Do you have?</Text>
+              {item.missingIngredients.map(ing=>{
+                return(
+                  <Text>{ing}</Text>
+                )
+              })}
                 <Button 
                 onPress={this.changeHeartColor.bind(null, item)}
                 title='♥'
                 color={item.color}
               />
+              <Text>
+
+
+
+
+              </Text>
             </View>
           );
         })}
