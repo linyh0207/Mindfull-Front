@@ -54,18 +54,6 @@ class Recipes extends Component {
     })
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log("matchIngredients",responseJson.matches[0].ingredients)
-      console.log("ingredientsOnHand",ingredients)
-      let matchIngredients = responseJson.matches[0].ingredients
-      let diffIng = matchIngredients.filter(function(x){
-        return ingredients.indexOf(x) < 0;
-      })
-      console.log("diff",diffIng)
-
-
-
-
-
       const newList = responseJson.matches.map(match => {
         let matchIngredients = match.ingredients
         let missingIngredients = matchIngredients.filter(function(x){
