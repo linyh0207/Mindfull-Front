@@ -27,6 +27,7 @@ class Recipes extends Component {
     super();
     this.state = {
       list: [],
+      recipe: {},
       api: {
         id: 21580375,
         key : 'da87403dad4e077ff0e40d912cd1051a'
@@ -34,6 +35,7 @@ class Recipes extends Component {
       heartColor: 'black',
     };
     this.changeHeartColor = this.changeHeartColor.bind(this);
+    this.getRecipeDetails = this.getRecipeDetails.bind(this)
   }
 
 
@@ -42,6 +44,8 @@ class Recipes extends Component {
     let ingredients = this.props.navigation.state.params.ingredients
     let url = `https://api.yummly.com/v1/api/recipes?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
     
+    let recipeUrl = `https://api.yummly.com/v1/api/recipe/${this.state.list.id}?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
+
     if (ingredients.length <= 0) {
       this.props.navigation.navigate('Search')
     } else {
@@ -77,6 +81,8 @@ class Recipes extends Component {
        console.error(error);
     });
   }
+  
+ 
     // var ingredients = {ingredients: 'apple'};
     // fetch("http://192.168.88.99:3000/recipes", {
     //   method: "POST",
@@ -116,6 +122,16 @@ class Recipes extends Component {
   this.setState({list});
 }
 
+  getRecipeDetails(item) {
+    const recipe = this.state.list.map(li => {
+      if (li.id === item.id) {
+        return {
+          recipe: item.id
+        };
+      }
+    });
+    this.setState({recipe});
+  }
 
   render() {
     const firstThing = this.state.list[0];
@@ -127,9 +143,10 @@ class Recipes extends Component {
         <Text>Ingredients I have:</Text>
         
         {this.state.list.map(item => {
+        console.log('123', this.state.recipe)
           return (
             <View>
-              <Text key={item.id}>{item.food}</Text>
+              <Button key={item.id}>{item.food}</Button>
               <Image source={{uri: `${item.image}`}} style={{width: 100, height: 100}} />
                 <Button 
                 onPress={this.changeHeartColor.bind(null, item)}
@@ -154,7 +171,7 @@ class Recipes extends Component {
           title="Recipe Details"
           buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, padding: 10, marginBottom: 20, width: 300}}
           textStyle={{textAlign: 'center'}}
-          onPress={() => this.props.navigation.navigate('RecipeDetails')}
+          onPress={() => this.props.navigation.navigate('RecipeDetails')} 
         />
         {/* <FlatList
         data={this.state.list}
