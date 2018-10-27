@@ -60,34 +60,42 @@ class Index extends React.Component {
               }}>
 
               <View style={styles.modal}>
-                <TextInput placeholder='Username' />
-                <TextInput placeholder='Password' />
-                <TextInput placeholder='Password Confirmation' />
-                <TouchableHighlight
-                  onPress={() => {
-                    this.signupModalVisible(!this.state.modalVisible);
-                  }}>
-                  <Text style={{fontSize: 27}}>Sign Up</Text>
-                </TouchableHighlight>
+                <TextInput style={styles.textBox} placeholder='Username' />
+                <TextInput style={styles.textBox} placeholder='Password' />
+                <TextInput style={styles.textBox} placeholder='Password Confirmation' />
+                
+                <View style={styles.button}>
+                  <TouchableHighlight
+                    onPress={() => {
+                      this.signupModalVisible(!this.state.modalVisible);
+                    }}>
+                    <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>Sign Up</Text>
+                  </TouchableHighlight>
+                </View>
               </View>
             </View>
             </Modal>
-
+          
+            <View style={styles.indexButton}>
             <TouchableHighlight
               onPress={() => {
               this.signupModalVisible(true);
               }}>
-              <Text>Sign Up</Text>
+              <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>Sign Up</Text>
             </TouchableHighlight>
+            </View>
         </View>
 
-
+<View style={styles.indexButton}>
 <TouchableHighlight
             onPress={() => {
               this.setLoginModalVisible(true);
             }}>
-            <Text>Login</Text>
+            <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>Login</Text>
           </TouchableHighlight>
+          </View>
+
+
       <View>
           <Modal
             animationType="slide"
@@ -103,27 +111,25 @@ class Index extends React.Component {
             }}>
 
               <View style={styles.modal}>
-                <TextInput 
+                <TextInput
+                  style={styles.textBox} 
                   placeholder='Username' 
                   onChangeText={(username) => this.setState({username})}
                   value={this.state.username}
                 />
-                <TextInput placeholder='Password' />
-                <TouchableHighlight>
-                  <Button 
-                  raised
-                  color='black'
-                  buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, padding: 10, marginBottom: 20, width: 300}}
-                  textStyle={{textAlign: 'center'}}
+                <TextInput style={styles.textBox} placeholder='Password' />
 
-                    
-                    onPress={() => 
+                <View style={styles.button}>
+                <TouchableHighlight onPress={() => 
                       
                       navigate('Search', {username: this.state.username})
-                      }
-                    title="Submit"
-                  />
+                      }>
+                
+                  <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>Login</Text>
+
+                    
                   </TouchableHighlight>
+                  </View>
 
                   <TouchableHighlight
                 onPress={() => {
@@ -164,6 +170,28 @@ const styles = StyleSheet.create({
     width: 300, 
     backgroundColor: 'white', 
     justifyContent: 'center'
+  },
+  button: {
+    backgroundColor: 'rgb(255,206,113)',
+    width: 100, 
+    padding: 5, 
+    borderRadius: 10,
+    marginTop: 10,
+  },
+  indexButton: {
+    backgroundColor: 'rgb(255,206,113)',
+    width: 200, 
+    padding: 5, 
+    borderRadius: 10,
+    marginTop: 10,
+  },
+  textBox: {
+    height: 40, 
+    borderColor: 'lightgray', 
+    borderWidth: 1, 
+    textAlign: 'center',
+    marginTop: 10,
+
   },
 }); 
 
