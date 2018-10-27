@@ -31,17 +31,16 @@ class Recipes extends Component {
         id: 21580375,
         key : 'da87403dad4e077ff0e40d912cd1051a'
       },
-      heartColor: 'black',
+      favorite: [],
     };
+    
     this.changeHeartColor = this.changeHeartColor.bind(this);
   }
-
-
 
   componentDidMount = () => {  
     let ingredients = this.props.navigation.state.params.ingredients
     let url = `https://api.yummly.com/v1/api/recipes?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
-  
+
     if (ingredients.length <= 0) {
       this.props.navigation.navigate('Search')
     } else {
@@ -65,6 +64,7 @@ class Recipes extends Component {
           missingIngredients: missingIngredients,
           id: match.id,
           color: 'black',
+          favorite: true,
         });
       });
       this.setState({
@@ -107,18 +107,42 @@ class Recipes extends Component {
       return {
         ...li,
         color: li.color === 'black' ? 'pink' : 'black',
+        favorite: li.favorite === true ? false : true,
       };
     }
     return li;
   });
   this.setState({list});
+
+  let favorite = this.state.favorite
+  this.state.list.map(li => {
+    if (li.id === item.id) {
+      if(li.favorite === true) {
+        favoriteRecipe = {
+          name: li.food,
+          image: li.image
+        }
+        favorite.push(favoriteRecipe)
+        this.setState({favorite})
+      } else {
+        console.log('else')
+        favorite.map((f,i) => {
+          if (f.name === li.food) {
+            favorite.splice(i, 1); 
+            this.setState({favorite})
+          }
+        })
+      }
+    }
+  })
+  console.log(this.state.favorite)
 }
+
+
 
 
   render() {
     const firstThing = this.state.list[0];
-
-
     return (
 
       <ScrollView contentContainerstyle={styles.container}>
@@ -128,8 +152,6 @@ class Recipes extends Component {
           <Text>{item}</Text>
         )
       })}
-
-
         
         {this.state.list.map(item => {
           return (
@@ -143,35 +165,28 @@ class Recipes extends Component {
                 )
               })} */}
                 <Button 
-                onPress={this.changeHeartColor.bind(null, item)}
+                onPress={
+                  this.changeHeartColor.bind(null, item)
+
+                }
                 title='♥'
                 color={item.color}
               />
-              <Text>
-
-
-
-
-              </Text>
             </View>
           );
         })}
-        <Text>Recipes page</Text>
-        <Button 
+         <Button 
           raised
           color='black'
-          title="Recipe Details"
+          title="Favorite Recipes"
           buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, padding: 10, marginBottom: 20, width: 300}}
           textStyle={{textAlign: 'center'}}
-          onPress={() => this.props.navigation.navigate('RecipeDetails')}
+          onPress={() => this.props.navigation.navigate('FavoriteRecipes', {favorite: this.state.favorite})}
         />
       </ScrollView>
     );
   };
 };
-
-
-
 
 const styles = StyleSheet.create({
   container: {
