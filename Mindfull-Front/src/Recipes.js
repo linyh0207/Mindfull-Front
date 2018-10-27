@@ -154,12 +154,12 @@ class Recipes extends Component {
             <View>
               <Text key={item.id}>{item.food}</Text>
               <Image source={{uri: `${item.image}`}} style={{width: 100, height: 100}} />
-              <Text>Do you have?</Text>
+              {/* <Text>Do you have?</Text>
               {item.missingIngredients.map(ing=>{
                 return(
                   <Text>{ing}</Text>
                 )
-              })}
+              })} */}
                 <Button 
                 onPress={this.changeHeartColor.bind(null, item)}
                 title='♥'

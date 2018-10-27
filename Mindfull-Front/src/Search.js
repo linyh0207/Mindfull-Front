@@ -67,12 +67,21 @@ class Search extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    
+ 
     return (
         <View style={styles.container}>
-        <View style={{flex: 1, marginTop: 180}}>
+        <View style={{flex: 1, paddingTop: 280}}>
+        <Text>Welcome, {this.props.navigation.state.params.username}</Text>
 
         <View>
+        <View style={styles.modalButton}>
+      <TouchableHighlight
+          onPress={() => {
+            this.setModalVisible(true);
+          }}>
+          <Text style={{textAlign: 'center', color: 'white', fontWeight: 'bold'}}>Ingredient List</Text>
+        </TouchableHighlight>
+      </View>
 
           <View style={styles.searchComponent}>
           <SearchBar
@@ -83,7 +92,7 @@ class Search extends React.Component {
           inputStyle={{backgroundColor: 'white'}}
           containerStyle={{backgroundColor: 'white', width: 250, borderRadius: 10}}
           onChangeText={(text) => this.setState({text})}
-          placeholder='Search Ingredient' />
+          placeholder='Add Ingredient' />
           
           <Icon 
           onPress={() => {this.addItem()}}
@@ -169,14 +178,6 @@ class Search extends React.Component {
 
       </View>
 
-      <View style={styles.modalButton}>
-      <TouchableHighlight
-          onPress={() => {
-            this.setModalVisible(true);
-          }}>
-          <Text style={{textAlign: 'center', color: 'white', fontWeight: 'bold'}}>Your Ingredients</Text>
-        </TouchableHighlight>
-      </View>
         
         
   </View>
@@ -203,8 +204,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(255,206,113)', 
     width: 100, 
     padding: 5, 
-    borderTopRightRadius: 10, 
-    borderTopLeftRadius: 10
+    borderRadius: 10,
   },
   cameraComponent: {
     width: 300, 
