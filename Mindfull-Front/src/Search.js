@@ -14,7 +14,7 @@ import {
   FlatList,
   Modal
 } from 'react-native';
-import Octicon from 'react-native-vector-icons/Octicons';
+import Octicon from 'react-native-vector-icons/Ionicons';
 import { 
   SearchBar,
   Icon
@@ -28,7 +28,10 @@ import {
 class Search extends React.Component {
   static navigationOptions = {
     title: 'Search',
-    headerTintColor: 'black',
+    headerStyle: {
+      backgroundColor: 'rgb(255,206,113)',
+    },
+    headerTintColor: 'white',
     headerTitleStyle: {
       fontWeight: 'bold',
     },
@@ -69,38 +72,59 @@ class Search extends React.Component {
         <View style={styles.container}>
         <View style={{flex: 1, paddingTop: 280}}>
         <Text>Welcome, {this.props.navigation.state.params.username}</Text>
+
+        <View>
+        <View style={styles.modalButton}>
+      <TouchableHighlight
+          onPress={() => {
+            this.setModalVisible(true);
+          }}>
+          <Text style={{textAlign: 'center', color: 'white', fontWeight: 'bold'}}>Ingredient List</Text>
+        </TouchableHighlight>
+      </View>
+
+          <View style={styles.searchComponent}>
           <SearchBar
-          style={styles.searchInput}
+          
           value={this.state.text.toLowerCase()}
           round
           searchIcon={{ size: 24 }}
           inputStyle={{backgroundColor: 'white'}}
-          containerStyle={{backgroundColor: 'white', width: 300}}
+          containerStyle={{backgroundColor: 'white', width: 250, borderRadius: 10}}
           onChangeText={(text) => this.setState({text})}
-          placeholder='Search Ingredient' />
+          placeholder='Add Ingredient' />
           
-          <Button 
+          <Icon 
           onPress={() => {this.addItem()}}
-          color='black'
-          title='Add Item'
+          name='ios-add-circle'
+          type='ionicon'
+          color='rgb(255,206,113)'
+          size={40}
+          marginLeft={30}
           />
+          </View>
+ 
 
+          <View style={styles.cameraComponent}>
           <Button 
             raised
             title="Object Recognition"
-            color='black'
-            buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, width: 300}}
-            textStyle={{textAlign: 'center'}}
+            color='white'
+            
             onPress={() => this.props.navigation.navigate('ObjectRecognition')}
           />
+          </View>
+
+          <View style={styles.cameraComponent}>
         <Button 
           raised
-          color='black'
+          color='white'
           title="Barcode Scanner"
-          buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, padding: 10, marginBottom: 20, width: 300}}
-          textStyle={{textAlign: 'center'}}
+          
           onPress={() => this.props.navigation.navigate('BarcodeScanner')}
         />
+        </View>
+        </View>
 
 
     
@@ -116,7 +140,7 @@ class Search extends React.Component {
           alignItems: 'center',
           }}>
       
-    <View style={{marginTop: 22, padding: 20, width: 300, backgroundColor: 'gray', justifyContent: 'center'}}>
+    <View style={styles.modal}>
       <FlatList
         data={this.state.ingredients}
         renderItem={({ item }) => (
@@ -154,14 +178,6 @@ class Search extends React.Component {
 
       </View>
 
-      <View style={{backgroundColor: 'pink', width: 100, padding: 5, borderTopRightRadius: 10, borderTopLeftRadius: 10}}>
-      <TouchableHighlight
-          onPress={() => {
-            this.setModalVisible(true);
-          }}>
-          <Text style={{textAlign: 'center'}}>Your Ingredients</Text>
-        </TouchableHighlight>
-      </View>
         
         
   </View>
@@ -180,9 +196,37 @@ class Search extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  modalButton: {
+    backgroundColor: 'rgb(255,206,113)', 
+    width: 100, 
+    padding: 5, 
+    borderRadius: 10,
+  },
+  cameraComponent: {
+    width: 300, 
+    margin: 20,
+    alignItems: 'center', 
+    paddingTop: 10, 
+    paddingBottom: 10,
+    backgroundColor: 'rgb(255,206,113)', 
+    borderRadius: 10,
+  },
+  searchComponent: {
+    width: 300, 
+    margin: 20,
+    alignItems: 'center',  
+    flexDirection: 'row',
+  },
+  modal: {
+    marginTop: 22, 
+    padding: 20, 
+    width: 300, 
+    backgroundColor: 'white', 
+    justifyContent: 'center'
   },
 
 });
