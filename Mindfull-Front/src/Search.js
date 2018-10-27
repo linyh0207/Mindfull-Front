@@ -64,11 +64,11 @@ class Search extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    
+ 
     return (
         <View style={styles.container}>
         <View style={{flex: 1, paddingTop: 280}}>
-
+        <Text>Welcome, {this.props.navigation.state.params.username}</Text>
           <SearchBar
           style={styles.searchInput}
           value={this.state.text.toLowerCase()}
