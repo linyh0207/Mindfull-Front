@@ -239,6 +239,20 @@ setModalVisible(visible) {
           return (
             <Card image={{uri: `${item.image}`}} >
             
+      
+              {/* <Text key={item.id}>{item.food}</Text> */}
+            
+
+              <Button 
+                raised
+                color='black'
+                title={item.food}
+                buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, padding: 10, marginBottom: 20, width: 300}}
+                textStyle={{textAlign: 'center'}}
+                onPress={
+                  this.getRecipeDetails.bind(null, item) 
+                }
+              />
               
              
               <Text key={item.id}>{item.food}</Text>
@@ -246,7 +260,6 @@ setModalVisible(visible) {
                 <Button 
                 onPress={
                   this.changeHeartColor.bind(null, item)
-
                 }
                 title='♥'
                 color={item.color}
@@ -260,8 +273,6 @@ setModalVisible(visible) {
          
       </ScrollView>
       </View>
-
-
 </View>
     );
   };
