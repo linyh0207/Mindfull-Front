@@ -27,7 +27,7 @@ class Recipes extends Component {
     super();
     this.state = {
       list: [],
-      recipe: {},
+      recipe: [],
       api: {
         id: 21580375,
         key : 'da87403dad4e077ff0e40d912cd1051a'
@@ -35,7 +35,7 @@ class Recipes extends Component {
       heartColor: 'black',
     };
     this.changeHeartColor = this.changeHeartColor.bind(this);
-    
+    this.getRecipeDetails = this.getRecipeDetails.bind(this)
   }
 
 
@@ -44,9 +44,6 @@ class Recipes extends Component {
     let ingredients = this.props.navigation.state.params.ingredients
     let url = `https://api.yummly.com/v1/api/recipes?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
     
-    let recipeUrl = `https://api.yummly.com/v1/api/recipe/${this.state.list.id}?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
-
-  
     if (ingredients.length <= 0) {
       this.props.navigation.navigate('Search')
     } else {
@@ -109,6 +106,7 @@ class Recipes extends Component {
 
 
  changeHeartColor(item) {
+  //  console.log("list", this.state.list)
   const list = this.state.list.map(li => {
     if (li.id === item.id) {
       return {
@@ -122,19 +120,24 @@ class Recipes extends Component {
 }
 
   getRecipeDetails(item) {
-    const recipe = this.state.list.map(li => {
+    const recipe = this.state.recipe
+    this.state.list.forEach(li => {
       if (li.id === item.id) {
-        return {
-          recipe: item.id
-        };
+        recipe.push(li.id)
+        // console.log('HERE', recipe)
       }
+      return recipe
     });
-    this.setState({recipe});
+    this.setState({recipe})
+    this.props.navigation.navigate('RecipeDetails', {recipe: this.state.recipe})
   }
 
+  
   render() {
     const firstThing = this.state.list[0];
-
+    // console.log("THIS STATE LIST", this.state.list)
+    // console.log("THIS STATE RECIPE", this.state.recipe)
+    // console.log("RECIPEEEEEEE",this.state.recipe)
 
     return (
 
@@ -145,15 +148,26 @@ class Recipes extends Component {
           <Text>{item}</Text>
         )
       })}
-
-
-        
+       
         {this.state.list.map(item => {
-        console.log('123', this.state.recipe)
+        // console.log('123', this.state.recipe)
           return (
             <View>
-              <Text key={item.id}>{item.food}</Text>
+              
+              
               <Image source={{uri: `${item.image}`}} style={{width: 100, height: 100}} />
+
+              <Button 
+                raised
+                color='black'
+                title={item.food}
+                buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, padding: 10, marginBottom: 20, width: 300}}
+                textStyle={{textAlign: 'center'}}
+                onPress={
+                  this.getRecipeDetails.bind(null, item) 
+                }
+              />
+              
               {/* <Text>Do you have?</Text>
               {item.missingIngredients.map(ing=>{
                 return(
@@ -165,30 +179,21 @@ class Recipes extends Component {
                 title='♥'
                 color={item.color}
               />
+               
+
               <Text>
-
-
-
 
               </Text>
             </View>
           );
         })}
+        
         <Text>Recipes page</Text>
-        <Button 
-          raised
-          color='black'
-          title="Recipe Details"
-          buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, padding: 10, marginBottom: 20, width: 300}}
-          textStyle={{textAlign: 'center'}}
-          onPress={() => this.props.navigation.navigate('RecipeDetails')} 
-        />
+      
       </ScrollView>
     );
   };
 };
-
-
 
 
 const styles = StyleSheet.create({
