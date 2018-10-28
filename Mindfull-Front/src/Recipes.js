@@ -8,10 +8,12 @@ import {
   TouchableHighlight,
   Image,
   ScrollView,
-  Modal
+  Modal,
+  
 } from 'react-native';
 import { 
-  Icon
+  Icon,
+  Card
 } from 'react-native-elements';
 
 
@@ -218,15 +220,12 @@ setModalVisible(visible) {
         
         {this.state.list.map(item => {
           return (
-            <View style={styles.foodItem}>
+            <Card image={{uri: `${item.image}`}} >
+            
+              
+             
               <Text key={item.id}>{item.food}</Text>
-              <Image source={{uri: `${item.image}`}} style={{width: 100, height: 100}} />
-              {/* <Text>Do you have?</Text>
-              {item.missingIngredients.map(ing=>{
-                return(
-                  <Text>{ing}</Text>
-                )
-              })} */}
+  
                 <Button 
                 onPress={
                   this.changeHeartColor.bind(null, item)
@@ -234,10 +233,13 @@ setModalVisible(visible) {
                 }
                 title='♥'
                 color={item.color}
+                size={20}
               />
-            </View>
+             
+            </Card>
           );
         })}
+       
          
       </ScrollView>
       </View>
@@ -277,6 +279,9 @@ const styles = StyleSheet.create({
   },
   navbar: {
     flexDirection: 'row',
+  },
+  foodTitle: {
+    flexDirection:'row',
   },
 });
 
