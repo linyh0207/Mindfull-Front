@@ -52,8 +52,10 @@ class ObjectRecognition extends React.Component {
         console.log(element.name);
       } 
     });
-
+    let handleOnNavigateBack = this.props.navigation.state.params.onNavigateBack
     this.setState({ predictions: predictions.outputs[0].data.concepts });
+    this.props.navigation.navigate('CameraResult',{predictions: this.state.predictions, onNavigateBack: handleOnNavigateBack})
+
   };
 
 
@@ -76,7 +78,7 @@ class ObjectRecognition extends React.Component {
             <View
               style={{
                 flex: 1,
-                backgroundColor: 'transparent',
+                backgroundColor: 'transparent',  
                 flexDirection: 'column',
                 justifyContent: 'flex-end'
               }}
@@ -88,14 +90,14 @@ class ObjectRecognition extends React.Component {
                   alignItems: 'center',
                 }}
               >
-                <FlatList
+                {/* <FlatList
                   data={predictions.map(prediction => ({
                     key: `${prediction.name} ${prediction.value}`,
                   }))}
                   renderItem={({ item }) => (
                     <Text style={{ paddingLeft: 15, color: 'white', fontSize: 20 }}>{item.key}</Text>
                   )}
-                />
+                /> */}
               </View>
               <TouchableOpacity
                 style={{

@@ -48,6 +48,17 @@ class Search extends React.Component {
     this.addItem = this.addItem.bind(this);
   };
   
+  handleOnNavigateBack = (selected) => {
+    console.log("SELECTED pass by camera Result", selected)
+    let ingredients = this.state.ingredients
+    selected.forEach(select => {
+      console.log("ingredients", ingredients)
+      console.log("select", select)
+      ingredients.push(select)
+    })
+    this.setState({ingredients})
+  }
+  
   addItem() {
     const newItems = this.state.text
     const ingredients = this.state.ingredients.concat(newItems)
@@ -67,7 +78,7 @@ class Search extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
- 
+    
     return (
         <View style={styles.container}>
         <View style={{flex: 1, paddingTop: 280}}>
@@ -111,7 +122,7 @@ class Search extends React.Component {
             title="Object Recognition"
             color='white'
             
-            onPress={() => this.props.navigation.navigate('ObjectRecognition')}
+            onPress={() => this.props.navigation.navigate('ObjectRecognition', {onNavigateBack: this.handleOnNavigateBack})}
           />
           </View>
 

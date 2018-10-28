@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { 
   StyleSheet,
   Text,
-  View,
-  Image
+  ScrollView,
+  Image,
+  View
 } from 'react-native';
 
 
@@ -28,7 +29,7 @@ class FavoriteRecipes extends Component {
  
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView contentContainerstyle={styles.container}>
        <Text>Favorite Recipes</Text>
       {this.props.navigation.state.params.favorite.map(item => {
         return (
@@ -38,7 +39,7 @@ class FavoriteRecipes extends Component {
           </View>
         );
       })}
-      </View>
+      </ScrollView>
     )
   };
 };

@@ -9,6 +9,7 @@ import BarcodeScanner from './src/BarcodeScanner.js'
 import Recipes from './src/Recipes.js' 
 import RecipeDetails from './src/RecipeDetails.js' 
 import FavoriteRecipes from './src/FavoriteRecipes.js' 
+import CameraResult from './src/CameraResult.js' 
 
 
 const RootStack = createStackNavigator(
@@ -33,6 +34,9 @@ const RootStack = createStackNavigator(
     },
     FavoriteRecipes: {
       screen: FavoriteRecipes,
+    },
+    CameraResult: {
+      screen: CameraResult,
     },
   },
   {
