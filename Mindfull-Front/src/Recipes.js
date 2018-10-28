@@ -5,9 +5,10 @@ import {
   View,
   Button,
   FlatList,
-  TouchableOpacity,
+  TouchableHighlight,
   Image,
-  ScrollView
+  ScrollView,
+  Modal
 } from 'react-native';
 import { 
   Icon
@@ -32,6 +33,7 @@ class Recipes extends Component {
         key : 'da87403dad4e077ff0e40d912cd1051a'
       },
       favorite: [],
+      modalVisible: false,
     };
     
     this.changeHeartColor = this.changeHeartColor.bind(this);
@@ -138,6 +140,10 @@ class Recipes extends Component {
   console.log(this.state.favorite)
 }
 
+setModalVisible(visible) {
+  this.setState({modalVisible: visible});
+}
+
 
 
 
@@ -145,17 +151,74 @@ class Recipes extends Component {
     const firstThing = this.state.list[0];
     return (
 
-      <ScrollView contentContainerstyle={styles.container}>
+    <View style={styles.container}> 
+
+      <View style={styles.navbar}>
+        <Button
+        raised
+        color='black'
+        title="My Ingredients"
+          onPress={() => {
+            this.setModalVisible(true);
+          }}
+          
+        />
+        <Button 
+          raised
+          color='black'
+          title="Favorite Recipes"
+          
+          textStyle={{textAlign: 'center'}}
+          onPress={() => this.props.navigation.navigate('FavoriteRecipes', {favorite: this.state.favorite})}
+        />
+      </View> 
+
+    <View>
+      <Modal
+        animationType='slide'
+        transparent={true}
+        visible={this.state.modalVisible}>
+
+      <View style={{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        }}>
+      
+      
+      <View style={styles.modal}>
         <Text>Ingredients I have:</Text>
-      {this.props.navigation.state.params.ingredients.map(item => {
-        return(
-          <Text>{item}</Text>
-        )
-      })}
+          {this.props.navigation.state.params.ingredients.map(item => {
+          return(
+            <Text>{item}</Text>
+          )
+          })}
+      
+      <View style={styles.exitButton}>
+        <TouchableHighlight
+          onPress={() => {
+            this.setModalVisible(!this.state.modalVisible);
+          }}>
+          <Text>Exit</Text>
+        </TouchableHighlight>
+        </View>
+      </View>
+    </View>
+  </Modal>
+    
+    
+</View>
+
+      
+
+    <View style={styles.container}>
+      
+      <ScrollView>
         
         {this.state.list.map(item => {
           return (
-            <View>
+            <View style={styles.foodItem}>
               <Text key={item.id}>{item.food}</Text>
               <Image source={{uri: `${item.image}`}} style={{width: 100, height: 100}} />
               {/* <Text>Do you have?</Text>
@@ -175,15 +238,12 @@ class Recipes extends Component {
             </View>
           );
         })}
-         <Button 
-          raised
-          color='black'
-          title="Favorite Recipes"
-          buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, padding: 10, marginBottom: 20, width: 300}}
-          textStyle={{textAlign: 'center'}}
-          onPress={() => this.props.navigation.navigate('FavoriteRecipes', {favorite: this.state.favorite})}
-        />
+         
       </ScrollView>
+      </View>
+
+
+</View>
     );
   };
 };
@@ -194,6 +254,29 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  foodItem: {
+    backgroundColor: 'rgb(255,206,113)',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modal: {
+    marginTop: 22, 
+    padding: 20, 
+    width: 300, 
+    backgroundColor: 'lightgray', 
+    justifyContent: 'center'
+  },
+  exitButton: {
+    backgroundColor: 'rgb(255,206,113)',
+    width: 100, 
+    padding: 5, 
+    borderRadius: 10,
+    marginTop: 20,
+  },
+  navbar: {
+    flexDirection: 'row',
   },
 });
 

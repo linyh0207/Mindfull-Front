@@ -8,7 +8,6 @@ import {
   Modal,
   TouchableHighlight
 } from 'react-native';
-import { Dropdown } from 'react-native-material-dropdown';
 
 
 class Index extends React.Component {
@@ -49,7 +48,7 @@ class Index extends React.Component {
           <View>
             <Modal
               animationType="slide"
-              transparent={false}
+              transparent={true}
               visible={this.state.modalVisible}
             >
               <View style={{
