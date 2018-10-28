@@ -9,7 +9,6 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-
 class Index extends React.Component {
   static navigationOptions = {
     title: 'Index',

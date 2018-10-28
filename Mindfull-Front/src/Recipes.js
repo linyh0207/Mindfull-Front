@@ -28,6 +28,7 @@ class Recipes extends Component {
     super();
     this.state = {
       list: [],
+      recipe: [],
       api: {
         id: 21580375,
         key : 'da87403dad4e077ff0e40d912cd1051a'
@@ -37,12 +38,12 @@ class Recipes extends Component {
     };
     
     this.changeHeartColor = this.changeHeartColor.bind(this);
+    this.getRecipeDetails = this.getRecipeDetails.bind(this)
   }
 
   componentDidMount = () => {  
     let ingredients = this.props.navigation.state.params.ingredients
     let url = `https://api.yummly.com/v1/api/recipes?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
-
     if (ingredients.length <= 0) {
       this.props.navigation.navigate('Search')
     } else {
@@ -77,6 +78,8 @@ class Recipes extends Component {
        console.error(error);
     });
   }
+  
+ 
     // var ingredients = {ingredients: 'apple'};
     // fetch("http://192.168.88.99:3000/recipes", {
     //   method: "POST",
@@ -104,6 +107,7 @@ class Recipes extends Component {
 
 
  changeHeartColor(item) {
+  //  console.log("list", this.state.list)
   const list = this.state.list.map(li => {
     if (li.id === item.id) {
       return {
@@ -146,6 +150,18 @@ setModalVisible(visible) {
 
 
 
+  getRecipeDetails(item) {
+    const recipe = this.state.recipe
+    this.state.list.forEach(li => {
+      if (li.id === item.id) {
+        recipe.push(li.id)
+        // console.log('HERE', recipe)
+      }
+      return recipe
+    });
+    this.setState({recipe})
+    this.props.navigation.navigate('RecipeDetails', {recipe: this.state.recipe})
+  }
 
   render() {
     const firstThing = this.state.list[0];
@@ -217,10 +233,23 @@ setModalVisible(visible) {
       <ScrollView>
         
         {this.state.list.map(item => {
+        // console.log('123', this.state.recipe)
           return (
             <View style={styles.foodItem}>
               <Text key={item.id}>{item.food}</Text>
               <Image source={{uri: `${item.image}`}} style={{width: 100, height: 100}} />
+
+              <Button 
+                raised
+                color='black'
+                title={item.food}
+                buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, padding: 10, marginBottom: 20, width: 300}}
+                textStyle={{textAlign: 'center'}}
+                onPress={
+                  this.getRecipeDetails.bind(null, item) 
+                }
+              />
+              
               {/* <Text>Do you have?</Text>
               {item.missingIngredients.map(ing=>{
                 return(
@@ -246,7 +275,7 @@ setModalVisible(visible) {
 </View>
     );
   };
-};
+}
 
 const styles = StyleSheet.create({
   container: {
