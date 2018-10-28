@@ -42,8 +42,7 @@ class Search extends React.Component {
       ingredients:[],
       url: '',
       error: '',
-      text:'',
-      modalVisible: false
+      text:''
     }
     this.addItem = this.addItem.bind(this);
   };
@@ -61,9 +60,15 @@ class Search extends React.Component {
   
   addItem() {
     const newItems = this.state.text
-    const ingredients = this.state.ingredients.concat(newItems)
-    this.setState({ingredients})
-    this.state.text = ''
+
+    if (newItems.length === 0) {
+      console.log('empty')
+      this.props.navigation.navigate('Search')
+    } else { 
+      const ingredients = this.state.ingredients.concat(newItems)
+      this.setState({ ingredients })
+      this.state.text = '' 
+    }
   }
 
   deleteItem(key) {
@@ -71,29 +76,32 @@ class Search extends React.Component {
     this.setState({ingredients})
   }
 
-  setModalVisible(visible) {
-    this.setState({modalVisible: visible});
-  }
 
 
   render() {
     const { navigate } = this.props.navigation;
     
     return (
-        <View style={styles.container}>
-        <View style={{flex: 1, paddingTop: 280}}>
-        <Text>Welcome, {this.props.navigation.state.params.username}</Text>
-
+      <View style={styles.container}>
+        
         <View>
-        <View style={styles.modalButton}>
-      <TouchableHighlight
-          onPress={() => {
-            this.setModalVisible(true);
-          }}>
-          <Text style={{textAlign: 'center', color: 'white', fontWeight: 'bold'}}>Ingredient List</Text>
-        </TouchableHighlight>
+        <FlatList
+        data={this.state.ingredients}
+        renderItem={({ item }) => (
+          <View style={{backgroundColor: 'pink', width: 200, padding: 10, margin: 10}}>
+          <Text style={{fontSize: 20}}>{item}</Text>
+          <TouchableOpacity
+        onPress={() => {this.deleteItem(item)}}>
+          <Icon name="delete" size={24} color="white" />
+        </TouchableOpacity>
+        </View>
+      )}
+        keyExtractor={(item, index) => index.toString()}
+      />
       </View>
-
+        
+        
+        <Text>Welcome, {this.props.navigation.state.params.username}</Text>
           <View style={styles.searchComponent}>
           <SearchBar
           
@@ -135,61 +143,25 @@ class Search extends React.Component {
           onPress={() => this.props.navigation.navigate('BarcodeScanner')}
         />
         </View>
-        </View>
 
 
     
-    <Modal 
-      animationType="slide"
-      transparent={true}
-      visible={this.state.modalVisible}
-      >
-      <View style={{
-          flex: 1,
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          }}>
+    
       
-    <View style={styles.modal}>
-      <FlatList
-        data={this.state.ingredients}
-        renderItem={({ item }) => (
-          <View style={{backgroundColor: 'pink', width: 200, padding: 10, margin: 10}}>
-          <Text style={{fontSize: 20}}>{item}</Text>
-          <TouchableOpacity
-        onPress={() => {this.deleteItem(item)}}>
-          <Icon name="delete" size={24} color="white" />
-        </TouchableOpacity>
-        </View>
-      )}
-        keyExtractor={(item, index) => index.toString()}
-      />
+      
+ 
+      
       
       <TouchableHighlight>
         <Button
           onPress={() =>  {
-            this.setModalVisible(!this.state.modalVisible),
+            
             navigate('Recipes',{ingredients: this.state.ingredients})}
           }
           color='black'
           title='Submit'
         />
-        </TouchableHighlight>
-        <TouchableHighlight
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}>
-                <Text>Hide Modal</Text>
-              </TouchableHighlight>
-        </View>
-        </View>
-      
-      </Modal>
-
-      </View>
-
-        
+        </TouchableHighlight>   
         
   </View>
 
@@ -208,14 +180,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    alignItems: 'center',
     justifyContent: 'center',
-  },
-  modalButton: {
-    backgroundColor: 'rgb(255,206,113)', 
-    width: 100, 
-    padding: 5, 
-    borderRadius: 10,
   },
   cameraComponent: {
     width: 300, 
@@ -232,13 +197,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',  
     flexDirection: 'row',
   },
-  modal: {
-    marginTop: 22, 
-    padding: 20, 
-    width: 300, 
-    backgroundColor: 'white', 
-    justifyContent: 'center'
-  },
+  
 
 });
 
