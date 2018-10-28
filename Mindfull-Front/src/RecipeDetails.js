@@ -22,7 +22,9 @@ class RecipeDetails extends Component {
   constructor (){
     super();
     this.state = {
-      recipe: [],
+      recipe: [
+        {ingredients: []}
+      ],
       api: {
         id: 21580375,
         key : 'da87403dad4e077ff0e40d912cd1051a'
@@ -68,8 +70,8 @@ class RecipeDetails extends Component {
 
   render() {
 
-    // console.log('WHAT', this.state.recipe)
-  
+    console.log('WHAT IS HEREEEE', this.state.recipe)
+
     return (
       
       <View style={styles.container}>
@@ -79,17 +81,13 @@ class RecipeDetails extends Component {
        style={{width: 200, height: 200}} />
       
       <Text> Ingredients </Text>
-
-      {console.log('ingredients', this.state.recipe.ingredients)}
-       
-      {/* {this.state.recipe.ingredients.map(item => {
-         return(
-          <Text> {item} </Text>
+      
+      {this.state.recipe.ingredients && this.state.recipe.ingredients.map(item => {
+        return(
+          <Text>{'\n'}• {item}</Text>
         )
-      })} */}
-      <Text> {this.state.recipe.ingredients} </Text>
+      })}
 
-      {/* {console.log('state within render', this.state.recipe)} */}
       <Text onPress={this.handleClick}> Directions </Text>      
                
       </View>

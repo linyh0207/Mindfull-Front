@@ -236,7 +236,7 @@ setModalVisible(visible) {
         // console.log('123', this.state.recipe)
           return (
             <View style={styles.foodItem}>
-              <Text key={item.id}>{item.food}</Text>
+              {/* <Text key={item.id}>{item.food}</Text> */}
               <Image source={{uri: `${item.image}`}} style={{width: 100, height: 100}} />
 
               <Button 
@@ -259,7 +259,6 @@ setModalVisible(visible) {
                 <Button 
                 onPress={
                   this.changeHeartColor.bind(null, item)
-
                 }
                 title='♥'
                 color={item.color}
@@ -267,11 +266,8 @@ setModalVisible(visible) {
             </View>
           );
         })}
-         
       </ScrollView>
       </View>
-
-
 </View>
     );
   };
