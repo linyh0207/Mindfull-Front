@@ -341,7 +341,7 @@ setModalVisible(visible) {
               />
               
              
-              <Text key={item.id}>{item.food}</Text>
+              {/* <Text key={item.id}>{item.food}</Text> */}
   
                 <Button 
                 onPress={

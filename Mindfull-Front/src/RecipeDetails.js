@@ -75,7 +75,7 @@ class RecipeDetails extends Component {
     return (
       
       <View style={styles.container}>
-      <Text>Recipe Details</Text>
+      <Text>Recipe Details{'\n'}</Text>
       <Text> {this.state.recipe.food} </Text>
       <Image source={{uri: this.state.recipe.image}}
        style={{width: 200, height: 200}} />
@@ -88,7 +88,8 @@ class RecipeDetails extends Component {
         )
       })}
 
-      <Text onPress={this.handleClick}> Directions </Text>      
+      <Text>{'\n'}</Text>
+      <Text onPress={this.handleClick}> Instructions </Text>      
                
       </View>
     );
