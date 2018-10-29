@@ -12,12 +12,13 @@ import {
 } from 'react-native';
 
 class Index extends React.Component {
+  
   static navigationOptions = {
     headerBackground: (
       <Image
         source={require('../images/header.jpg')}
         
-        style={{height: 110}}
+        style={{height: 70}}
       />
     ),
 
@@ -48,7 +49,7 @@ class Index extends React.Component {
     console.log(this.state.username)
     return (
       <ImageBackground
-      source={require('../images/background2.jpg')}
+      source={require('../images/background5.jpg')}
       imageStyle={{resizeMode: 'stretch'}}
       style={styles.container}
     >

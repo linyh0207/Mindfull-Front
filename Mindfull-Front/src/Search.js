@@ -24,17 +24,31 @@ import {
   Permissions
 } from 'expo';
 
+class LogoTitle extends React.Component {
+  render() {
+    return (
+      <View style={styles.logoTitle}>
+      <Image
+        source={require('../images/icon.png')}
+        style={{ width: 30, height: 30 }}
+      />
+      <Text style={{color: 'white', fontSize: 24, marginLeft: 10}}>Search</Text>
+      </View>
+    );
+  }
+}
+
 
 class Search extends React.Component {
   static navigationOptions = {
-    title: 'Search',
-    headerStyle: {
-      backgroundColor: 'rgb(255,206,113)',
-    },
+    
+    
     headerTintColor: 'white',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
+
+    headerTitle: (
+      <LogoTitle />
+      
+    ),
   };
   constructor(props) {
     super(props);
@@ -197,6 +211,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',  
     flexDirection: 'row',
   },
+  logoTitle: {
+    flexDirection: 'row',
+    marginRight: 30,
+  }
   
 
 });
