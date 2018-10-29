@@ -7,7 +7,6 @@ import {
   ImageBackground,
   ScrollView,
   TextInput,
-  TouchableHighlight,
   TouchableOpacity,
   Image,
   AsyncStorage,
@@ -113,9 +112,13 @@ class Search extends React.Component {
         keyExtractor={(item, index) => index.toString()}
       />
       </View>
+
+      <Text style={{color: 'white', margin: 20, fontSize: 24}}>Welcome, {this.props.navigation.state.params.username}</Text>
+
+      <View style={styles.mainComponent}>
         
         
-        <Text>Welcome, {this.props.navigation.state.params.username}</Text>
+        
           <View style={styles.searchComponent}>
           <SearchBar
           
@@ -123,24 +126,26 @@ class Search extends React.Component {
           round
           searchIcon={{ size: 24 }}
           inputStyle={{backgroundColor: 'white'}}
-          containerStyle={{backgroundColor: 'white', width: 250, borderRadius: 10}}
+          containerStyle={{backgroundColor: 'transparent', width: 220, border: 'none'}}
           onChangeText={(text) => this.setState({text})}
           placeholder='Add Ingredient' />
           
+          <View style={{marginLeft: 10}}>
           <Icon 
           onPress={() => {this.addItem()}}
           name='ios-add-circle'
           type='ionicon'
-          color='rgb(255,206,113)'
+          color='white'
           size={40}
           marginLeft={30}
           />
           </View>
+          </View>
  
 
-          <View style={styles.cameraComponent}>
+          {/* <View style={styles.cameraComponent}>
           <Button 
-            raised
+            style={styles.button}
             title="Object Recognition"
             color='white'
             
@@ -150,13 +155,29 @@ class Search extends React.Component {
 
           <View style={styles.cameraComponent}>
         <Button 
-          raised
+          style={styles.button}
           color='white'
           title="Barcode Scanner"
           
           onPress={() => this.props.navigation.navigate('BarcodeScanner')}
         />
-        </View>
+        </View> */}
+
+            <View style={styles.twoButtons}>
+            <View style={styles.indexButton}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('ObjectRecognition', {onNavigateBack: this.handleOnNavigateBack})}>
+              <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>Food Recognition</Text>
+            </TouchableOpacity>
+            </View>
+            
+            <View style={styles.indexButton}>
+            <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('BarcodeScanner')}>
+            <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>Barcode Scanner</Text>
+          </TouchableOpacity>
+          </View>
+            </View>
 
 
     
@@ -166,16 +187,19 @@ class Search extends React.Component {
  
       
       
-      <TouchableHighlight>
-        <Button
-          onPress={() =>  {
+  
+
+        </View>  
+        
+        <View style={styles.submitButton}>
+        <TouchableOpacity
+            onPress={() =>  {
             
-            navigate('Recipes',{ingredients: this.state.ingredients})}
-          }
-          color='black'
-          title='Submit'
-        />
-        </TouchableHighlight>   
+              navigate('Recipes',{ingredients: this.state.ingredients})}
+            }>
+            <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>Submit</Text>
+          </TouchableOpacity> 
+          </View>
         
   </View>
 
@@ -193,7 +217,7 @@ class Search extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'rgb(180,227,120)',
     justifyContent: 'center',
   },
   cameraComponent: {
@@ -202,7 +226,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     paddingTop: 10, 
     paddingBottom: 10,
-    backgroundColor: 'rgb(255,206,113)', 
+    backgroundColor: 'rgb(180,227,120)', 
     borderRadius: 10,
   },
   searchComponent: {
@@ -214,7 +238,38 @@ const styles = StyleSheet.create({
   logoTitle: {
     flexDirection: 'row',
     marginRight: 30,
-  }
+  },
+  mainComponent: {
+    width: 300, 
+    backgroundColor: 'rgb(180,227,120)', 
+    borderWidth: 4,
+    borderColor: 'white',
+    justifyContent: 'center',
+    marginLeft: 60,
+
+  },
+  indexButton: {
+    backgroundColor: 'rgb(180,227,120)',
+    borderTopWidth: 1,
+    borderRightWidth: 1,
+    borderColor: 'white',
+    width: 146, 
+    padding: 5,
+    paddingLeft: 20,
+    paddingRight: 20, 
+  },
+  submitButton: {
+    backgroundColor: 'rgb(180,227,120)',
+    borderWidth: 1,
+    borderColor: 'white',
+    width: 150, 
+    padding: 5,
+    marginLeft: 130,
+    marginTop: 20,
+  },
+  twoButtons: {
+    flexDirection: 'row',
+  },
   
 
 });
