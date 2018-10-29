@@ -6,7 +6,7 @@ import {
   TextInput,
   StyleSheet,
   Modal,
-  TouchableHighlight,
+  TouchableOpacity,
   ImageBackground,
   Image
 } from 'react-native';
@@ -73,12 +73,12 @@ class Index extends React.Component {
                 <TextInput style={styles.textBox} placeholder='Password Confirmation' />
                 
                 <View style={styles.button}>
-                  <TouchableHighlight
+                  <TouchableOpacity
                     onPress={() => {
                       this.signupModalVisible(!this.state.modalVisible);
                     }}>
                     <Text style={{fontSize: 20, color: '#8C8B8B', textAlign: 'center'}}>Sign Up</Text>
-                  </TouchableHighlight>
+                  </TouchableOpacity>
                 </View>
               </View>
               </ImageBackground>
@@ -87,20 +87,20 @@ class Index extends React.Component {
           
             <View style={styles.twoButton}>
             <View style={styles.indexButton}>
-            <TouchableHighlight
+            <TouchableOpacity
               onPress={() => {
               this.signupModalVisible(true);
               }}>
               <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>SIGN UP</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
             </View>
             <View style={styles.indexButton}>
-            <TouchableHighlight
+            <TouchableOpacity
             onPress={() => {
               this.setLoginModalVisible(true);
             }}>
             <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>LOGIN</Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
           </View>
             </View>
         </View>
@@ -120,12 +120,12 @@ class Index extends React.Component {
       style={styles.container}>
 
               <View style={styles.modal}>
-              <TouchableHighlight
+              <TouchableOpacity
                 onPress={() => {
                   this.setLoginModalVisible(!this.state.loginModalVisible);
                 }}>
                 <Text>X</Text>
-              </TouchableHighlight>
+              </TouchableOpacity>
                 <TextInput
                   style={styles.textBox} 
                   placeholder='Username' 
@@ -135,7 +135,7 @@ class Index extends React.Component {
                 <TextInput style={styles.textBox} placeholder='Password' />
 
                 <View style={styles.button}>
-                <TouchableHighlight onPress={() => 
+                <TouchableOpacity onPress={() => 
                       
                       navigate('Search', {username: this.state.username})
                       }>
@@ -143,7 +143,7 @@ class Index extends React.Component {
                   <Text style={{fontSize: 20, color: '#8C8B8B', textAlign: 'center'}}>Login</Text>
 
                     
-                  </TouchableHighlight>
+                  </TouchableOpacity>
                   </View>
 
                   
