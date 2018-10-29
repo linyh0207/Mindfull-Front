@@ -96,22 +96,6 @@ class Search extends React.Component {
     
     return (
       <View style={styles.container}>
-        
-        <View>
-        <FlatList
-        data={this.state.ingredients}
-        renderItem={({ item }) => (
-          <View style={{backgroundColor: 'pink', width: 200, padding: 10, margin: 10}}>
-          <Text style={{fontSize: 20}}>{item}</Text>
-          <TouchableOpacity
-        onPress={() => {this.deleteItem(item)}}>
-          <Icon name="delete" size={24} color="white" />
-        </TouchableOpacity>
-        </View>
-      )}
-        keyExtractor={(item, index) => index.toString()}
-      />
-      </View>
 
       <Text style={{color: 'white', margin: 20, fontSize: 24}}>Welcome, {this.props.navigation.state.params.username}</Text>
 
@@ -200,6 +184,23 @@ class Search extends React.Component {
             <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>Submit</Text>
           </TouchableOpacity> 
           </View>
+
+          <View>
+        <FlatList
+        data={this.state.ingredients}
+        horizontal={true}
+        renderItem={({ item }) => (
+          <View style={styles.lozenges}>
+          <Text style={{fontSize: 20}}>{item}</Text>
+          <TouchableOpacity
+        onPress={() => {this.deleteItem(item)}}>
+          <Icon name="delete" size={24} color="#8C8B8B" />
+        </TouchableOpacity>
+        </View>
+      )}
+        keyExtractor={(item, index) => index.toString()}
+      />
+      </View>
         
   </View>
 
@@ -269,6 +270,17 @@ const styles = StyleSheet.create({
   },
   twoButtons: {
     flexDirection: 'row',
+  },
+  lozenges: {
+    backgroundColor: 'rgba(255,255,255,0.9)', 
+    color: '#8C8B8B',
+    width: 150, 
+    height: 40,
+    padding: 5, 
+    margin: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    
   },
   
 
