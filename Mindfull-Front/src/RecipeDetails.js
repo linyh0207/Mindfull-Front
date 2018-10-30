@@ -51,15 +51,14 @@ class RecipeDetails extends Component {
     };
   }
 
-  componentDidMount = () => {  
+  componentDidMount = () => { 
     let recipeUrl = `https://api.yummly.com/v1/api/recipe/${this.props.navigation.state.params.recipe}?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
 
     fetch(`${recipeUrl}`, {
        method: 'GET'
     })
-    .then((response) => response.json())
+    .then(response => response.json())
     .then((responseJson) => {
-      // console.log("responseJson", responseJson)
           
         let newList ={
         food: responseJson.name,
@@ -105,7 +104,7 @@ class RecipeDetails extends Component {
       
       {this.state.recipe.ingredients && this.state.recipe.ingredients.map(item => {
         return(
-          <Text>{'\n'}• {item}</Text>
+          <Text key={item}>{'\n'}• {item}</Text>
         )
       })}
 

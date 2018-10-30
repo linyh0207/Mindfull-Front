@@ -10,6 +10,7 @@ import {
   Card
 } from 'react-native-elements';
 
+
 class LogoTitle extends React.Component {
   render() {
     return (
@@ -39,6 +40,7 @@ class FavoriteRecipes extends Component {
   constructor (){
     super();
     this.state = {
+      favorite: [],
       api: {
         id: 21580375,
         key : 'da87403dad4e077ff0e40d912cd1051a'
@@ -46,8 +48,45 @@ class FavoriteRecipes extends Component {
     };
   }
  
+  componentDidMount = () => {  
+    console.log('favorite', this.props.navigation.state.params.favorite)
+    let recipeUrl = `https://api.yummly.com/v1/api/recipe/${this.props.navigation.state.params.favorite}?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
+
+    fetch(`${recipeUrl}`, {
+       method: 'GET'
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log('res', responseJson)
+    //     let newList ={
+    //     food: response.name,
+    //     image: response.images[0].hostedLargeUrl,
+    //     directions: response.source.sourceRecipeUrl
+    //     };
+    //   this.setState({
+    //     favorite: newList
+    //   });
+    // })
+    // .catch((error) => {
+    //    console.error(error);
+    // });
+    // console.log('here', this.state.favorite)
+  })
+}
+
+  // handleClick = () => {
+  //   Linking.canOpenURL(this.state.recipe.directions).then(supported => {
+  //     if (supported) {
+  //       Linking.openURL(this.state.recipe.directions);
+  //     } else {
+  //       console.log("Don't know how to open URI: " + this.props.url);
+  //     }
+  //   });
+  // };
+
   render() {
     return (
+      
       <View style={styles.container}>
       <ScrollView>
        <Text>Favorite Recipes</Text>

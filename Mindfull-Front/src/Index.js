@@ -8,7 +8,8 @@ import {
   Modal,
   TouchableOpacity,
   ImageBackground,
-  Image
+  Image,
+  AsyncStorage
 } from 'react-native';
 
 class Index extends React.Component {
