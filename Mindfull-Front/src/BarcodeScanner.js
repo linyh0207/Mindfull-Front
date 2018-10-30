@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Alert } from 'react-native';
+import { Text, View, StyleSheet, Alert, TouchableOpacity} from 'react-native';
 import { Constants, BarCodeScanner, Permissions } from 'expo';
 
 export default class BarcodeScanner extends Component {
@@ -7,7 +7,7 @@ export default class BarcodeScanner extends Component {
     hasCameraPermission: null,
     barcode: '',
   };
-
+ 
   componentDidMount() {
     this._requestCameraPermission();
   }
@@ -19,53 +19,25 @@ export default class BarcodeScanner extends Component {
     });
   };
 
-
-  // handleBarCodeScanned = ({ data }) => {
-  //   this.setState({ parsedData: data })
-  //   if (this.state.parsedData) {
-  //     this.props.navigation.pop()
-  //     this.props.navigation.navigate('scannerResult', { data })
-  //   } else {
-  //     this.setState({ parsedData: data })
-  //   }
-  // }
-
   _handleBarCodeRead = data => {
-    this.setState({
-      barcode: data.data
-    })
-    console.log("this.state.barcode",this.state.barcode)
-    if(data.data === '0062107302753'){
-    //  console.log('matched')
-     Alert.alert(
-      'Emergenc',
-      JSON.stringify(data)
-    )
+    if(!this.state.barcode){
+      this.setState({
+        barcode: "butter",
+      })
+      if(data.data === '0788434106788'){
+        Alert.alert(
+          "It's a ...",
+          'Butter!',
+          [
+            {text: 'Add Ingredient', onPress: () => this.props.navigation.navigate('Search',{onNavigateBack: this.props.navigation.state.params.onNavigateBack(this.state.barcode)})},
+          ],
+          { cancelable: false }
+        )
     } else {
-      // console.log('not matched')
-      Alert.alert(
-        'Not Emergenc',
-        JSON.stringify(data)
-      )
+
     };
-
-
-  //Barcode API
-
-  //   let url = `https://api.upcitemdb.com/prod/trial/lookup?upc=${this.state.barcode}`
-
-  //   fetch(`${url}`, {
-  //     method: 'GET'
-  //  })
-  //  .then((response) => response.json())
-  //  .then((responseJson) => {
-  //    console.log(responseJson.items[0].title)
-  //   //  this.setState({});
-  //  })
-  //  .catch((error) => {
-  //     console.error(error);
-  //  });
-  };
+  }
+};
 
   render() {
     return (
@@ -81,6 +53,7 @@ export default class BarcodeScanner extends Component {
             />
         }
       </View>
+      
     );
   }
 }

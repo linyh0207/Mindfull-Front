@@ -60,6 +60,14 @@ class Search extends React.Component {
     
   }
 
+  handleOnNavigateBackFromScanner = (barcode) => {
+    let ingredients = this.state.ingredients
+      ingredients.push(barcode)
+    this.setState({ingredients : ingredients})
+    console.log("handleOnNavigateBackFromScanner",this.state.ingredients)
+    
+  }
+
 
   addItem() {
     const newItems = this.state.text
@@ -139,7 +147,7 @@ class Search extends React.Component {
           color='white'
           title="Barcode Scanner"
           
-          onPress={() => this.props.navigation.navigate('BarcodeScanner')}
+          onPress={() => this.props.navigation.navigate('BarcodeScanner',{onNavigateBack: this.handleOnNavigateBackFromScanner.bind(this)})}
         />
         </View>
 
