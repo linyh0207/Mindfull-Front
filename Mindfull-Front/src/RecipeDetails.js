@@ -6,17 +6,36 @@ import {
   View,
   Button,
   Image,
-  Linking
+  Linking,
+  ScrollView
 } from 'react-native';
 
 
+class LogoTitle extends React.Component {
+  render() {
+    return (
+      <View style={styles.logoTitle}>
+
+      <Image
+        source={require('../images/icon.png')}
+        style={{ width: 30, height: 30 }}
+      />
+      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontWeight: 'bold'}}>Recipe Details</Text>
+      </View>
+    );
+  }
+}
+
 class RecipeDetails extends Component {
   static navigationOptions = {
-    title: 'Recipes',
-    headerTintColor: 'black',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
+    
+    
+    headerTintColor: 'white',
+
+    headerTitle: (
+      <LogoTitle />
+      
+    ),
   };
 
   constructor (){
@@ -44,7 +63,7 @@ class RecipeDetails extends Component {
           
         let newList ={
         food: responseJson.name,
-        image: responseJson.images[0].hostedSmallUrl,
+        image: responseJson.images[0].hostedLargeUrl,
         ingredients: responseJson.ingredientLines,
         directions: responseJson.source.sourceRecipeUrl
         };
@@ -73,9 +92,11 @@ class RecipeDetails extends Component {
     console.log('WHAT IS HEREEEE', this.state.recipe)
 
     return (
-      
+
       <View style={styles.container}>
-      <Text>Recipe Details</Text>
+      <ScrollView>
+
+      <Text>Recipe Details{'\n'}</Text>
       <Text> {this.state.recipe.food} </Text>
       <Image source={{uri: this.state.recipe.image}}
        style={{width: 200, height: 200}} />
@@ -88,8 +109,11 @@ class RecipeDetails extends Component {
         )
       })}
 
-      <Text onPress={this.handleClick}> Directions </Text>      
+      <Text>{'\n'}</Text>
+      <Text onPress={this.handleClick}> Instructions </Text>      
                
+      </ScrollView>
+
       </View>
     );
   };
@@ -102,6 +126,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  logoTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
 

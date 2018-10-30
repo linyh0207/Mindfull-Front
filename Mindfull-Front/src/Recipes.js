@@ -8,21 +8,49 @@ import {
   TouchableHighlight,
   Image,
   ScrollView,
-  Modal
+  Modal,
+  
 } from 'react-native';
 import { 
-  Icon
+  Icon,
+  Card
 } from 'react-native-elements';
+
+function getImageForRecipe(listId, apiId, apiKey){
+  return fetch(`https://api.yummly.com/v1/api/recipe/${listId}?_app_id=${apiId}&_app_key=${apiKey}`, {
+    method: 'GET'
+  })
+  .then((response) => response.json())
+
+}
+
+class LogoTitle extends React.Component {
+  render() {
+    return (
+      <View style={styles.logoTitle}>
+      <Image
+        source={require('../images/icon.png')}
+        style={{ width: 30, height: 30 }}
+      />
+      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontWeight: 'bold'}}>Recipes</Text>
+      </View>
+    );
+  }
+}
 
 
 class Recipes extends Component {
   static navigationOptions = {
-    title: 'Recipes',
-    headerTintColor: 'black',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
+    
+    
+    headerTintColor: 'white',
+
+    headerTitle: (
+      <LogoTitle />
+      
+    ),
   };
+
 
   constructor (){
     super();
@@ -44,42 +72,125 @@ class Recipes extends Component {
   componentDidMount = () => {  
     let ingredients = this.props.navigation.state.params.ingredients
     let url = `https://api.yummly.com/v1/api/recipes?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
+    let recipeUrl = `https://api.yummly.com/v1/api/recipe/${this.state.list.id}?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
+
     if (ingredients.length <= 0) {
       this.props.navigation.navigate('Search')
     } else {
       ingredients.forEach(ingredient => 
         url += `&allowedIngredient[]=${ingredient}`
       )
-    
-    fetch(`${url}`, {
-       method: 'GET'
-    })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      const newList = responseJson.matches.map(match => {
-        let matchIngredients = match.ingredients
-        let missingIngredients = matchIngredients.filter(function(x){
-          return ingredients.indexOf(x) < 0;
-        })
-        return ({
-          food: match.recipeName,
-          image: match.smallImageUrls,
-          missingIngredients: missingIngredients,
-          id: match.id,
-          color: 'black',
-          favorite: true,
+      // const recipesResult = await fetch(url, {method: 'GET'});
+      // const {matches} = await recipesResult.json();
+      // const list = matches.map(({id, recipeName, ingredients}) => {
+      //   const missingIngredients = ingredients.filter(ing => !ingredients.includes(ing));
+      //   return {
+      //     food: recipeName,
+      //     missingIngredients,
+      //     id,
+      //     color: 'black',
+      //     favorite: true,
+      //   }
+      // });
+
+      // this.setState({list});
+
+      // const betterListItemPromises = list.map(async match => {
+      //   const {images: [{hostedMediumUrl}]} = await getImageForRecipe(match.id, this.state.api.id, this.state.api.key);
+      //   return {...match, image: hostedMediumUrl};
+      // });
+
+      // const betterList = await Promise.all(betterListItemPromises);
+      // this.setState({list: betterList});    
+
+
+      const getRecipesFromYummly = fetch(url, {method: 'GET'})
+        .then(r => r.json());
+      
+      const listPromise = getRecipesFromYummly
+        .then(({matches}) => {
+          return matches.map(({id, recipeName, ingredients}) => {
+            const missingIngredients = ingredients.filter(ing => !ingredients.includes(ing));
+            return {
+              food: recipeName,
+              missingIngredients,
+              id,
+              color: 'black',
+              favorite: true,
+            }
+          });
         });
+
+      listPromise.then(list => {
+        this.setState({list});
       });
-      this.setState({
-        list: newList
-      });
-    })
-    .catch((error) => {
-       console.error(error);
-    });
-  }
-  
- 
+
+      const listWithBetterImagesPromise = listPromise
+        .then(list => {
+          const betterListItemPromises = list.map(match => {
+            const imagePromise = getImageForRecipe(match.id, this.state.api.id, this.state.api.key);
+            const betterListItemPromise = imagePromise
+              .then(({images:[{hostedLargeUrl}]}) => {
+                return {...match, image: hostedLargeUrl};
+              });
+            return betterListItemPromise
+          });
+
+          const betterListItemsPromise = Promise.all(betterListItemPromises);
+          return betterListItemsPromise;
+        });
+      listWithBetterImagesPromise
+        .then(list => { this.setState({list})});
+
+        //     fetch(`${url}`, {
+  //       method: 'GET'
+  //     })
+  //         .then((response) => response.json())
+  //         .then((responseJson) => {
+  //           const newList = responseJson.matches.map(match => {
+  //             let matchIngredients = match.ingredients
+  //             let missingIngredients = matchIngredients.filter(function(x){
+  //               return ingredients.indexOf(x) < 0;
+  //             })
+  //             return ({
+  //               food: match.recipeName,
+  //               // image: '',
+  //               missingIngredients: missingIngredients,
+  //               id: match.id,
+  //               color: 'black',
+  //               favorite: true,
+  //             });
+  //           });
+  //           this.setState({list: newList})
+  //         })
+  //         .then(()=> {
+  //           const updateList = this.state.list.map(list => {
+  //             fetch(`https://api.yummly.com/v1/api/recipe/${list.id}?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`, {
+  //               method: 'GET'
+  //             })
+  //             .then((response) => response.json())
+  //             .then((responseJson) => {
+               
+  //               console.log('missingIngredients',matchIngredients)
+  //               // console.log('images', responseJson.images[0].hostedMediumUrl)
+  //               return ({
+  //                 ...list, 
+  //                 image: responseJson.images[0].hostedMediumUrl
+  //               })
+  //             })
+  //             // console.log('am i here?', newList)
+  //             // console.log("HEREEEEE", list)
+  //             return list
+  //             // this.setState({ list: updateList })
+  //           })
+  //           this.setState({ list: updateList })
+  // //           // console.log('AFTER SET STATE', this.state.list)
+  //         })
+  // //       .catch((error) => {
+  // //         console.error(error);
+  // //   })
+  }    
+} 
     // var ingredients = {ingredients: 'apple'};
     // fetch("http://192.168.88.99:3000/recipes", {
     //   method: "POST",
@@ -101,10 +212,6 @@ class Recipes extends Component {
     // .catch((error) => {
     //    console.error(error);
     // });
-
-
- }
-
 
  changeHeartColor(item) {
   //  console.log("list", this.state.list)
@@ -235,9 +342,11 @@ setModalVisible(visible) {
         {this.state.list.map(item => {
         // console.log('123', this.state.recipe)
           return (
-            <View style={styles.foodItem}>
+            <Card image={{uri: `${item.image}`}} >
+            
+      
               {/* <Text key={item.id}>{item.food}</Text> */}
-              <Image source={{uri: `${item.image}`}} style={{width: 100, height: 100}} />
+            
 
               <Button 
                 raised
@@ -250,22 +359,23 @@ setModalVisible(visible) {
                 }
               />
               
-              {/* <Text>Do you have?</Text>
-              {item.missingIngredients.map(ing=>{
-                return(
-                  <Text>{ing}</Text>
-                )
-              })} */}
+             
+              {/* <Text key={item.id}>{item.food}</Text> */}
+  
                 <Button 
                 onPress={
                   this.changeHeartColor.bind(null, item)
                 }
                 title='♥'
                 color={item.color}
+                size={20}
               />
-            </View>
+             
+            </Card>
           );
         })}
+       
+         
       </ScrollView>
       </View>
 </View>
@@ -279,6 +389,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  logoTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   foodItem: {
     backgroundColor: 'rgb(255,206,113)',
@@ -302,6 +416,9 @@ const styles = StyleSheet.create({
   },
   navbar: {
     flexDirection: 'row',
+  },
+  foodTitle: {
+    flexDirection:'row',
   },
 });
 

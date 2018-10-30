@@ -7,7 +7,6 @@ import {
   ImageBackground,
   ScrollView,
   TextInput,
-  TouchableHighlight,
   TouchableOpacity,
   Image,
   AsyncStorage,
@@ -24,17 +23,31 @@ import {
   Permissions
 } from 'expo';
 
+class LogoTitle extends React.Component {
+  render() {
+    return (
+      <View style={styles.logoTitle}>
+      <Image
+        source={require('../images/icon.png')}
+        style={{ width: 30, height: 30 }}
+      />
+      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontWeight: 'bold'}}>Search</Text>
+      </View>
+    );
+  }
+}
+
 
 class Search extends React.Component {
   static navigationOptions = {
-    title: 'Search',
-    headerStyle: {
-      backgroundColor: 'rgb(255,206,113)',
-    },
+    
+    
     headerTintColor: 'white',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
+
+    headerTitle: (
+      <LogoTitle />
+      
+    ),
   };
   constructor(props) {
     super(props);
@@ -107,8 +120,13 @@ class Search extends React.Component {
         )
       })
     }
+
+      <Text style={{color: 'white', margin: 20, fontSize: 24}}>Welcome, {this.props.navigation.state.params.username}</Text>
+
+      <View style={styles.mainComponent}>
         
-        <Text>Welcome, {this.props.navigation.state.params.username}</Text>
+        
+        
           <View style={styles.searchComponent}>
           <SearchBar
           
@@ -116,59 +134,66 @@ class Search extends React.Component {
           round
           searchIcon={{ size: 24 }}
           inputStyle={{backgroundColor: 'white'}}
-          containerStyle={{backgroundColor: 'white', width: 250, borderRadius: 10}}
+          containerStyle={{backgroundColor: 'transparent', width: 220, border: 'none'}}
           onChangeText={(text) => this.setState({text})}
           placeholder='Add Ingredient' />
           
+          <View style={{marginLeft: 10}}>
           <Icon 
           onPress={() => {this.addItem()}}
           name='ios-add-circle'
           type='ionicon'
-          color='rgb(255,206,113)'
+          color='white'
           size={40}
           marginLeft={30}
           />
           </View>
+          </View>
  
 
-          <View style={styles.cameraComponent}>
-          <Button 
-            raised
-            title="Object Recognition"
-            color='white'
+            <View style={styles.twoButtons}>
+            <View style={styles.indexButton}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('ObjectRecognition', {onNavigateBack: this.handleOnNavigateBack.bind(this)})}>
+              <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>Food Recognition</Text>
+            </TouchableOpacity>
+            </View>
             
-            onPress={() => this.props.navigation.navigate('ObjectRecognition', {onNavigateBack: this.handleOnNavigateBack.bind(this)})}
-          />
+            <View style={styles.indexButton}>
+            <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('BarcodeScanner',{onNavigateBack: this.handleOnNavigateBackFromScanner.bind(this)})}>
+            <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>Barcode Scanner</Text>
+          </TouchableOpacity>
+          </View>
+            </View>
+
+        </View>  
+        
+        <View style={styles.submitButton}>
+        <TouchableOpacity
+            onPress={() =>  {
+            
+              navigate('Recipes',{ingredients: this.state.ingredients})}
+            }>
+            <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>Submit</Text>
+          </TouchableOpacity> 
           </View>
 
-          <View style={styles.cameraComponent}>
-        <Button 
-          raised
-          color='white'
-          title="Barcode Scanner"
-          
-          onPress={() => this.props.navigation.navigate('BarcodeScanner',{onNavigateBack: this.handleOnNavigateBackFromScanner.bind(this)})}
-        />
+          <View style={styles.container}>
+        <FlatList
+        data={this.state.ingredients}
+        renderItem={({ item }) => (
+          <View style={styles.lozenges}>
+          <Text style={{fontSize: 20}}>{item}</Text>
+          <TouchableOpacity
+        onPress={() => {this.deleteItem(item)}}>
+          <Icon name="delete" size={24} color="#8C8B8B" />
+        </TouchableOpacity>
         </View>
-
-
-    
-    
-      
-      
- 
-      
-      
-      <TouchableHighlight>
-        <Button
-          onPress={() =>  {
-            
-            navigate('Recipes',{ingredients: this.state.ingredients})}
-          }
-          color='black'
-          title='Submit'
-        />
-        </TouchableHighlight>   
+      )}
+        keyExtractor={(item, index) => index.toString()}
+      />
+      </View>
         
   </View>
 
@@ -186,8 +211,9 @@ class Search extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'rgb(180,227,120)',
     justifyContent: 'center',
+    
   },
   cameraComponent: {
     width: 300, 
@@ -195,7 +221,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     paddingTop: 10, 
     paddingBottom: 10,
-    backgroundColor: 'rgb(255,206,113)', 
+    backgroundColor: 'rgb(180,227,120)', 
     borderRadius: 10,
   },
   searchComponent: {
@@ -203,6 +229,53 @@ const styles = StyleSheet.create({
     margin: 20,
     alignItems: 'center',  
     flexDirection: 'row',
+  },
+  logoTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  mainComponent: {
+    width: 300, 
+    backgroundColor: 'rgb(180,227,120)', 
+    borderWidth: 4,
+    borderColor: 'white',
+    justifyContent: 'center',
+    marginLeft: 60,
+
+  },
+  indexButton: {
+    backgroundColor: 'rgb(180,227,120)',
+    borderTopWidth: 1,
+    borderRightWidth: 1,
+    borderColor: 'white',
+    width: 146, 
+    padding: 5,
+    paddingLeft: 20,
+    paddingRight: 20, 
+  },
+  submitButton: {
+    backgroundColor: 'rgb(180,227,120)',
+    borderWidth: 1,
+    borderColor: 'white',
+    width: 150, 
+    padding: 5,
+    marginLeft: 130,
+    marginTop: 20,
+  },
+  twoButtons: {
+    flexDirection: 'row',
+  },
+  lozenges: {
+    backgroundColor: 'rgba(255,255,255,0.9)', 
+    color: '#8C8B8B',
+    width: 150, 
+    height: 40,
+    padding: 5, 
+    margin: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderRadius: 10, 
+    
   },
   
 

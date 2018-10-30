@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, FlatList} from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import { Camera, Permissions, ImageManipulator } from 'expo';
 
 const Clarifai = require('clarifai');
@@ -9,9 +9,33 @@ const clarifai = new Clarifai.App({
 });
 process.nextTick = setImmediate;
 
+class LogoTitle extends React.Component {
+  render() {
+    return (
+      <View style={styles.logoTitle}>
+      <Image
+        source={require('../images/icon.png')}
+        style={{ width: 30, height: 30 }}
+      />
+      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontWeight: 'bold'}}>Food Recognition</Text>
+      </View>
+    );
+  }
+}
 
 
 class ObjectRecognition extends React.Component {
+  static navigationOptions = {
+    
+    
+    headerTintColor: 'white',
+
+    headerTitle: (
+      <LogoTitle />
+      
+    ),
+  };
+
   state = {
     hasCameraPermission: null,
     predictions: [],
@@ -103,14 +127,14 @@ class ObjectRecognition extends React.Component {
                 style={{
                   flex: 0.1,
                   alignItems: 'center',
-                  backgroundColor: 'blue',
+                  backgroundColor: '#8C8B8B',
                   height: '10%',
                 }}
                 onPress={this.objectDetection}
               >
                 <Text style={{ fontSize: 30, color: 'white', padding: 15 }}>
                   {' '}
-                  Detect Objects{' '}
+                  Take a picture{' '}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -121,6 +145,14 @@ class ObjectRecognition extends React.Component {
     }
   }
 }
+
+const styles = StyleSheet.create({
+
+  logoTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+});
 
 
 
