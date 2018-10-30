@@ -130,8 +130,8 @@ class Recipes extends Component {
           const betterListItemPromises = list.map(match => {
             const imagePromise = getImageForRecipe(match.id, this.state.api.id, this.state.api.key);
             const betterListItemPromise = imagePromise
-              .then(({images:[{hostedMediumUrl}]}) => {
-                return {...match, image: hostedMediumUrl};
+              .then(({images:[{hostedLargeUrl}]}) => {
+                return {...match, image: hostedLargeUrl};
               });
             return betterListItemPromise
           });
