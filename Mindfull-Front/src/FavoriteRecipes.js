@@ -72,6 +72,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  logoTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   
 });
 
