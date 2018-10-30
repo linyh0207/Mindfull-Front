@@ -110,7 +110,7 @@ class RecipeDetails extends Component {
       })}
 
       <Text>{'\n'}</Text>
-      <Text onPress={this.handleClick}> Instructions </Text>      
+      <Text onPress={this.handleClick}> Click here for Instructions </Text>      
                
       </ScrollView>
 

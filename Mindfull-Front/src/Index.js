@@ -28,6 +28,7 @@ class Index extends React.Component {
     super(props);
     this.state = {
       username: '',
+      password: '',
       modalVisible: false,
       loginModalVisible: false,
      
@@ -42,12 +43,11 @@ class Index extends React.Component {
   setLoginModalVisible(visible) {
     this.setState({loginModalVisible: visible});
   }
-
-
   
   render() {
     const { navigate } = this.props.navigation;
-    console.log(this.state.username)
+    // console.log(this.state.username)
+    // console.log(this.state.password)
     return (
       <ImageBackground
       source={require('../images/background5.jpg')}
@@ -55,8 +55,6 @@ class Index extends React.Component {
       style={styles.container}
     >
       <View style={styles.container}>
-
-        
 
           <View >
             <Modal
@@ -106,9 +104,6 @@ class Index extends React.Component {
             </View>
         </View>
 
-
-
-
       <View>
           <Modal
             animationType="slide"
@@ -133,36 +128,31 @@ class Index extends React.Component {
                   onChangeText={(username) => this.setState({username})}
                   value={this.state.username}
                 />
-                <TextInput style={styles.textBox} placeholder='Password' />
+                
+                <TextInput onChangeText = {(password) => this.setState({password})} 
+                  style={styles.textBox} placeholder='Password'
+                  value = {this.state.pass} 
+                  secureTextEntry = {true} 
+                />
 
                 <View style={styles.button}>
-                <TouchableOpacity onPress={() => 
-                      
-                      navigate('Search', {username: this.state.username})
-                      }>
+                <TouchableOpacity onPress={() =>       
+                  navigate('Search', {username: this.state.username})
+                }>
                 
-                  <Text style={{fontSize: 20, color: '#8C8B8B', textAlign: 'center'}}>Login</Text>
-
+                <Text style={{fontSize: 20, color: '#8C8B8B', textAlign: 'center'}}>Login</Text>
                     
-                  </TouchableOpacity>
-                  </View>
-
-                  
-                 
-                </View>
-              </ImageBackground>
-            </Modal>
-
-        
-        </View>
-
-
-
-
-
+              </TouchableOpacity>
+            </View>
+               
+          </View>
+        </ImageBackground>
+      </Modal>
+      
+      </View>
 
       </View>
-      </ImageBackground>
+    </ImageBackground>
     );
   };
 }

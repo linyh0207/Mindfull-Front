@@ -21,7 +21,6 @@ function getImageForRecipe(listId, apiId, apiKey){
     method: 'GET'
   })
   .then((response) => response.json())
-
 }
 
 class LogoTitle extends React.Component {
@@ -41,7 +40,6 @@ class LogoTitle extends React.Component {
 
 class Recipes extends Component {
   static navigationOptions = {
-    
     
     headerTintColor: 'white',
 
@@ -249,14 +247,11 @@ class Recipes extends Component {
       }
     }
   })
-  // console.log(this.state.favorite)
 }
 
 setModalVisible(visible) {
   this.setState({modalVisible: visible});
 }
-
-
 
   getRecipeDetails(item) {
     // const recipe = this.state.recipe
@@ -335,17 +330,14 @@ setModalVisible(visible) {
     </View>
   </Modal>
     
-    
-</View>
-
-      
+</View>      
 
     <View style={styles.container}>
       
       <ScrollView>
         
         {this.state.list.map(item => {
-        // console.log('123', this.state.recipe)
+        
           return (
             <Card image={{uri: `${item.image}`}} key={item.id}>
       
@@ -360,7 +352,7 @@ setModalVisible(visible) {
                 }
               />
   
-                <Button 
+              <Button 
                 onPress={
                   this.changeHeartColor.bind(null, item)
                 }
@@ -372,10 +364,9 @@ setModalVisible(visible) {
             </Card>
           );
         })}
-       
-         
+            
       </ScrollView>
-      </View>
+    </View>
 </View>
     );
   };
