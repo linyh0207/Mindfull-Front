@@ -6,7 +6,8 @@ import {
   View,
   Button,
   Image,
-  Linking
+  Linking,
+  ScrollView
 } from 'react-native';
 
 
@@ -14,6 +15,7 @@ class LogoTitle extends React.Component {
   render() {
     return (
       <View style={styles.logoTitle}>
+
       <Image
         source={require('../images/icon.png')}
         style={{ width: 30, height: 30 }}
@@ -90,8 +92,10 @@ class RecipeDetails extends Component {
     console.log('WHAT IS HEREEEE', this.state.recipe)
 
     return (
-      
+
       <View style={styles.container}>
+      <ScrollView>
+
       <Text>Recipe Details{'\n'}</Text>
       <Text> {this.state.recipe.food} </Text>
       <Image source={{uri: this.state.recipe.image}}
@@ -108,6 +112,8 @@ class RecipeDetails extends Component {
       <Text>{'\n'}</Text>
       <Text onPress={this.handleClick}> Instructions </Text>      
                
+      </ScrollView>
+
       </View>
     );
   };
