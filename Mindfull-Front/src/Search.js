@@ -185,10 +185,9 @@ class Search extends React.Component {
           </TouchableOpacity> 
           </View>
 
-          <View>
+          <View style={styles.container}>
         <FlatList
         data={this.state.ingredients}
-        horizontal={true}
         renderItem={({ item }) => (
           <View style={styles.lozenges}>
           <Text style={{fontSize: 20}}>{item}</Text>
@@ -220,6 +219,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgb(180,227,120)',
     justifyContent: 'center',
+    
   },
   cameraComponent: {
     width: 300, 
@@ -280,6 +280,7 @@ const styles = StyleSheet.create({
     margin: 5,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    borderRadius: 10, 
     
   },
   
