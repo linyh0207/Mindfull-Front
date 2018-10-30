@@ -45,19 +45,22 @@ class Search extends React.Component {
       text:''
     }
     this.addItem = this.addItem.bind(this);
+    this.handleOnNavigateBack = this.handleOnNavigateBack.bind(this)
   };
   
+
+ 
   handleOnNavigateBack = (selected) => {
-    console.log("SELECTED pass by camera Result", selected)
     let ingredients = this.state.ingredients
     selected.forEach(select => {
-      console.log("ingredients", ingredients)
-      console.log("select", select)
       ingredients.push(select)
     })
-    this.setState({ingredients})
+    this.setState({ingredients : ingredients})
+    console.log("HELLLO",this.state.ingredients)
+    
   }
-  
+
+
   addItem() {
     const newItems = this.state.text
 
@@ -83,11 +86,9 @@ class Search extends React.Component {
     
     return (
       <View style={styles.container}>
-        
-        <View>
-        <FlatList
-        data={this.state.ingredients}
-        renderItem={({ item }) => (
+  
+        {this.state.ingredients.map(item => {
+        return (
           <View style={{backgroundColor: 'pink', width: 200, padding: 10, margin: 10}}>
           <Text style={{fontSize: 20}}>{item}</Text>
           <TouchableOpacity
@@ -95,11 +96,9 @@ class Search extends React.Component {
           <Icon name="delete" size={24} color="white" />
         </TouchableOpacity>
         </View>
-      )}
-        keyExtractor={(item, index) => index.toString()}
-      />
-      </View>
-        
+        )
+      })
+    }
         
         <Text>Welcome, {this.props.navigation.state.params.username}</Text>
           <View style={styles.searchComponent}>
@@ -130,7 +129,7 @@ class Search extends React.Component {
             title="Object Recognition"
             color='white'
             
-            onPress={() => this.props.navigation.navigate('ObjectRecognition', {onNavigateBack: this.handleOnNavigateBack})}
+            onPress={() => this.props.navigation.navigate('ObjectRecognition', {onNavigateBack: this.handleOnNavigateBack.bind(this)})}
           />
           </View>
 

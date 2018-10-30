@@ -4,7 +4,8 @@ import { Constants, BarCodeScanner, Permissions } from 'expo';
 
 export default class BarcodeScanner extends Component {
   state = {
-    hasCameraPermission: null
+    hasCameraPermission: null,
+    barcode: '',
   };
 
   componentDidMount() {
@@ -18,26 +19,52 @@ export default class BarcodeScanner extends Component {
     });
   };
 
-  _handleBarCodeRead = data => {
 
-    console.log(data.data)
+  // handleBarCodeScanned = ({ data }) => {
+  //   this.setState({ parsedData: data })
+  //   if (this.state.parsedData) {
+  //     this.props.navigation.pop()
+  //     this.props.navigation.navigate('scannerResult', { data })
+  //   } else {
+  //     this.setState({ parsedData: data })
+  //   }
+  // }
+
+  _handleBarCodeRead = data => {
+    this.setState({
+      barcode: data.data
+    })
+    console.log("this.state.barcode",this.state.barcode)
     if(data.data === '0062107302753'){
-     console.log('matched')
+    //  console.log('matched')
      Alert.alert(
       'Emergenc',
       JSON.stringify(data)
     )
     } else {
-      console.log('not matched')
+      // console.log('not matched')
       Alert.alert(
         'Not Emergenc',
         JSON.stringify(data)
       )
     };
-    // Alert.alert(
-    //     'Scan successful!',
-    //     JSON.stringify(data)
-    //   )
+
+
+  //Barcode API
+
+  //   let url = `https://api.upcitemdb.com/prod/trial/lookup?upc=${this.state.barcode}`
+
+  //   fetch(`${url}`, {
+  //     method: 'GET'
+  //  })
+  //  .then((response) => response.json())
+  //  .then((responseJson) => {
+  //    console.log(responseJson.items[0].title)
+  //   //  this.setState({});
+  //  })
+  //  .catch((error) => {
+  //     console.error(error);
+  //  });
   };
 
   render() {
