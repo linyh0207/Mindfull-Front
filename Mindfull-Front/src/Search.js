@@ -31,7 +31,7 @@ class LogoTitle extends React.Component {
         source={require('../images/icon.png')}
         style={{ width: 30, height: 30 }}
       />
-      <Text style={{color: 'white', fontSize: 24, marginLeft: 10}}>Search</Text>
+      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontWeight: 'bold'}}>Search</Text>
       </View>
     );
   }
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
   },
   logoTitle: {
     flexDirection: 'row',
-    marginRight: 30,
+    justifyContent: 'space-between',
   },
   mainComponent: {
     width: 300, 

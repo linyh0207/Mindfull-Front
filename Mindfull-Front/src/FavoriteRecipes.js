@@ -4,17 +4,36 @@ import {
   Text,
   ScrollView,
   Image,
-  View
+  View,
 } from 'react-native';
+import { 
+  Card
+} from 'react-native-elements';
 
+class LogoTitle extends React.Component {
+  render() {
+    return (
+      <View style={styles.logoTitle}>
+      <Image
+        source={require('../images/icon.png')}
+        style={{ width: 30, height: 30 }}
+      />
+      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontWeight: 'bold'}}>Recipe Details</Text>
+      </View>
+    );
+  }
+}
 
 class FavoriteRecipes extends Component {
   static navigationOptions = {
-    title: 'Favorite',
-    headerTintColor: 'black',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
+    
+    
+    headerTintColor: 'white',
+
+    headerTitle: (
+      <LogoTitle />
+      
+    ),
   };
 
   constructor (){
@@ -29,17 +48,18 @@ class FavoriteRecipes extends Component {
  
   render() {
     return (
-      <ScrollView contentContainerstyle={styles.container}>
+      <View style={styles.container}>
+      <ScrollView>
        <Text>Favorite Recipes</Text>
       {this.props.navigation.state.params.favorite.map(item => {
         return (
-          <View>
+          <Card image={{uri: `${item.image}`}} >
           <Text>{item.name}</Text>
-          <Image source={{uri: `${item.image}`}} style={{width: 100, height: 100}} />
-          </View>
+          </Card>
         );
       })}
       </ScrollView>
+      </View>
     )
   };
 };
@@ -52,6 +72,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  
 });
 
 

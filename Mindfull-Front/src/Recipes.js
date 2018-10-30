@@ -17,14 +17,33 @@ import {
 } from 'react-native-elements';
 
 
+class LogoTitle extends React.Component {
+  render() {
+    return (
+      <View style={styles.logoTitle}>
+      <Image
+        source={require('../images/icon.png')}
+        style={{ width: 30, height: 30 }}
+      />
+      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontWeight: 'bold'}}>Recipes</Text>
+      </View>
+    );
+  }
+}
+
+
 class Recipes extends Component {
   static navigationOptions = {
-    title: 'Recipes',
-    headerTintColor: 'black',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
+    
+    
+    headerTintColor: 'white',
+
+    headerTitle: (
+      <LogoTitle />
+      
+    ),
   };
+
 
   constructor (){
     super();
@@ -284,6 +303,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  logoTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   foodItem: {
     backgroundColor: 'rgb(255,206,113)',
