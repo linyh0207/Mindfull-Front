@@ -44,7 +44,7 @@ class RecipeDetails extends Component {
           
         let newList ={
         food: responseJson.name,
-        image: responseJson.images[0].hostedSmallUrl,
+        image: responseJson.images[0].hostedLargeUrl,
         ingredients: responseJson.ingredientLines,
         directions: responseJson.source.sourceRecipeUrl
         };
