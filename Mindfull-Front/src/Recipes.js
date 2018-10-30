@@ -141,8 +141,6 @@ class Recipes extends Component {
         });
       listWithBetterImagesPromise
         .then(list => { this.setState({list})});
-
-      console.log('another here', this.state.list)
         
         //     fetch(`${url}`, {
   //       method: 'GET'
@@ -274,8 +272,6 @@ setModalVisible(visible) {
     // this.props.navigation.navigate('RecipeDetails', {recipe: this.state.recipe})
     // // console.log('recipe', this.state.recipe)
 
-
-
     this.props.navigation.navigate('RecipeDetails', {recipe: item.id})
   }
 
@@ -352,11 +348,7 @@ setModalVisible(visible) {
         // console.log('123', this.state.recipe)
           return (
             <Card image={{uri: `${item.image}`}} key={item.id}>
-            
       
-              {/* <Text key={item.id}>{item.food}</Text> */}
-            
-
               <Button 
                 raised
                 color='black'
@@ -367,9 +359,6 @@ setModalVisible(visible) {
                   this.getRecipeDetails.bind(null, item) 
                 }
               />
-              
-             
-              {/* <Text key={item.id}>{item.food}</Text> */}
   
                 <Button 
                 onPress={

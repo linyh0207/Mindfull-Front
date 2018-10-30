@@ -87,6 +87,7 @@ class RecipeDetails extends Component {
 
 
   render() {
+    // const { navigate } = this.props.navigation;
 
     console.log('WHAT IS HEREEEE', this.state.recipe)
 

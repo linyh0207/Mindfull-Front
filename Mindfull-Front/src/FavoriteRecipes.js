@@ -5,10 +5,12 @@ import {
   ScrollView,
   Image,
   View,
+  Button
 } from 'react-native';
 import { 
   Card
 } from 'react-native-elements';
+import { createStackNavigator } from 'react-navigation';
 
 
 class LogoTitle extends React.Component {
@@ -47,44 +49,9 @@ class FavoriteRecipes extends Component {
       },
     };
   }
- 
-  componentDidMount = () => {  
-    console.log('favorite', this.props.navigation.state.params.favorite)
-    let recipeUrl = `https://api.yummly.com/v1/api/recipe/${this.props.navigation.state.params.favorite}?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
-
-    fetch(`${recipeUrl}`, {
-       method: 'GET'
-    })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      console.log('res', responseJson)
-    //     let newList ={
-    //     food: response.name,
-    //     image: response.images[0].hostedLargeUrl,
-    //     directions: response.source.sourceRecipeUrl
-    //     };
-    //   this.setState({
-    //     favorite: newList
-    //   });
-    // })
-    // .catch((error) => {
-    //    console.error(error);
-    // });
-    // console.log('here', this.state.favorite)
-  })
-}
-
-  // handleClick = () => {
-  //   Linking.canOpenURL(this.state.recipe.directions).then(supported => {
-  //     if (supported) {
-  //       Linking.openURL(this.state.recipe.directions);
-  //     } else {
-  //       console.log("Don't know how to open URI: " + this.props.url);
-  //     }
-  //   });
-  // };
-
+  
   render() {
+    const { navigate } = this.props.navigation;
     return (
       
       <View style={styles.container}>
@@ -92,8 +59,15 @@ class FavoriteRecipes extends Component {
        <Text>Favorite Recipes</Text>
       {this.props.navigation.state.params.favorite.map(item => {
         return (
-          <Card image={{uri: `${item.image}`}} >
-          <Text>{item.name}</Text>
+          <Card image={{uri: `${item.image}`}} key={item.id}>
+          <Button 
+                raised
+                color='black'
+                title={item.name}
+                buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, padding: 10, marginBottom: 20, width: 300}}
+                textStyle={{textAlign: 'center'}}
+                onPress={() => navigate('RecipeDetails', { recipe: item.id })}
+          />
           </Card>
         );
       })}
