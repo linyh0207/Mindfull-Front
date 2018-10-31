@@ -109,7 +109,7 @@ class Recipes extends Component {
               food: recipeName,
               missingIngredients,
               id,
-              color: 'black',
+              color: '#8C8B8B',
               favorite: true,
             }
           });
@@ -213,7 +213,7 @@ class Recipes extends Component {
     if (li.id === item.id) {
       return {
         ...li,
-        color: li.color === 'black' ? 'pink' : 'black',
+        color: li.color === '#8C8B8B' ? 'pink' : '#8C8B8B',
         favorite: li.favorite === true ? false : true,
       };
     }
@@ -274,21 +274,21 @@ setModalVisible(visible) {
 
       <View style={styles.navbar}>
         <Button
-        raised
+        buttonStyle={{marginRight: 60}}
         color='black'
         title="My Ingredients"
-        textStyle={{textAlign: 'center', fontFamily: 'HelveticaNeue-Light'}}
+        textStyle={{fontFamily: 'HelveticaNeue-Light'}}
           onPress={() => {
             this.setModalVisible(true);
           }}
           
         />
         <Button 
-          raised
+          buttonStyle={{marginLeft: 60}}
           color='black'
-          title="Favorite Recipes ♥"
+          title="Favorite Recipes"
           
-          textStyle={{textAlign: 'center', fontFamily: 'HelveticaNeue-Light'}}
+          textStyle={{fontFamily: 'HelveticaNeue-Light'}}
           onPress={() => this.props.navigation.navigate('FavoriteRecipes', {favorite: this.state.favorite})}
         />
       </View> 
@@ -308,19 +308,21 @@ setModalVisible(visible) {
       
       
       <View style={styles.modal}>
-        <Text>Ingredients I have:</Text>
+        <View>
+        <Text style={{color:'white', fontFamily: 'HelveticaNeue-Light', fontSize: 20, marginBottom: 10, textDecorationLine: 'underline'}}>Ingredients I have:</Text>
           {this.props.navigation.state.params.ingredients.map(item => {
             return(
-              <Text key={item}>{item}</Text>
+              <Text style={{color:'white', fontFamily: 'HelveticaNeue-Light', fontSize: 20}} key={item}>{item}</Text>
             )
           })}
+          </View>
       
       <View style={styles.exitButton}>
         <TouchableHighlight
           onPress={() => {
             this.setModalVisible(!this.state.modalVisible);
           }}>
-          <Text>Exit</Text>
+          <Text style={{color: 'white', fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}>EXIT</Text>
         </TouchableHighlight>
         </View>
       </View>
@@ -385,7 +387,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   foodItem: {
-    backgroundColor: 'rgb(255,206,113)',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -394,18 +395,26 @@ const styles = StyleSheet.create({
     marginTop: 22, 
     padding: 20, 
     width: 300, 
-    backgroundColor: 'lightgray', 
-    justifyContent: 'center'
+    height: 300,
+    backgroundColor: 'rgb(180,227,120)', 
+    justifyContent: 'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   exitButton: {
-    backgroundColor: 'rgb(255,206,113)',
+    backgroundColor: 'transparent',
     width: 100, 
     padding: 5, 
-    borderRadius: 10,
-    marginTop: 20,
+    borderWidth: 1,
+    marginLeft: 145,
+    borderColor: 'white',
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   navbar: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   foodTitle: {
     flexDirection:'row',
