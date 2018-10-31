@@ -105,9 +105,10 @@ class RecipeDetails extends Component {
       
       {/* <View style={styles.heading}>
       
-      <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}> {'\n'} {this.state.recipe.food} {'\n'}</Text>
+      <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}> {'\n'} {this.state.recipe.food} {'\n'}</Text> */}
+      <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}> {'\n'} {this.state.recipe.food} {'\n'}</Text> 
       <Image source={{uri: this.state.recipe.image}}
-       style={{width: 200, height: 200}}/> */}
+       style={{width: 200, height: 200}}/>
 
       
       {/* <Text>Recipe Details{'\n'}</Text>
