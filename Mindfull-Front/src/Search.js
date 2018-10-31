@@ -11,7 +11,8 @@ import {
   Image,
   AsyncStorage,
   FlatList,
-  Modal
+  Modal,
+  KeyboardAvoidingView
 } from 'react-native';
 import { 
   SearchBar,
@@ -179,6 +180,10 @@ class Search extends React.Component {
         keyExtractor={(item, index) => index.toString()}
       />
       </View> */}
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior="padding"
+      >
 
       <View style={styles.lozengeContainer}>
       {this.state.ingredients.map(item => {
@@ -192,7 +197,7 @@ class Search extends React.Component {
           )
         })}
       </View>
-        
+      </KeyboardAvoidingView>
   </View>
 
 
