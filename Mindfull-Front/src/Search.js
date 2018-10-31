@@ -39,13 +39,9 @@ class LogoTitle extends React.Component {
 
 class Search extends React.Component {
   static navigationOptions = {
-    
-    
     headerTintColor: 'white',
-
     headerTitle: (
-      <LogoTitle />
-      
+      <LogoTitle />   
     ),
   };
   constructor(props) {

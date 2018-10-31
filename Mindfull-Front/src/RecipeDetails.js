@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { 
   StyleSheet,
   Text,
@@ -7,15 +6,19 @@ import {
   Button,
   Image,
   Linking,
-  ScrollView
+  ScrollView,
+  Header
 } from 'react-native';
+import { 
+  Card,
+  Icon
+} from 'react-native-elements';
 
 
 class LogoTitle extends React.Component {
   render() {
     return (
       <View style={styles.logoTitle}>
-
       <Image
         source={require('../images/icon.png')}
         style={{ width: 30, height: 30 }}
@@ -28,18 +31,20 @@ class LogoTitle extends React.Component {
 
 class RecipeDetails extends Component {
   static navigationOptions = {
-    
-    
+    headerBackground: (
+      <Image
+        source={require('../images/header.jpg')}
+        style={{height: 70}}
+      />
+    ),
     headerTintColor: 'white',
-
     headerTitle: (
       <LogoTitle />
-      
     ),
   };
 
-  constructor (){
-    super();
+  constructor (props){
+    super(props);
     this.state = {
       recipe: [
         {ingredients: []}
@@ -93,8 +98,8 @@ class RecipeDetails extends Component {
 
     return (
 
-      <View style={styles.container}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.container}>
+     
 
       <Text>Recipe Details{'\n'}</Text>
       <Text> {this.state.recipe.food} </Text>
@@ -114,7 +119,7 @@ class RecipeDetails extends Component {
                
       </ScrollView>
 
-      </View>
+
     );
   };
 };
