@@ -14,7 +14,6 @@ import {
   Icon
 } from 'react-native-elements';
 
-
 class LogoTitle extends React.Component {
   render() {
     return (
@@ -23,7 +22,7 @@ class LogoTitle extends React.Component {
         source={require('../images/icon.png')}
         style={{ width: 30, height: 30 }}
       />
-      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontWeight: 'bold'}}>Recipe Details</Text>
+      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontWeight: 'bold'}}>Recipes</Text>
       </View>
     );
   }
@@ -102,11 +101,18 @@ class RecipeDetails extends Component {
      
 
       <Text>Recipe Details{'\n'}</Text>
-      <Text> {this.state.recipe.food} </Text>
+      <Text> {this.state.recipe.food} {'\n'}</Text>
       <Image source={{uri: this.state.recipe.image}}
-       style={{width: 200, height: 200}} />
+       style={{width: 200, height: 200}}/>
+
       
-      <Text> Ingredients </Text>
+      {/* <Text>Recipe Details{'\n'}</Text>
+      <Text> {this.state.recipe.food} {'\n'}</Text>
+      <Image source={{uri: this.state.recipe.image}}
+       style={{width: 200, height: 200, justifyContent: 'center', alignItems: 'center'}}/> */}
+      <View style={styles.heading}>
+      <Text> {'\n'} Ingredients </Text>
+      </View>
       
       {this.state.recipe.ingredients && this.state.recipe.ingredients.map(item => {
         return(
@@ -114,9 +120,11 @@ class RecipeDetails extends Component {
         )
       })}
 
+      <View style={styles.heading}>
       <Text>{'\n'}</Text>
       <Text onPress={this.handleClick}> Click here for Instructions </Text>      
-               
+      </View>
+
       </ScrollView>
 
 
@@ -124,18 +132,22 @@ class RecipeDetails extends Component {
   };
 };
 
-
 const styles = StyleSheet.create({
+  heading: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'column'
   },
   logoTitle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
+  }
 });
 
 
