@@ -34,7 +34,7 @@ class CameraResult extends Component {
     let list = this.state.list
     this.props.navigation.state.params.predictions.map(li => {
      
-      if (li.value > 0.90) {
+      if (li.value > 0.95) {
      newPrediction = {
         id: li.id,
         name: li.name,
