@@ -118,7 +118,7 @@ class Recipes extends Component {
       listPromise.then(list => {
         this.setState({list});
       });
-
+      
       const listWithBetterImagesPromise = listPromise
         .then(list => {
           const betterListItemPromises = list.map(match => {
@@ -135,7 +135,7 @@ class Recipes extends Component {
         });
       listWithBetterImagesPromise
         .then(list => { this.setState({list})});
-
+        
         //     fetch(`${url}`, {
   //       method: 'GET'
   //     })
@@ -227,7 +227,8 @@ class Recipes extends Component {
       if(li.favorite === true) {
         favoriteRecipe = {
           name: li.food,
-          image: li.image
+          image: li.image,
+          id: li.id
         }
         favorite.push(favoriteRecipe)
         this.setState({favorite})
@@ -242,26 +243,27 @@ class Recipes extends Component {
       }
     }
   })
-  console.log(this.state.favorite)
 }
 
 setModalVisible(visible) {
   this.setState({modalVisible: visible});
 }
 
-
-
   getRecipeDetails(item) {
-    const recipe = this.state.recipe
-    this.state.list.forEach(li => {
-      if (li.id === item.id) {
-        recipe.push(li.id)
-        // console.log('HERE', recipe)
-      }
-      return recipe
-    });
-    this.setState({recipe})
-    this.props.navigation.navigate('RecipeDetails', {recipe: this.state.recipe})
+    // const recipe = this.state.recipe
+    
+    // this.state.list.forEach(li => {
+    //   if (li.id === item.id) {
+    //     recipe.push(li.id)
+    //     // console.log('HERE', recipe)
+    //   }
+    //   return recipe
+    // });
+    // this.setState({recipe})
+    // this.props.navigation.navigate('RecipeDetails', {recipe: this.state.recipe})
+    // // console.log('recipe', this.state.recipe)
+
+    this.props.navigation.navigate('RecipeDetails', {recipe: item.id})
   }
 
   render() {
@@ -307,9 +309,9 @@ setModalVisible(visible) {
       <View style={styles.modal}>
         <Text>Ingredients I have:</Text>
           {this.props.navigation.state.params.ingredients.map(item => {
-          return(
-            <Text>{item}</Text>
-          )
+            return(
+              <Text key={item}>{item}</Text>
+            )
           })}
       
       <View style={styles.exitButton}>
@@ -324,24 +326,17 @@ setModalVisible(visible) {
     </View>
   </Modal>
     
-    
-</View>
-
-      
+</View>      
 
     <View style={styles.container}>
       
       <ScrollView>
         
         {this.state.list.map(item => {
-        // console.log('123', this.state.recipe)
+        
           return (
-            <Card image={{uri: `${item.image}`}} >
-            
+            <Card image={{uri: `${item.image}`}} key={item.id}>
       
-              {/* <Text key={item.id}>{item.food}</Text> */}
-            
-
               <Button 
                 raised
                 color='black'
@@ -352,11 +347,8 @@ setModalVisible(visible) {
                   this.getRecipeDetails.bind(null, item) 
                 }
               />
-              
-             
-              {/* <Text key={item.id}>{item.food}</Text> */}
   
-                <Button 
+              <Button 
                 onPress={
                   this.changeHeartColor.bind(null, item)
                 }
@@ -368,10 +360,9 @@ setModalVisible(visible) {
             </Card>
           );
         })}
-       
-         
+            
       </ScrollView>
-      </View>
+    </View>
 </View>
     );
   };

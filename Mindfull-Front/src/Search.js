@@ -109,35 +109,33 @@ class Search extends React.Component {
       <View style={styles.container}>
   
         {this.state.ingredients.map(item => {
-        return (
-          <View style={{backgroundColor: 'pink', width: 200, padding: 10, margin: 10}}>
-          <Text style={{fontSize: 20}}>{item}</Text>
-          <TouchableOpacity
-        onPress={() => {this.deleteItem(item)}}>
-          <Icon name="delete" size={24} color="white" />
-        </TouchableOpacity>
-        </View>
-        )
-      })
-    }
+          return (
+            <View style={{backgroundColor: 'pink', width: 200, padding: 10, margin: 10}} key={item}>
+              <Text style={{fontSize: 20}}>{item}</Text>
+              <TouchableOpacity onPress={() => {this.deleteItem(item)}}>
+                <Icon name="delete" size={24} color="white" />
+              </TouchableOpacity>
+            </View>
+          )
+        })}
 
-      <Text style={{color: 'white', margin: 20, fontSize: 24}}>Welcome, {this.props.navigation.state.params.username}</Text>
+        <Text style={{color: 'white', margin: 20, fontSize: 24}}>Welcome, {this.props.navigation.state.params.username}</Text>
 
-      <View style={styles.mainComponent}>
+        <View style={styles.mainComponent}>
         
         
         
           <View style={styles.searchComponent}>
           <SearchBar
           
-          value={this.state.text.toLowerCase()}
-          round
-          searchIcon={{ size: 24 }}
-          inputStyle={{backgroundColor: 'white'}}
-          containerStyle={{backgroundColor: 'transparent', width: 220, border: 'none'}}
-          onChangeText={(text) => this.setState({text})}
-          placeholder='Add Ingredient' />
-          
+            value={this.state.text.toLowerCase()}
+            round
+            searchIcon={{ size: 24 }}
+            inputStyle={{backgroundColor: 'white'}}
+            containerStyle={{backgroundColor: 'transparent', width: 220}}
+            onChangeText={(text) => this.setState({text})}
+            placeholder='Add Ingredient' />
+            
           <View style={{marginLeft: 10}}>
           <Icon 
           onPress={() => {this.addItem()}}
@@ -267,7 +265,7 @@ const styles = StyleSheet.create({
   },
   lozenges: {
     backgroundColor: 'rgba(255,255,255,0.9)', 
-    color: '#8C8B8B',
+    // color: '#8C8B8B',  // Hmn, not sure what this was SUPPOSED to do, but it's not doing anything
     width: 150, 
     height: 40,
     padding: 5, 

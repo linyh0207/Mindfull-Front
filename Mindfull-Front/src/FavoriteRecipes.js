@@ -5,10 +5,13 @@ import {
   ScrollView,
   Image,
   View,
+  Button
 } from 'react-native';
 import { 
   Card
 } from 'react-native-elements';
+import { createStackNavigator } from 'react-navigation';
+
 
 class LogoTitle extends React.Component {
   render() {
@@ -39,22 +42,32 @@ class FavoriteRecipes extends Component {
   constructor (){
     super();
     this.state = {
+      favorite: [],
       api: {
         id: 21580375,
         key : 'da87403dad4e077ff0e40d912cd1051a'
       },
     };
   }
- 
+  
   render() {
+    const { navigate } = this.props.navigation;
     return (
+      
       <View style={styles.container}>
       <ScrollView>
        <Text>Favorite Recipes</Text>
       {this.props.navigation.state.params.favorite.map(item => {
         return (
-          <Card image={{uri: `${item.image}`}} >
-          <Text>{item.name}</Text>
+          <Card image={{uri: `${item.image}`}} key={item.id}>
+          <Button 
+                raised
+                color='black'
+                title={item.name}
+                buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, padding: 10, marginBottom: 20, width: 300}}
+                textStyle={{textAlign: 'center'}}
+                onPress={() => navigate('RecipeDetails', { recipe: item.id })}
+          />
           </Card>
         );
       })}
