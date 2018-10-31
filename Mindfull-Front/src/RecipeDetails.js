@@ -99,8 +99,7 @@ class RecipeDetails extends Component {
 
       <ScrollView contentContainerStyle={styles.container}>
      
-      <Text>Recipe Details{'\n'}</Text>
-      <Text> {this.state.recipe.food} {'\n'}</Text>
+      <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}> {this.state.recipe.food} {'\n'}</Text>
       <View style={styles.container}>
       </View>
       
