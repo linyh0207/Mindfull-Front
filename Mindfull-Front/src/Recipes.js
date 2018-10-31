@@ -16,13 +16,6 @@ import {
   Card
 } from 'react-native-elements';
 
-function getImageForRecipe(listId, apiId, apiKey){
-  return fetch(`https://api.yummly.com/v1/api/recipe/${listId}?_app_id=${apiId}&_app_key=${apiKey}`, {
-    method: 'GET'
-  })
-  .then((response) => response.json())
-
-}
 
 class LogoTitle extends React.Component {
   render() {
@@ -38,19 +31,20 @@ class LogoTitle extends React.Component {
   }
 }
 
+function getImageForRecipe(listId, apiId, apiKey){
+  return fetch(`https://api.yummly.com/v1/api/recipe/${listId}?_app_id=${apiId}&_app_key=${apiKey}`, {
+    method: 'GET'
+  })
+  .then((response) => response.json())
+}
 
 class Recipes extends Component {
   static navigationOptions = {
-    
-    
     headerTintColor: 'white',
-
     headerTitle: (
       <LogoTitle />
-      
     ),
   };
-
 
   constructor (){
     super();
