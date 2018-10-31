@@ -17,7 +17,7 @@ class LogoTitle extends React.Component {
         source={require('../images/icon.png')}
         style={{ width: 30, height: 30 }}
       />
-      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontWeight: 'bold'}}>Food Recognition</Text>
+      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontFamily:'HelveticaNeue-Medium', fontWeight: 500}}>Food Recognition</Text>
       </View>
     );
   }
@@ -132,7 +132,7 @@ class ObjectRecognition extends React.Component {
                 }}
                 onPress={this.objectDetection}
               >
-                <Text style={{ fontSize: 30, color: 'white', padding: 15 }}>
+                <Text style={{ fontSize: 30, color: 'white', padding: 15, fontFamily:'HelveticaNeue-Light'}}>
                   {' '}
                   Take a picture{' '}
                 </Text>

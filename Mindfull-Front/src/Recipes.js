@@ -32,7 +32,7 @@ class LogoTitle extends React.Component {
         source={require('../images/icon.png')}
         style={{ width: 30, height: 30 }}
       />
-      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontWeight: 'bold'}}>Recipes</Text>
+      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontFamily: 'HelveticaNeue-Medium', fontWeight: '500'}}>Recipes</Text>
       </View>
     );
   }
@@ -290,6 +290,7 @@ setModalVisible(visible) {
         raised
         color='black'
         title="My Ingredients"
+        textStyle={{textAlign: 'center', fontFamily: 'HelveticaNeue-Light'}}
           onPress={() => {
             this.setModalVisible(true);
           }}
@@ -298,9 +299,9 @@ setModalVisible(visible) {
         <Button 
           raised
           color='black'
-          title="Favorite Recipes"
+          title="Favorite Recipes ♥"
           
-          textStyle={{textAlign: 'center'}}
+          textStyle={{textAlign: 'center', fontFamily: 'HelveticaNeue-Light'}}
           onPress={() => this.props.navigation.navigate('FavoriteRecipes', {favorite: this.state.favorite})}
         />
       </View> 
@@ -354,15 +355,15 @@ setModalVisible(visible) {
             <Card image={{uri: `${item.image}`}} key={item.id}>
             
       
-              {/* <Text key={item.id}>{item.food}</Text> */}
+              <View style={{ backgroundColor: 'white', padding: 10 }}>
             
 
               <Button 
                 raised
                 color='black'
                 title={item.food}
-                buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, padding: 10, marginBottom: 20, width: 300}}
-                textStyle={{textAlign: 'center'}}
+                buttonStyle={{ marginBottom: 20, width: 300}}
+                textStyle={{textAlign: 'center', fontFamily: 'HelveticaNeue-Light'}}
                 onPress={
                   this.getRecipeDetails.bind(null, item) 
                 }
@@ -379,6 +380,7 @@ setModalVisible(visible) {
                 color={item.color}
                 size={20}
               />
+              </View>
              
             </Card>
           );
