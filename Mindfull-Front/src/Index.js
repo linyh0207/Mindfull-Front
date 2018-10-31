@@ -18,21 +18,18 @@ class Index extends React.Component {
     headerBackground: (
       <Image
         source={require('../images/header.jpg')}
-        
         style={{height: 70}}
       />
     ),
-
   };
   constructor(props) {
     super(props);
     this.state = {
       username: '',
+      password: '',
       modalVisible: false,
       loginModalVisible: false,
-     
     }
-
   };
 
   signupModalVisible(visible) {
@@ -42,12 +39,11 @@ class Index extends React.Component {
   setLoginModalVisible(visible) {
     this.setState({loginModalVisible: visible});
   }
-
-
   
   render() {
     const { navigate } = this.props.navigation;
-    console.log(this.state.username)
+    // console.log(this.state.username)
+    // console.log(this.state.password)
     return (
       <ImageBackground
       source={require('../images/background5.jpg')}
@@ -56,8 +52,6 @@ class Index extends React.Component {
     >
       <View style={styles.container}>
 
-        
-
           <View >
             <Modal
               animationType="slide"
@@ -65,48 +59,43 @@ class Index extends React.Component {
               visible={this.state.modalVisible}
             >
               <ImageBackground source={require('../images/header.jpg')}
-      
-      style={styles.container}>
-
-              <View style={styles.modal}>
-                <TextInput style={styles.textBox} placeholder='Username' />
-                <TextInput style={styles.textBox} placeholder='Password' />
-                <TextInput style={styles.textBox} placeholder='Password Confirmation' />
+              style={styles.container}>
+                <View style={styles.modal}>
+                  <TextInput style={styles.textBox} placeholder='Username' />
+                  <TextInput style={styles.textBox} secureTextEntry = {true} placeholder='Password' />
+                  <TextInput style={styles.textBox} secureTextEntry = {true} placeholder='Password Confirmation' />
                 
-                <View style={styles.button}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      this.signupModalVisible(!this.state.modalVisible);
-                    }}>
-                    <Text style={{fontSize: 20, color: '#8C8B8B', textAlign: 'center'}}>Sign Up</Text>
-                  </TouchableOpacity>
+                  <View style={styles.button}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        this.signupModalVisible(!this.state.modalVisible)
+                      }}>
+                      <Text style={{fontSize: 20, color: '#8C8B8B', textAlign: 'center'}}>Sign Up</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
               </ImageBackground>
             </Modal>
           
           
             <View style={styles.twoButton}>
-            <View style={styles.indexButton}>
-            <TouchableOpacity
-              onPress={() => {
-              this.signupModalVisible(true);
-              }}>
-              <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>SIGN UP</Text>
-            </TouchableOpacity>
+              <View style={styles.indexButton}>
+                <TouchableOpacity
+                  onPress={() => {
+                  this.signupModalVisible(true);
+                  }}>
+                  <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>SIGN UP</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.indexButton}>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setLoginModalVisible(true);
+                  }}>
+                  <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>LOGIN</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={styles.indexButton}>
-            <TouchableOpacity
-            onPress={() => {
-              this.setLoginModalVisible(true);
-            }}>
-            <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>LOGIN</Text>
-          </TouchableOpacity>
-          </View>
-            </View>
-        </View>
-
-
 
 
       <View>
@@ -115,53 +104,38 @@ class Index extends React.Component {
             transparent={false}
             visible={this.state.loginModalVisible}
           >
-
             <ImageBackground source={require('../images/header.jpg')}
-      
-      style={styles.container}>
+              style={styles.container}>
 
               <View style={styles.modal}>
-              <TouchableOpacity
-                onPress={() => {
-                  this.setLoginModalVisible(!this.state.loginModalVisible);
-                }}>
-                <Text>X</Text>
-              </TouchableOpacity>
                 <TextInput
                   style={styles.textBox} 
                   placeholder='Username' 
                   onChangeText={(username) => this.setState({username})}
                   value={this.state.username}
                 />
-                <TextInput style={styles.textBox} placeholder='Password' />
-
-                <View style={styles.button}>
-                <TouchableOpacity onPress={() => 
-                      
-                      navigate('Search', {username: this.state.username})
-                      }>
                 
-                  <Text style={{fontSize: 20, color: '#8C8B8B', textAlign: 'center'}}>Login</Text>
+                <TextInput onChangeText = {(password) => this.setState({password})} 
+                  style={styles.textBox} placeholder='Password'
+                  value = {this.state.pass} 
+                  secureTextEntry = {true} 
+                />
 
-                    
-                  </TouchableOpacity>
-                  </View>
-
-                  
-                 
+                  <View style={styles.button}>
+                    <TouchableOpacity onPress={() => {  
+                        this.setLoginModalVisible(!this.state.loginModalVisible),     
+                          navigate('Search', {username: this.state.username})
+                          }}>
+                      <Text style={{fontSize: 20, color: '#8C8B8B', textAlign: 'center'}}>Login</Text>
+                    </TouchableOpacity>
+                  </View>   
                 </View>
               </ImageBackground>
             </Modal>
 
-        
+            </View>
+          </View>
         </View>
-
-
-
-
-
-
-      </View>
       </ImageBackground>
     );
   };

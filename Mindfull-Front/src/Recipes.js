@@ -16,13 +16,6 @@ import {
   Card
 } from 'react-native-elements';
 
-function getImageForRecipe(listId, apiId, apiKey){
-  return fetch(`https://api.yummly.com/v1/api/recipe/${listId}?_app_id=${apiId}&_app_key=${apiKey}`, {
-    method: 'GET'
-  })
-  .then((response) => response.json())
-
-}
 
 class LogoTitle extends React.Component {
   render() {
@@ -38,19 +31,20 @@ class LogoTitle extends React.Component {
   }
 }
 
+function getImageForRecipe(listId, apiId, apiKey){
+  return fetch(`https://api.yummly.com/v1/api/recipe/${listId}?_app_id=${apiId}&_app_key=${apiKey}`, {
+    method: 'GET'
+  })
+  .then((response) => response.json())
+}
 
 class Recipes extends Component {
   static navigationOptions = {
-    
-    
     headerTintColor: 'white',
-
     headerTitle: (
       <LogoTitle />
-      
     ),
   };
-
 
   constructor (){
     super();
@@ -141,8 +135,6 @@ class Recipes extends Component {
         });
       listWithBetterImagesPromise
         .then(list => { this.setState({list})});
-
-      console.log('another here', this.state.list)
         
         //     fetch(`${url}`, {
   //       method: 'GET'
@@ -251,14 +243,11 @@ class Recipes extends Component {
       }
     }
   })
-  // console.log(this.state.favorite)
 }
 
 setModalVisible(visible) {
   this.setState({modalVisible: visible});
 }
-
-
 
   getRecipeDetails(item) {
     // const recipe = this.state.recipe
@@ -273,8 +262,6 @@ setModalVisible(visible) {
     // this.setState({recipe})
     // this.props.navigation.navigate('RecipeDetails', {recipe: this.state.recipe})
     // // console.log('recipe', this.state.recipe)
-
-
 
     this.props.navigation.navigate('RecipeDetails', {recipe: item.id})
   }
@@ -340,20 +327,16 @@ setModalVisible(visible) {
     </View>
   </Modal>
     
-    
-</View>
-
-      
+</View>      
 
     <View style={styles.container}>
       
       <ScrollView>
         
         {this.state.list.map(item => {
-        // console.log('123', this.state.recipe)
+        
           return (
             <Card image={{uri: `${item.image}`}} key={item.id}>
-            
       
               <View style={{ backgroundColor: 'white', padding: 10 }}>
             
@@ -368,11 +351,8 @@ setModalVisible(visible) {
                   this.getRecipeDetails.bind(null, item) 
                 }
               />
-              
-             
-              {/* <Text key={item.id}>{item.food}</Text> */}
   
-                <Button 
+              <Button 
                 onPress={
                   this.changeHeartColor.bind(null, item)
                 }
@@ -385,10 +365,9 @@ setModalVisible(visible) {
             </Card>
           );
         })}
-       
-         
+            
       </ScrollView>
-      </View>
+    </View>
 </View>
     );
   };
