@@ -49,7 +49,6 @@ class Recipes extends Component {
     ),
   };
 
-
   constructor (){
     super();
     this.state = {
