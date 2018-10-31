@@ -62,8 +62,8 @@ class Index extends React.Component {
               style={styles.container}>
                 <View style={styles.modal}>
                   <TextInput style={styles.textBox} placeholder='Username' />
-                  <TextInput style={styles.textBox} placeholder='Password' />
-                  <TextInput style={styles.textBox} placeholder='Password Confirmation' />
+                  <TextInput style={styles.textBox} secureTextEntry = {true} placeholder='Password' />
+                  <TextInput style={styles.textBox} secureTextEntry = {true} placeholder='Password Confirmation' />
                 
                   <View style={styles.button}>
                     <TouchableOpacity
@@ -108,12 +108,6 @@ class Index extends React.Component {
               style={styles.container}>
 
               <View style={styles.modal}>
-                {/* <TouchableOpacity
-                  onPress={() => {
-                    this.setLoginModalVisible(!this.state.loginModalVisible);
-                  }}>
-                  <Text>X</Text>
-                </TouchableOpacity> */}
                 <TextInput
                   style={styles.textBox} 
                   placeholder='Username' 
