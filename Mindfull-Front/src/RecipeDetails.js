@@ -96,19 +96,23 @@ class RecipeDetails extends Component {
     console.log('WHAT IS HEREEEE', this.state.recipe)
 
     return (
-
-      <ScrollView contentContainerStyle={styles.container}>
-     
-      <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}> {this.state.recipe.food} {'\n'}</Text>
       <View style={styles.container}>
-      </View>
+
+      <ScrollView>
+     
+      
+   
       
       {/* <View style={styles.heading}>
+  
       
       <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}> {'\n'} {this.state.recipe.food} {'\n'}</Text> */}
+      
+      <View style={styles.container}>
       <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}> {'\n'} {this.state.recipe.food} {'\n'}</Text> 
       <Image source={{uri: this.state.recipe.image}}
        style={{width: 200, height: 200}}/>
+       </View>
 
       
       {/* <Text>Recipe Details{'\n'}</Text>
@@ -133,6 +137,7 @@ class RecipeDetails extends Component {
       </View>
 
       </ScrollView>
+      </View>
 
 
     );

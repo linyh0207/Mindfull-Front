@@ -274,24 +274,18 @@ setModalVisible(visible) {
     <View style={styles.container}> 
 
       <View style={styles.navbar}>
-        <Button
-        buttonStyle={{marginRight: 60}}
-        color='black'
-        title="My Ingredients"
-        textStyle={{fontFamily: 'HelveticaNeue-Light'}}
+      <TouchableHighlight
           onPress={() => {
             this.setModalVisible(true);
-          }}
-          
-        />
-        <Button 
-          buttonStyle={{marginLeft: 60}}
-          color='black'
-          title="Favorite Recipes"
-          
-          textStyle={{fontFamily: 'HelveticaNeue-Light'}}
-          onPress={() => this.props.navigation.navigate('FavoriteRecipes', {favorite: this.state.favorite})}
-        />
+          }}>
+          <Text style={{color: 'black', fontSize: 22, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>MY INGREDIENTS | </Text>
+        </TouchableHighlight>
+        
+        <TouchableHighlight
+          onPress={() => this.props.navigation.navigate('FavoriteRecipes', {favorite: this.state.favorite})}>
+          <Text style={{color: 'black', fontSize: 22, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>FAVOURITE RECIPES</Text>
+        </TouchableHighlight>
+        
       </View> 
 
     <View>
