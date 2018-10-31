@@ -10,7 +10,7 @@ class LogoTitle extends React.Component {
         source={require('../images/icon.png')}
         style={{ width: 30, height: 30 }}
       />
-      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontWeight: 'bold'}}>Barcode Scanner</Text>
+      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontWeight: '500', fontFamily: 'HelveticaNeue-Medium'}}>Barcode Scanner</Text>
       </View>
     );
   }
@@ -89,11 +89,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
     backgroundColor: '#ecf0f1',
+    fontFamily: 'HelveticaNeue-Light'
   },
   paragraph: {
     margin: 24,
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: 'HelveticaNeue-Light',
     textAlign: 'center',
     color: '#34495e',
   },

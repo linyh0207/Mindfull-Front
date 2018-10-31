@@ -113,7 +113,7 @@ class CameraResult extends Component {
           color='black'
           title="Add to Ingredients"
           buttonStyle={{backgroundColor: 'rgb(250,188,87)', borderRadius: 10, padding: 10, marginBottom: 20, width: 300}}
-          textStyle={{textAlign: 'center'}}
+          textStyle={{textAlign: 'center', fontFamily: 'HelveticaNeue-Medium'}}
           onPress={() => this.props.navigation.navigate('Search',{onNavigateBack: this.props.navigation.state.params.onNavigateBack(this.state.selected)})}
         />
           {/* onPress={() => this.props.navigation.navigate('Search', {onNavigateBack: this.props.navigation.state.params.onNavigateBack(this.state.selected)})} */}

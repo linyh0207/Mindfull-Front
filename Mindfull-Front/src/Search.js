@@ -13,7 +13,6 @@ import {
   FlatList,
   Modal
 } from 'react-native';
-import Octicon from 'react-native-vector-icons/Ionicons';
 import { 
   SearchBar,
   Icon
@@ -31,7 +30,7 @@ class LogoTitle extends React.Component {
         source={require('../images/icon.png')}
         style={{ width: 30, height: 30 }}
       />
-      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontWeight: 'bold'}}>Search</Text>
+      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontFamily: 'HelveticaNeue-Medium', fontWeight: '500'}}>Search</Text>
       </View>
     );
   }
@@ -69,7 +68,7 @@ class Search extends React.Component {
       ingredients.push(select)
     })
     this.setState({ingredients : ingredients})
-    console.log("HELLLO",this.state.ingredients)
+    
     
   }
 
@@ -77,7 +76,7 @@ class Search extends React.Component {
     let ingredients = this.state.ingredients
       ingredients.push(barcode)
     this.setState({ingredients : ingredients})
-    console.log("handleOnNavigateBackFromScanner",this.state.ingredients)
+    
     
   }
 
@@ -108,18 +107,9 @@ class Search extends React.Component {
     return (
       <View style={styles.container}>
   
-        {this.state.ingredients.map(item => {
-          return (
-            <View style={{backgroundColor: 'pink', width: 200, padding: 10, margin: 10}} key={item}>
-              <Text style={{fontSize: 20}}>{item}</Text>
-              <TouchableOpacity onPress={() => {this.deleteItem(item)}}>
-                <Icon name="delete" size={24} color="white" />
-              </TouchableOpacity>
-            </View>
-          )
-        })}
+        
 
-        <Text style={{color: 'white', margin: 20, fontSize: 24}}>Welcome, {this.props.navigation.state.params.username}</Text>
+        <Text style={{color: 'white', margin: 20, fontSize: 24, fontFamily: 'HelveticaNeue-Medium'}}>Welcome, {this.props.navigation.state.params.username}</Text>
 
         <View style={styles.mainComponent}>
         
@@ -129,6 +119,7 @@ class Search extends React.Component {
           <SearchBar
           
             value={this.state.text.toLowerCase()}
+            lightTheme
             round
             searchIcon={{ size: 24 }}
             inputStyle={{backgroundColor: 'white'}}
@@ -153,14 +144,14 @@ class Search extends React.Component {
             <View style={styles.indexButton}>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate('ObjectRecognition', {onNavigateBack: this.handleOnNavigateBack.bind(this)})}>
-              <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>Food Recognition</Text>
+              <Text style={{fontSize: 18, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue-Medium'}}>Food Recognition</Text>
             </TouchableOpacity>
             </View>
             
             <View style={styles.indexButton}>
             <TouchableOpacity
             onPress={() => this.props.navigation.navigate('BarcodeScanner',{onNavigateBack: this.handleOnNavigateBackFromScanner.bind(this)})}>
-            <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>Barcode Scanner</Text>
+            <Text style={{fontSize: 18, color: 'white', textAlign: 'center',fontFamily: 'HelveticaNeue-Medium'}}>Barcode Scanner</Text>
           </TouchableOpacity>
           </View>
             </View>
@@ -173,16 +164,16 @@ class Search extends React.Component {
             
               navigate('Recipes',{ingredients: this.state.ingredients})}
             }>
-            <Text style={{fontSize: 20, color: 'white', textAlign: 'center'}}>Submit</Text>
+            <Text style={{fontSize: 20, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue-Medium'}}>Submit</Text>
           </TouchableOpacity> 
           </View>
 
-          <View style={styles.container}>
+          {/* <View style={styles.container}>
         <FlatList
         data={this.state.ingredients}
         renderItem={({ item }) => (
           <View style={styles.lozenges}>
-          <Text style={{fontSize: 20}}>{item}</Text>
+          <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Medium'}}>{item}</Text>
           <TouchableOpacity
         onPress={() => {this.deleteItem(item)}}>
           <Icon name="delete" size={24} color="#8C8B8B" />
@@ -191,6 +182,19 @@ class Search extends React.Component {
       )}
         keyExtractor={(item, index) => index.toString()}
       />
+      </View> */}
+
+      <View style={styles.lozengeContainer}>
+      {this.state.ingredients.map(item => {
+          return (
+            <View style={styles.lozenges} key={item}>
+              <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}>{item}</Text>
+              <TouchableOpacity onPress={() => {this.deleteItem(item)}}>
+                <Icon name="delete" size={24} color="#8C8B8B" />
+              </TouchableOpacity>
+            </View>
+          )
+        })}
       </View>
         
   </View>
@@ -273,7 +277,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderRadius: 10, 
-    
+  },
+  lozengeContainer: {
+    flex: 1,
+    backgroundColor: 'rgb(180,227,120)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   
 
