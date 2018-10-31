@@ -6,6 +6,7 @@ import {
   Button,
   FlatList,
   TouchableHighlight,
+  TouchableOpacity,
   Image,
   ScrollView,
   Modal,
@@ -321,24 +322,18 @@ setModalVisible(visible) {
     <View style={styles.container}> 
 
       <View style={styles.navbar}>
-        <Button
-        buttonStyle={{marginRight: 60}}
-        color='black'
-        title="My Ingredients"
-        textStyle={{fontFamily: 'HelveticaNeue-Light'}}
+      <TouchableHighlight
           onPress={() => {
             this.setModalVisible(true);
-          }}
-          
-        />
-        <Button 
-          buttonStyle={{marginLeft: 60}}
-          color='black'
-          title="Favorite Recipes"
-          
-          textStyle={{fontFamily: 'HelveticaNeue-Light'}}
-          onPress={() => this.props.navigation.navigate('FavoriteRecipes', {favorite: this.state.favorite})}
-        />
+          }}>
+          <Text style={{color: 'black', fontSize: 22, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>MY INGREDIENTS | </Text>
+        </TouchableHighlight>
+        
+        <TouchableHighlight
+          onPress={() => this.props.navigation.navigate('FavoriteRecipes', {favorite: this.state.favorite})}>
+          <Text style={{color: 'black', fontSize: 22, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>FAVOURITE RECIPES</Text>
+        </TouchableHighlight>
+        
       </View> 
 
     <View>
@@ -388,29 +383,31 @@ setModalVisible(visible) {
           return (
             <Card image={{uri: `${item.image}`}} key={item.id}>
       
-              <View style={{ backgroundColor: 'white', padding: 10 }}>
+              {/* <View style={{ backgroundColor: 'white', padding: 5, flexDirection: 'row' }}> */}
             
 
               <Button 
                 raised
                 color='black'
                 title={item.food}
-                buttonStyle={{ marginBottom: 20, width: 300}}
+                buttonStyle={{ marginBottom: 20, width: 280}}
                 textStyle={{textAlign: 'center', fontFamily: 'HelveticaNeue-Light'}}
                 onPress={
                   this.getRecipeDetails.bind(null, item) 
                 }
               />
-  
-              <Button 
-                onPress={
-                  this.changeHeartColor.bind(null, item)
-                }
-                title='♥'
-                color={item.color}
-                size={20}
-              />
+
+              <View>
+                <TouchableOpacity
+                  onPress={
+                    this.changeHeartColor.bind(null, item)
+                  }>
+                  <Text style={{fontSize: 32, color: `${item.color}`}}>♥</Text>
+                </TouchableOpacity>
               </View>
+  
+
+              {/* </View> */}
              
             </Card>
           );

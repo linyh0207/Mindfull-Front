@@ -17,7 +17,7 @@ class LogoTitle extends React.Component {
         source={require('../images/icon.png')}
         style={{ width: 30, height: 30 }}
       />
-      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontFamily:'HelveticaNeue-Medium', fontWeight: 500}}>Food Recognition</Text>
+      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontFamily:'HelveticaNeue-Medium'}}>Food Recognition</Text>
       </View>
     );
   }

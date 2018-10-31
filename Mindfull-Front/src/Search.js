@@ -184,7 +184,10 @@ class Search extends React.Component {
         style={styles.container}
         behavior="padding"
       >
+<<<<<<< HEAD
 
+=======
+>>>>>>> b90d017da1bb2b5388679ef7c2ecf9f91fc147de
       <View style={styles.lozengeContainer}>
       {this.state.ingredients.map(item => {
           return (
@@ -263,7 +266,7 @@ const styles = StyleSheet.create({
     width: 150, 
     padding: 5,
     marginLeft: 130,
-    marginTop: 20,
+    marginTop: 20
   },
   twoButtons: {
     flexDirection: 'row',

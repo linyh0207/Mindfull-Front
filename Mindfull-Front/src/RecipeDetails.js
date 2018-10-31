@@ -10,9 +10,9 @@ import {
   Header
 } from 'react-native';
 import { 
-  Card,
-  Icon
+  Card
 } from 'react-native-elements';
+
 
 class LogoTitle extends React.Component {
   render() {
@@ -96,14 +96,23 @@ class RecipeDetails extends Component {
     console.log('WHAT IS HEREEEE', this.state.recipe)
 
     return (
+      <View style={styles.container}>
 
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView>
      
-
-      <Text>Recipe Details{'\n'}</Text>
-      <Text> {this.state.recipe.food} {'\n'}</Text>
+      
+   
+      
+      {/* <View style={styles.heading}>
+  
+      
+      <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}> {'\n'} {this.state.recipe.food} {'\n'}</Text> */}
+      
+      <View style={styles.container}>
+      <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}> {'\n'} {this.state.recipe.food} {'\n'}</Text> 
       <Image source={{uri: this.state.recipe.image}}
        style={{width: 200, height: 200}}/>
+       </View>
 
       
       {/* <Text>Recipe Details{'\n'}</Text>
@@ -111,21 +120,24 @@ class RecipeDetails extends Component {
       <Image source={{uri: this.state.recipe.image}}
        style={{width: 200, height: 200, justifyContent: 'center', alignItems: 'center'}}/> */}
       <View style={styles.heading}>
-      <Text> {'\n'} Ingredients </Text>
+      <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}> {'\n'} Ingredients </Text>
       </View>
       
+      <Card>
       {this.state.recipe.ingredients && this.state.recipe.ingredients.map(item => {
         return(
-          <Text key={item}>{'\n'}• {item}</Text>
+          <Text key={item} style={{fontSize: 15, fontFamily: 'HelveticaNeue-Light', padding: 5}}>{'\n'}• {item}</Text>
         )
       })}
+      </Card>
 
       <View style={styles.heading}>
       <Text>{'\n'}</Text>
-      <Text onPress={this.handleClick}> Click here for Instructions </Text>      
+      <Text onPress={this.handleClick} style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}> Click here for Instructions {'\n'}{'\n'}</Text>      
       </View>
 
       </ScrollView>
+      </View>
 
 
     );
