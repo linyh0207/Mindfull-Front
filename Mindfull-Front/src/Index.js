@@ -70,8 +70,8 @@ class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: '',
+      username: 'Mandy',
+      password: '12345',
       modalVisible: false,
       loginModalVisible: false,
     }
@@ -167,7 +167,7 @@ class Index extends React.Component {
                 
                 <TextInput onChangeText = {(password) => this.setState({password})} 
                   style={styles.textBox} placeholder='Password'
-                  value = {this.state.pass} 
+                  value = {this.state.password} 
                   secureTextEntry = {true} 
                 />
 
