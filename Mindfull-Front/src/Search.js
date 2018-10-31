@@ -184,10 +184,7 @@ class Search extends React.Component {
         style={styles.container}
         behavior="padding"
       >
-<<<<<<< HEAD
 
-=======
->>>>>>> b90d017da1bb2b5388679ef7c2ecf9f91fc147de
       <View style={styles.lozengeContainer}>
       {this.state.ingredients.map(item => {
           return (
