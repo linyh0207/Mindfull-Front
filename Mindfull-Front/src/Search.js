@@ -11,7 +11,8 @@ import {
   Image,
   AsyncStorage,
   FlatList,
-  Modal
+  Modal,
+  KeyboardAvoidingView
 } from 'react-native';
 import { 
   SearchBar,
@@ -39,13 +40,9 @@ class LogoTitle extends React.Component {
 
 class Search extends React.Component {
   static navigationOptions = {
-    
-    
     headerTintColor: 'white',
-
     headerTitle: (
-      <LogoTitle />
-      
+      <LogoTitle />   
     ),
   };
   constructor(props) {
@@ -183,7 +180,10 @@ class Search extends React.Component {
         keyExtractor={(item, index) => index.toString()}
       />
       </View> */}
-
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior="padding"
+      >
       <View style={styles.lozengeContainer}>
       {this.state.ingredients.map(item => {
           return (
@@ -196,7 +196,7 @@ class Search extends React.Component {
           )
         })}
       </View>
-        
+      </KeyboardAvoidingView>
   </View>
 
 
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
     width: 150, 
     padding: 5,
     marginLeft: 130,
-    marginTop: 20,
+    marginTop: 20
   },
   twoButtons: {
     flexDirection: 'row',

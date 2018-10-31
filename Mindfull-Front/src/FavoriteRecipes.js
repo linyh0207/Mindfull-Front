@@ -21,7 +21,7 @@ class LogoTitle extends React.Component {
         source={require('../images/icon.png')}
         style={{ width: 30, height: 30 }}
       />
-      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontWeight: 'bold'}}>Recipe Details</Text>
+      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontWeight: 'bold'}}>Favortie Recipes</Text>
       </View>
     );
   }
@@ -29,13 +29,15 @@ class LogoTitle extends React.Component {
 
 class FavoriteRecipes extends Component {
   static navigationOptions = {
-    
-    
+    headerBackground: (
+      <Image
+        source={require('../images/header.jpg')}
+        style={{height: 70}}
+      />
+    ),
     headerTintColor: 'white',
-
     headerTitle: (
-      <LogoTitle />
-      
+      <LogoTitle /> 
     ),
   };
 
@@ -54,9 +56,9 @@ class FavoriteRecipes extends Component {
     const { navigate } = this.props.navigation;
     return (
       
-      <View style={styles.container}>
-      <ScrollView>
-       <Text>Favorite Recipes</Text>
+      <ScrollView contentContainerStyle={styles.container}>
+
+
       {this.props.navigation.state.params.favorite.map(item => {
         return (
           <Card image={{uri: `${item.image}`}} key={item.id}>
@@ -72,7 +74,7 @@ class FavoriteRecipes extends Component {
         );
       })}
       </ScrollView>
-      </View>
+    
     )
   };
 };
