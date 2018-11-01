@@ -5,7 +5,6 @@ import {
   View,
   Button,
   FlatList,
-  TouchableHighlight,
   TouchableOpacity,
   Image,
   ScrollView,
@@ -322,17 +321,19 @@ setModalVisible(visible) {
     <View style={styles.container}> 
 
       <View style={styles.navbar}>
-      <TouchableHighlight
-          onPress={() => {
-            this.setModalVisible(true);
-          }}>
-          <Text style={{color: 'black', fontSize: 22, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>MY INGREDIENTS | </Text>
-        </TouchableHighlight>
+      <TouchableOpacity
+        onPress={() => {
+          this.setModalVisible(true);
+        }}>
+        {/* <Icon name="shopping-cart"/> */}
+        <Text style={{color: 'black', fontSize: 18, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>MY INGREDIENTS 🛒       | </Text>
+      </TouchableOpacity>
         
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={() => this.props.navigation.navigate('FavoriteRecipes', {favorite: this.state.favorite})}>
-          <Text style={{color: 'black', fontSize: 22, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>FAVOURITE RECIPES</Text>
-        </TouchableHighlight>
+          
+          <Text style={{color: 'black', fontSize: 18, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>    MY FAVOURITES 🖤</Text>
+        </TouchableOpacity>
         
       </View> 
 
@@ -361,12 +362,12 @@ setModalVisible(visible) {
           </View>
       
       <View style={styles.exitButton}>
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={() => {
             this.setModalVisible(!this.state.modalVisible);
           }}>
           <Text style={{color: 'white', fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}>EXIT</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -390,7 +391,7 @@ setModalVisible(visible) {
                 raised
                 color='black'
                 title={item.food}
-                buttonStyle={{ marginBottom: 20, width: 280}}
+                buttonStyle={{ width: 280}}
                 textStyle={{textAlign: 'center', fontFamily: 'HelveticaNeue-Light'}}
                 onPress={
                   this.getRecipeDetails.bind(null, item) 
@@ -441,7 +442,7 @@ const styles = StyleSheet.create({
     padding: 20, 
     width: 300, 
     height: 300,
-    backgroundColor: 'rgb(180,227,120)', 
+    backgroundColor: 'rgb(110,128,80)', 
     justifyContent: 'center',
     justifyContent: 'space-between',
     alignItems: 'center',

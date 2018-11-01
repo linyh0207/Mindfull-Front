@@ -127,7 +127,7 @@ class ObjectRecognition extends React.Component {
                 style={{
                   flex: 0.1,
                   alignItems: 'center',
-                  backgroundColor: '#8C8B8B',
+                  backgroundColor: 'rgb(110,128,80)',
                   height: '10%',
                 }}
                 onPress={this.objectDetection}

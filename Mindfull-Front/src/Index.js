@@ -85,10 +85,10 @@ class Index extends React.Component {
     this.setState({loginModalVisible: visible});
   }
 
-  componentDidMount() {
-    console.log('REGISTER', registerForPushNotificationsAsync, PUSH_ENDPOINT)
-    registerForPushNotificationsAsync().then(val => console.log(val))
-  }
+  // componentDidMount() {
+  //   console.log('REGISTER', registerForPushNotificationsAsync, PUSH_ENDPOINT)
+  //   registerForPushNotificationsAsync().then(val => console.log(val))
+  // }
   
   render() {
     const { navigate } = this.props.navigation;
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     marginTop: 400,
   },
   indexButton: {
-    backgroundColor: 'rgb(180,227,120)',
+    backgroundColor: 'rgb(110,128,80)',
     borderWidth: 1,
     borderColor: 'white',
     width: 150, 
