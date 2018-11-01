@@ -275,15 +275,17 @@ setModalVisible(visible) {
 
       <View style={styles.navbar}>
       <TouchableHighlight
-          onPress={() => {
-            this.setModalVisible(true);
-          }}>
-          <Text style={{color: 'black', fontSize: 22, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>MY INGREDIENTS | </Text>
-        </TouchableHighlight>
+        onPress={() => {
+          this.setModalVisible(true);
+        }}>
+        {/* <Icon name="shopping-cart"/> */}
+        <Text style={{color: 'black', fontSize: 15, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>MY INGREDIENTS 🛒        | </Text>
+      </TouchableHighlight>
         
         <TouchableHighlight
           onPress={() => this.props.navigation.navigate('FavoriteRecipes', {favorite: this.state.favorite})}>
-          <Text style={{color: 'black', fontSize: 22, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>FAVOURITE RECIPES</Text>
+          
+          <Text style={{color: 'black', fontSize: 15, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>     FAVOURITE RECIPES 🖤</Text>
         </TouchableHighlight>
         
       </View> 
