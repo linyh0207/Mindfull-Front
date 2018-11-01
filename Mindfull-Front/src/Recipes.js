@@ -5,7 +5,6 @@ import {
   View,
   Button,
   FlatList,
-  TouchableHighlight,
   TouchableOpacity,
   Image,
   ScrollView,
@@ -322,19 +321,19 @@ setModalVisible(visible) {
     <View style={styles.container}> 
 
       <View style={styles.navbar}>
-      <TouchableHighlight
+      <TouchableOpacity
         onPress={() => {
           this.setModalVisible(true);
         }}>
         {/* <Icon name="shopping-cart"/> */}
-        <Text style={{color: 'black', fontSize: 15, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>MY INGREDIENTS 🛒        | </Text>
-      </TouchableHighlight>
+        <Text style={{color: 'black', fontSize: 18, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>MY INGREDIENTS 🛒       | </Text>
+      </TouchableOpacity>
         
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={() => this.props.navigation.navigate('FavoriteRecipes', {favorite: this.state.favorite})}>
           
-          <Text style={{color: 'black', fontSize: 15, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>     FAVOURITE RECIPES 🖤</Text>
-        </TouchableHighlight>
+          <Text style={{color: 'black', fontSize: 18, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>    MY FAVOURITES 🖤</Text>
+        </TouchableOpacity>
         
       </View> 
 
@@ -363,12 +362,12 @@ setModalVisible(visible) {
           </View>
       
       <View style={styles.exitButton}>
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={() => {
             this.setModalVisible(!this.state.modalVisible);
           }}>
           <Text style={{color: 'white', fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}>EXIT</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
         </View>
       </View>
     </View>
