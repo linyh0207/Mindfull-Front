@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     marginTop: 400,
   },
   indexButton: {
-    backgroundColor: 'rgb(180,227,120)',
+    backgroundColor: 'rgb(110,128,80)',
     borderWidth: 1,
     borderColor: 'white',
     width: 150, 

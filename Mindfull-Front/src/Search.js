@@ -189,7 +189,7 @@ class Search extends React.Component {
       {this.state.ingredients.map(item => {
           return (
             <View style={styles.lozenges} key={item}>
-              <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}>{item}</Text>
+              <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light', color: '#8C8B8B'}}>{item}</Text>
               <TouchableOpacity onPress={() => {this.deleteItem(item)}}>
                 <Icon name="delete" size={24} color="#8C8B8B" />
               </TouchableOpacity>
@@ -214,7 +214,7 @@ class Search extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgb(180,227,120)',
+    backgroundColor: 'rgb(110,128,80)',
     justifyContent: 'center',
     
   },
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     paddingTop: 10, 
     paddingBottom: 10,
-    backgroundColor: 'rgb(180,227,120)', 
+    backgroundColor: 'rgb(110,128,80)', 
     borderRadius: 10,
   },
   searchComponent: {
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
   },
   mainComponent: {
     width: 300, 
-    backgroundColor: 'rgb(180,227,120)', 
+    backgroundColor: 'rgb(110,128,80)', 
     borderWidth: 4,
     borderColor: 'white',
     justifyContent: 'center',
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
 
   },
   indexButton: {
-    backgroundColor: 'rgb(180,227,120)',
+    backgroundColor: 'rgb(110,128,80)',
     borderTopWidth: 1,
     borderRightWidth: 1,
     borderColor: 'white',
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
     paddingRight: 20, 
   },
   submitButton: {
-    backgroundColor: 'rgb(180,227,120)',
+    backgroundColor: 'rgb(110,128,80)',
     borderWidth: 1,
     borderColor: 'white',
     width: 150, 
@@ -269,19 +269,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   lozenges: {
-    backgroundColor: 'rgba(255,255,255,0.9)', 
-    // color: '#8C8B8B',  // Hmn, not sure what this was SUPPOSED to do, but it's not doing anything
+    backgroundColor: 'rgba(255,255,255,0.9)',  
     width: 150, 
     height: 40,
     padding: 5, 
-    margin: 5,
+    margin: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderRadius: 10, 
   },
   lozengeContainer: {
     flex: 1,
-    backgroundColor: 'rgb(180,227,120)',
+    backgroundColor: 'rgb(110,128,80)',
     justifyContent: 'center',
     alignItems: 'center',
   },
