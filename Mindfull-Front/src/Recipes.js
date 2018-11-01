@@ -10,12 +10,14 @@ import {
   Image,
   ScrollView,
   Modal,
-  
 } from 'react-native';
 import { 
   Icon,
   Card
 } from 'react-native-elements';
+import {
+  Notifications,
+} from 'expo';
 
 
 class LogoTitle extends React.Component {
@@ -65,6 +67,52 @@ class Recipes extends Component {
   }
 
   componentDidMount = () => {  
+
+    const PUSH_ENDPOINT = 'http://192.168.88.99:3000/push-token';
+
+    async function registerForPushNotificationsAsync() {
+      const { status: existingStatus } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS
+      );
+      let finalStatus = existingStatus;
+    
+      // only ask if permissions have not already been determined, because
+      // iOS won't necessarily prompt the user a second time.
+      if (existingStatus !== 'granted') {
+        // Android remote notification permissions are granted during the app
+        // install, so this will only ask on iOS
+        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+        finalStatus = status;
+      }
+    
+      // Stop here if the user did not grant permissions
+      if (finalStatus !== 'granted') {
+        return;
+      }
+    
+      // Get the token that uniquely identifies this device
+      let token = await Notifications.getExpoPushTokenAsync();
+    
+      // POST the token to your backend server from where you can retrieve it to send push notifications.
+      return fetch(PUSH_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          token: {
+            value: token,
+          },
+          user: {
+            username: 'Brent',
+          },
+        }),
+      });
+    }
+
+
+
     let ingredients = this.props.navigation.state.params.ingredients
     let url = `https://api.yummly.com/v1/api/recipes?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
     let recipeUrl = `https://api.yummly.com/v1/api/recipe/${this.state.list.id}?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`

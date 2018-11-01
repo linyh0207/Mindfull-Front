@@ -21,7 +21,7 @@ class LogoTitle extends React.Component {
         source={require('../images/icon.png')}
         style={{ width: 30, height: 30 }}
       />
-      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontWeight: 'bold'}}>Favortie Recipes</Text>
+      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontWeight: 'bold'}}>Favorite Recipes</Text>
       </View>
     );
   }

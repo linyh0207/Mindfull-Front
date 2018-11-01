@@ -184,6 +184,7 @@ class Search extends React.Component {
         style={styles.container}
         behavior="padding"
       >
+
       <View style={styles.lozengeContainer}>
       {this.state.ingredients.map(item => {
           return (
