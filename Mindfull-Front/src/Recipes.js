@@ -342,7 +342,7 @@ setModalVisible(visible) {
                 raised
                 color='black'
                 title={item.food}
-                buttonStyle={{ marginBottom: 20, width: 280}}
+                buttonStyle={{ width: 280}}
                 textStyle={{textAlign: 'center', fontFamily: 'HelveticaNeue-Light'}}
                 onPress={
                   this.getRecipeDetails.bind(null, item) 
@@ -393,7 +393,7 @@ const styles = StyleSheet.create({
     padding: 20, 
     width: 300, 
     height: 300,
-    backgroundColor: 'rgb(180,227,120)', 
+    backgroundColor: 'rgb(110,128,80)', 
     justifyContent: 'center',
     justifyContent: 'space-between',
     alignItems: 'center',
