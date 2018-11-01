@@ -40,6 +40,12 @@ class LogoTitle extends React.Component {
 
 class Search extends React.Component {
   static navigationOptions = {
+    headerBackground: (
+      <Image
+        source={require('../images/header.jpg')}
+        style={{height: 70}}
+      />
+    ),
     headerTintColor: 'white',
     headerTitle: (
       <LogoTitle />   

@@ -43,6 +43,12 @@ function getImageForRecipe(listId, apiId, apiKey){
 class Recipes extends Component {
   static navigationOptions = {
     headerTintColor: 'white',
+    headerBackground: (
+      <Image
+        source={require('../images/header.jpg')}
+        style={{height: 70}}
+      />
+    ),
     headerTitle: (
       <LogoTitle />
     ),
