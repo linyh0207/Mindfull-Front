@@ -48,10 +48,10 @@ export default class BarcodeScanner extends Component {
       this.setState({
         barcode: "butter",
       })
-      if(data.data === '0066096123399'){
+      if(data.data === '0068700123405'){
         Alert.alert(
           "It's a ...",
-          'Butter!',
+          'Milk!',
           [
             {text: 'Add Ingredient', onPress: () => this.props.navigation.navigate('Search',{onNavigateBack: this.props.navigation.state.params.onNavigateBack(this.state.barcode)})},
           ],
