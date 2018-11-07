@@ -3,16 +3,13 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   Image,
   Linking,
-  ScrollView,
-  Header
+  ScrollView
 } from 'react-native';
 import { 
   Card
 } from 'react-native-elements';
-
 
 class LogoTitle extends React.Component {
   render() {
@@ -57,13 +54,11 @@ class RecipeDetails extends Component {
 
   componentDidMount = () => { 
     let recipeUrl = `https://api.yummly.com/v1/api/recipe/${this.props.navigation.state.params.recipe}?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
-
     fetch(`${recipeUrl}`, {
        method: 'GET'
     })
     .then(response => response.json())
     .then((responseJson) => {
-          
         let newList ={
         food: responseJson.name,
         image: responseJson.images[0].hostedLargeUrl,
@@ -89,57 +84,31 @@ class RecipeDetails extends Component {
     });
   };
 
-
   render() {
-    // const { navigate } = this.props.navigation;
-
-    console.log('WHAT IS HEREEEE', this.state.recipe)
-
     return (
       <View style={styles.container}>
-
-      <ScrollView>
-     
-      
-   
-      
-      {/* <View style={styles.heading}>
-  
-      
-      <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}> {'\n'} {this.state.recipe.food} {'\n'}</Text> */}
-      
-      <View style={styles.container}>
-      <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}> {'\n'} {this.state.recipe.food} {'\n'}</Text> 
-      <Image source={{uri: this.state.recipe.image}}
-       style={{width: 200, height: 200}}/>
-       </View>
-
-      
-      {/* <Text>Recipe Details{'\n'}</Text>
-      <Text> {this.state.recipe.food} {'\n'}</Text>
-      <Image source={{uri: this.state.recipe.image}}
-       style={{width: 200, height: 200, justifyContent: 'center', alignItems: 'center'}}/> */}
-      <View style={styles.heading}>
-      <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}> {'\n'} Ingredients </Text>
+        <ScrollView>
+        <View style={styles.container}>
+          <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}> {'\n'} {this.state.recipe.food} {'\n'}</Text> 
+          <Image source={{uri: this.state.recipe.image}}
+          style={{width: 200, height: 200}}/>
+        </View>
+        <View style={styles.heading}>
+          <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}> {'\n'} Ingredients </Text>
+        </View>
+        <Card>
+          {this.state.recipe.ingredients && this.state.recipe.ingredients.map(item => {
+            return(
+              <Text key={item} style={{fontSize: 15, fontFamily: 'HelveticaNeue-Light', padding: 5}}>{'\n'}• {item}</Text>
+            )
+          })}
+        </Card>
+        <View style={styles.heading}>
+          <Text>{'\n'}</Text>
+          <Text onPress={this.handleClick} style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}> Click here for Instructions {'\n'}{'\n'}</Text>      
+        </View>
+        </ScrollView>
       </View>
-      
-      <Card>
-      {this.state.recipe.ingredients && this.state.recipe.ingredients.map(item => {
-        return(
-          <Text key={item} style={{fontSize: 15, fontFamily: 'HelveticaNeue-Light', padding: 5}}>{'\n'}• {item}</Text>
-        )
-      })}
-      </Card>
-
-      <View style={styles.heading}>
-      <Text>{'\n'}</Text>
-      <Text onPress={this.handleClick} style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light'}}> Click here for Instructions {'\n'}{'\n'}</Text>      
-      </View>
-
-      </ScrollView>
-      </View>
-
-
     );
   };
 };

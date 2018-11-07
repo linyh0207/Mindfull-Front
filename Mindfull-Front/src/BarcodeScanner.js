@@ -18,13 +18,9 @@ class LogoTitle extends React.Component {
 
 export default class BarcodeScanner extends Component {
   static navigationOptions = {
-    
-    
     headerTintColor: 'white',
-
     headerTitle: (
       <LogoTitle />
-      
     ),
   };
   state = {
@@ -48,17 +44,15 @@ export default class BarcodeScanner extends Component {
       this.setState({
         barcode: "butter",
       })
-      if(data.data === '0068700123405'){
+      if(data.data === '0066096123399'){
         Alert.alert(
           "It's a ...",
-          'Milk!',
+          'Butter!',
           [
             {text: 'Add Ingredient', onPress: () => this.props.navigation.navigate('Search',{onNavigateBack: this.props.navigation.state.params.onNavigateBack(this.state.barcode)})},
           ],
           { cancelable: false }
         )
-    } else {
-
     };
   }
 };

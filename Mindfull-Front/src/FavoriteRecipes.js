@@ -10,7 +10,6 @@ import {
 import { 
   Card
 } from 'react-native-elements';
-import { createStackNavigator } from 'react-navigation';
 
 
 class LogoTitle extends React.Component {
@@ -55,10 +54,7 @@ class FavoriteRecipes extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      
       <ScrollView contentContainerStyle={styles.container}>
-
-
       {this.props.navigation.state.params.favorite.map(item => {
         return (
           <Card image={{uri: `${item.image}`}} key={item.id}>
@@ -74,11 +70,9 @@ class FavoriteRecipes extends Component {
         );
       })}
       </ScrollView>
-    
     )
   };
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -91,8 +85,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  
 });
-
 
 export default FavoriteRecipes;

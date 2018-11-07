@@ -9,6 +9,7 @@ const clarifai = new Clarifai.App({
 });
 process.nextTick = setImmediate;
 
+
 class LogoTitle extends React.Component {
   render() {
     return (
@@ -26,13 +27,9 @@ class LogoTitle extends React.Component {
 
 class ObjectRecognition extends React.Component {
   static navigationOptions = {
-    
-    
     headerTintColor: 'white',
-
     headerTitle: (
       <LogoTitle />
-      
     ),
   };
 
@@ -40,6 +37,7 @@ class ObjectRecognition extends React.Component {
     hasCameraPermission: null,
     predictions: [],
   };
+
   async componentWillMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
@@ -72,7 +70,7 @@ class ObjectRecognition extends React.Component {
     let concepts = predictions.outputs[0].data.concepts
 
     concepts.forEach(function(element) {
-      if (element.value >= 0.95){
+      if (element.value >= 0.85){
         console.log(element.name);
       } 
     });
@@ -114,14 +112,6 @@ class ObjectRecognition extends React.Component {
                   alignItems: 'center',
                 }}
               >
-                {/* <FlatList
-                  data={predictions.map(prediction => ({
-                    key: `${prediction.name} ${prediction.value}`,
-                  }))}
-                  renderItem={({ item }) => (
-                    <Text style={{ paddingLeft: 15, color: 'white', fontSize: 20 }}>{item.key}</Text>
-                  )}
-                /> */}
               </View>
               <TouchableOpacity
                 style={{
@@ -140,20 +130,17 @@ class ObjectRecognition extends React.Component {
             </View>
           </Camera>
         </View>
-        
       );
     }
   }
 }
 
 const styles = StyleSheet.create({
-
   logoTitle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
 });
-
 
 
 export default ObjectRecognition;

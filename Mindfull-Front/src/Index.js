@@ -2,21 +2,18 @@ import React, { Component } from 'react';
 import { 
   Text,
   View,
-  Button,
   TextInput,
   StyleSheet,
   Modal,
   TouchableOpacity,
   ImageBackground,
-  Image,
-  AsyncStorage
+  Image
 } from 'react-native';
 import { Permissions, Notifications } from 'expo';
 
 
 
 class Index extends React.Component {
-  
   static navigationOptions = {
     headerBackground: (
       <Image
@@ -25,6 +22,7 @@ class Index extends React.Component {
       />
     ),
   };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -43,20 +41,15 @@ class Index extends React.Component {
     this.setState({loginModalVisible: visible});
   }
 
-  
-  
   render() {
     const { navigate } = this.props.navigation;
-    // console.log(this.state.username)
-    // console.log(this.state.password)
     return (
       <ImageBackground
       source={require('../images/background5.jpg')}
       imageStyle={{resizeMode: 'stretch'}}
       style={styles.container}
-    >
+      >
       <View style={styles.container}>
-
           <View >
             <Modal
               animationType="slide"
@@ -101,31 +94,26 @@ class Index extends React.Component {
                 </TouchableOpacity>
               </View>
             </View>
-
-
-      <View>
+        <View>
           <Modal
             animationType="slide"
             transparent={false}
             visible={this.state.loginModalVisible}
           >
-            <ImageBackground source={require('../images/header.jpg')}
-              style={styles.container}>
-
-              <View style={styles.modal}>
-                <TextInput
-                  style={styles.textBox} 
-                  placeholder='Username' 
-                  onChangeText={(username) => this.setState({username})}
-                  value={this.state.username}
-                />
-                
-                <TextInput onChangeText = {(password) => this.setState({password})} 
-                  style={styles.textBox} placeholder='Password'
-                  value = {this.state.password} 
-                  secureTextEntry = {true} 
-                />
-
+    <ImageBackground source={require('../images/header.jpg')}
+      style={styles.container}>
+                <View style={styles.modal}>
+                  <TextInput
+                    style={styles.textBox} 
+                    placeholder='Username' 
+                    onChangeText={(username) => this.setState({username})}
+                    value={this.state.username}
+                  />
+                  <TextInput onChangeText = {(password) => this.setState({password})} 
+                    style={styles.textBox} placeholder='Password'
+                    value = {this.state.password} 
+                    secureTextEntry = {true} 
+                  />
                   <View style={styles.button}>
                     <TouchableOpacity onPress={() => {  
                         this.setLoginModalVisible(!this.state.loginModalVisible),     
@@ -137,11 +125,10 @@ class Index extends React.Component {
                 </View>
               </ImageBackground>
             </Modal>
-
-            </View>
           </View>
         </View>
-      </ImageBackground>
+      </View>
+    </ImageBackground>
     );
   };
 }
@@ -151,7 +138,6 @@ class Index extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -1,22 +1,43 @@
 import React, { Component } from 'react';
 import { 
   StyleSheet,
-  Text,
   View,
-  FlatList,
   ScrollView,
-  Button
+  Button,
+  Image,
+  Text
 } from 'react-native';
 import { CheckBox } from 'react-native-elements'
 
 
+class LogoTitle extends React.Component {
+  render() {
+    return (
+      <View style={styles.logoTitle}>
+      <Image
+        source={require('../images/icon.png')}
+        style={{ width: 30, height: 30 }}
+      />
+      <Text style={{color: 'white', fontSize: 24, marginLeft: 10, fontWeight: 'bold'}}>Results</Text>
+      </View>
+    );
+  }
+}
+
+
+
 class CameraResult extends Component {
   static navigationOptions = {
-    title: 'Result',
-    headerTintColor: 'black',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
+    headerBackground: (
+      <Image
+        source={require('../images/header.jpg')}
+        style={{height: 70}}
+      />
+    ),
+    headerTintColor: 'white',
+    headerTitle: (
+      <LogoTitle />
+    ),
   };
 
   constructor (){
@@ -26,27 +47,24 @@ class CameraResult extends Component {
       selected: [],
     };
     this.selected = this.selected.bind(this)
-
   }
   
   componentDidMount = () => {  
     
     let list = this.state.list
     this.props.navigation.state.params.predictions.map(li => {
-     
-      if (li.value > 0.95) {
-     newPrediction = {
-        id: li.id,
-        name: li.name,
-        value: li.value,
-        checked: false,
+      if (li.value >= 0.90) {
+        newPrediction = {
+            id: li.id,
+            name: li.name,
+            value: li.value,
+            checked: false,
+          }
+        list.push(newPrediction)
+        this.setState({list})
       }
-      list.push(newPrediction)
-      this.setState({list})
-    }
     })
   }
-
 
   selected(item){
     const list = this.state.list.map(li =>{
@@ -59,8 +77,6 @@ class CameraResult extends Component {
       return li
     })
     this.setState({list});
-
-
     let selected = this.state.selected
     this.state.list.map(li => {
       if (li.id === item.id) {
@@ -77,38 +93,28 @@ class CameraResult extends Component {
         }
       }
     })
-    console.log(this.state.selected)
   }
 
-
-
   render() {
-    console.log("this.props.navigation.state.params.onNavigateBack() AT camera result",this.props.navigation.state.params.onNavigateBack)
-
-    
     return (
       <ScrollView contentContainerstyle={styles.container}>
-      {this.state.list.map(item => {
-        return(
-          <View
-          style={{
-            flex: 1,
-            alignSelf: 'flex-start',
-            alignItems: 'center',
-          }}
-        >
-              <CheckBox
-                center
-                title={item.name}
-                checked={item.checked}
-                onPress={this.selected.bind(null, item)}
-              />
-            )}
-          />
-        </View>
-        )
-      })}
-       <Button 
+        {this.state.list.map(item => {
+          return(
+            <View
+              style={{
+                flex: 1,
+                alignSelf: 'flex-start',
+                alignItems: 'center',
+              }}>
+            <CheckBox
+              center
+              title={item.name}
+              checked={item.checked}
+              onPress={this.selected.bind(null, item)}/>
+            </View>
+          )
+        })}
+        <Button 
           raised
           color='black'
           title="Add to Ingredients"
@@ -116,13 +122,10 @@ class CameraResult extends Component {
           textStyle={{textAlign: 'center', fontFamily: 'HelveticaNeue-Medium'}}
           onPress={() => this.props.navigation.navigate('Search',{onNavigateBack: this.props.navigation.state.params.onNavigateBack(this.state.selected)})}
         />
-          {/* onPress={() => this.props.navigation.navigate('Search', {onNavigateBack: this.props.navigation.state.params.onNavigateBack(this.state.selected)})} */}
-
       </ScrollView>
     );
   };
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -131,7 +134,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  logoTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
 });
-
 
 export default CameraResult;

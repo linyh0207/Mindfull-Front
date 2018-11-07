@@ -3,25 +3,15 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
-  ImageBackground,
-  ScrollView,
-  TextInput,
   TouchableOpacity,
   Image,
-  AsyncStorage,
-  FlatList,
-  Modal,
   KeyboardAvoidingView
 } from 'react-native';
 import { 
   SearchBar,
   Icon
 } from 'react-native-elements';
-import { 
-  Camera, 
-  Permissions
-} from 'expo';
+
 
 class LogoTitle extends React.Component {
   render() {
@@ -36,7 +26,6 @@ class LogoTitle extends React.Component {
     );
   }
 }
-
 
 class Search extends React.Component {
   static navigationOptions = {
@@ -63,26 +52,19 @@ class Search extends React.Component {
     this.handleOnNavigateBack = this.handleOnNavigateBack.bind(this)
   };
   
-
- 
   handleOnNavigateBack = (selected) => {
     let ingredients = this.state.ingredients
     selected.forEach(select => {
       ingredients.push(select)
     })
     this.setState({ingredients : ingredients})
-    
-    
   }
 
   handleOnNavigateBackFromScanner = (barcode) => {
     let ingredients = this.state.ingredients
       ingredients.push(barcode)
     this.setState({ingredients : ingredients})
-    
-    
   }
-
 
   addItem() {
     const newItems = this.state.text
@@ -102,120 +84,80 @@ class Search extends React.Component {
     this.setState({ingredients})
   }
 
-
-
   render() {
     const { navigate } = this.props.navigation;
     
     return (
       <View style={styles.container}>
-  
-        
-
         <Text style={{color: 'white', margin: 20, fontSize: 24, fontFamily: 'HelveticaNeue-Medium'}}>Welcome, {this.props.navigation.state.params.username}</Text>
-
         <View style={styles.mainComponent}>
-        
-        
-        
           <View style={styles.searchComponent}>
-          <SearchBar
-          
-            value={this.state.text.toLowerCase()}
-            lightTheme
-            round
-            searchIcon={{ size: 24 }}
-            inputStyle={{backgroundColor: 'white'}}
-            containerStyle={{backgroundColor: 'transparent', width: 220}}
-            onChangeText={(text) => this.setState({text})}
-            placeholder='Add Ingredient' />
+            <SearchBar  
+              value={this.state.text.toLowerCase()}
+              lightTheme
+              round
+              searchIcon={{ size: 24 }}
+              inputStyle={{backgroundColor: 'white'}}
+              containerStyle={{backgroundColor: 'transparent', width: 220}}
+              onChangeText={(text) => this.setState({text})}
+              placeholder='Add Ingredient' />
             
-          <View style={{marginLeft: 10}}>
-          <Icon 
-          onPress={() => {this.addItem()}}
-          name='ios-add-circle'
-          type='ionicon'
-          color='white'
-          size={40}
-          marginLeft={30}
-          />
-          </View>
-          </View>
- 
-
-            <View style={styles.twoButtons}>
-            <View style={styles.indexButton}>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('ObjectRecognition', {onNavigateBack: this.handleOnNavigateBack.bind(this)})}>
-              <Text style={{fontSize: 18, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue-Medium'}}>Food Recognition</Text>
-            </TouchableOpacity>
+            <View style={{marginLeft: 10}}>
+              <Icon 
+              onPress={() => {this.addItem()}}
+              name='ios-add-circle'
+              type='ionicon'
+              color='white'
+              size={40}
+              marginLeft={30}
+              />
             </View>
-            
-            <View style={styles.indexButton}>
-            <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('BarcodeScanner',{onNavigateBack: this.handleOnNavigateBackFromScanner.bind(this)})}>
-            <Text style={{fontSize: 18, color: 'white', textAlign: 'center',fontFamily: 'HelveticaNeue-Medium'}}>Barcode Scanner</Text>
-          </TouchableOpacity>
           </View>
+          <View style={styles.twoButtons}>
+            <View style={styles.indexButton}>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('ObjectRecognition', {onNavigateBack: this.handleOnNavigateBack.bind(this)})}>
+                <Text style={{fontSize: 18, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue-Medium'}}>Food Recognition</Text>
+              </TouchableOpacity>
             </View>
-
-        </View>  
+              <View style={styles.indexButton}>
+                <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('BarcodeScanner',{onNavigateBack: this.handleOnNavigateBackFromScanner.bind(this)})}>
+                <Text style={{fontSize: 18, color: 'white', textAlign: 'center',fontFamily: 'HelveticaNeue-Medium'}}>Barcode Scanner</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>  
         
         <View style={styles.submitButton}>
-        <TouchableOpacity
-            onPress={() =>  {
-            
-              navigate('Recipes',{ingredients: this.state.ingredients})}
-            }>
-            <Text style={{fontSize: 20, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue-Medium'}}>Submit</Text>
-          </TouchableOpacity> 
-          </View>
-
-          {/* <View style={styles.container}>
-        <FlatList
-        data={this.state.ingredients}
-        renderItem={({ item }) => (
-          <View style={styles.lozenges}>
-          <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Medium'}}>{item}</Text>
           <TouchableOpacity
-        onPress={() => {this.deleteItem(item)}}>
-          <Icon name="delete" size={24} color="#8C8B8B" />
-        </TouchableOpacity>
-        </View>
-      )}
-        keyExtractor={(item, index) => index.toString()}
-      />
-      </View> */}
+              onPress={() =>  {
+                navigate('Recipes',{ingredients: this.state.ingredients})}
+              }>
+              <Text style={{fontSize: 20, color: 'white', textAlign: 'center', fontFamily: 'HelveticaNeue-Medium'}}>Submit</Text>
+            </TouchableOpacity> 
+          </View>
       <KeyboardAvoidingView
         style={styles.container}
         behavior="padding"
       >
-
-      <View style={styles.lozengeContainer}>
-      {this.state.ingredients.map(item => {
-          return (
-            <View style={styles.lozenges} key={item}>
-              <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light', color: '#8C8B8B'}}>{item}</Text>
-              <TouchableOpacity onPress={() => {this.deleteItem(item)}}>
-                <Icon name="delete" size={24} color="#8C8B8B" />
-              </TouchableOpacity>
-            </View>
-          )
-        })}
-      </View>
+        <View style={styles.lozengeContainer}>
+          {this.state.ingredients.map(item => {
+              return (
+                <View style={styles.lozenges} key={item}>
+                  <Text style={{fontSize: 20, fontFamily: 'HelveticaNeue-Light', color: '#8C8B8B'}}>{item}</Text>
+                  <TouchableOpacity onPress={() => {this.deleteItem(item)}}>
+                    <Icon name="delete" size={24} color="#8C8B8B" />
+                  </TouchableOpacity>
+                </View>
+              )
+            })}
+        </View>
       </KeyboardAvoidingView>
   </View>
-
-
     );
   }
 }
-
-
-
-
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -290,11 +232,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  
-
 });
-
-
 
 
 export default Search;

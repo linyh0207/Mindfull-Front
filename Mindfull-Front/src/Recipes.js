@@ -11,7 +11,6 @@ import {
   Modal,
 } from 'react-native';
 import { 
-  Icon,
   Card
 } from 'react-native-elements';
 import {
@@ -66,7 +65,6 @@ class Recipes extends Component {
       favorite: [],
       modalVisible: false,
     };
-    
     this.changeHeartColor = this.changeHeartColor.bind(this);
     this.getRecipeDetails = this.getRecipeDetails.bind(this)
   }
@@ -117,7 +115,6 @@ class Recipes extends Component {
     }
 
 
-
     let ingredients = this.props.navigation.state.params.ingredients
     let url = `https://api.yummly.com/v1/api/recipes?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
     let recipeUrl = `https://api.yummly.com/v1/api/recipe/${this.state.list.id}?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`
@@ -128,6 +125,7 @@ class Recipes extends Component {
       ingredients.forEach(ingredient => 
         url += `&allowedIngredient[]=${ingredient}`
       )
+      // *** Async method
       // const recipesResult = await fetch(url, {method: 'GET'});
       // const {matches} = await recipesResult.json();
       // const list = matches.map(({id, recipeName, ingredients}) => {
@@ -183,83 +181,13 @@ class Recipes extends Component {
               });
             return betterListItemPromise
           });
-
           const betterListItemsPromise = Promise.all(betterListItemPromises);
           return betterListItemsPromise;
         });
       listWithBetterImagesPromise
         .then(list => { this.setState({list})});
-        
-        //     fetch(`${url}`, {
-  //       method: 'GET'
-  //     })
-  //         .then((response) => response.json())
-  //         .then((responseJson) => {
-  //           const newList = responseJson.matches.map(match => {
-  //             let matchIngredients = match.ingredients
-  //             let missingIngredients = matchIngredients.filter(function(x){
-  //               return ingredients.indexOf(x) < 0;
-  //             })
-  //             return ({
-  //               food: match.recipeName,
-  //               // image: '',
-  //               missingIngredients: missingIngredients,
-  //               id: match.id,
-  //               color: 'black',
-  //               favorite: true,
-  //             });
-  //           });
-  //           this.setState({list: newList})
-  //         })
-  //         .then(()=> {
-  //           const updateList = this.state.list.map(list => {
-  //             fetch(`https://api.yummly.com/v1/api/recipe/${list.id}?_app_id=${this.state.api.id}&_app_key=${this.state.api.key}`, {
-  //               method: 'GET'
-  //             })
-  //             .then((response) => response.json())
-  //             .then((responseJson) => {
-               
-  //               console.log('missingIngredients',matchIngredients)
-  //               // console.log('images', responseJson.images[0].hostedMediumUrl)
-  //               return ({
-  //                 ...list, 
-  //                 image: responseJson.images[0].hostedMediumUrl
-  //               })
-  //             })
-  //             // console.log('am i here?', newList)
-  //             // console.log("HEREEEEE", list)
-  //             return list
-  //             // this.setState({ list: updateList })
-  //           })
-  //           this.setState({ list: updateList })
-  // //           // console.log('AFTER SET STATE', this.state.list)
-  //         })
-  // //       .catch((error) => {
-  // //         console.error(error);
-  // //   })
   }    
 } 
-    // var ingredients = {ingredients: 'apple'};
-    // fetch("http://192.168.88.99:3000/recipes", {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body:  JSON.stringify(ingredients)
-    // })
-    // .then((response) => response.json())
-    // .then((responseJson) => {
-    //   let newList = {...this.state.list}
-    //   newList = responseJson.result
-    //    this.setState({
-    //       list: newList
-    //    }, () => console.log('newList is...',this.state.list))
-       
-    // })
-    // .catch((error) => {
-    //    console.error(error);
-    // });
 
  changeHeartColor(item) {
   //  console.log("list", this.state.list)
@@ -304,67 +232,45 @@ setModalVisible(visible) {
 }
 
   getRecipeDetails(item) {
-    // const recipe = this.state.recipe
-    
-    // this.state.list.forEach(li => {
-    //   if (li.id === item.id) {
-    //     recipe.push(li.id)
-    //     // console.log('HERE', recipe)
-    //   }
-    //   return recipe
-    // });
-    // this.setState({recipe})
-    // this.props.navigation.navigate('RecipeDetails', {recipe: this.state.recipe})
-    // // console.log('recipe', this.state.recipe)
-
     this.props.navigation.navigate('RecipeDetails', {recipe: item.id})
   }
 
   render() {
-    const firstThing = this.state.list[0];
     return (
-
     <View style={styles.container}> 
-
       <View style={styles.navbar}>
-      <TouchableOpacity
-        onPress={() => {
-          this.setModalVisible(true);
-        }}>
-        {/* <Icon name="shopping-cart"/> */}
-        <Text style={{color: 'black', fontSize: 18, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>MY INGREDIENTS 🛒       | </Text>
-      </TouchableOpacity>
-        
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('FavoriteRecipes', {favorite: this.state.favorite})}>
-          
-          <Text style={{color: 'black', fontSize: 18, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>    MY FAVOURITES 🖤</Text>
+          onPress={() => {
+            this.setModalVisible(true);
+          }}>
+          {/* <Icon name="shopping-cart"/> */}
+          <Text style={{color: 'black', fontSize: 18, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>MY INGREDIENTS 🛒       | </Text>
         </TouchableOpacity>
-        
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('FavoriteRecipes', {favorite: this.state.favorite})}> 
+          <Text style={{color: 'black', fontSize: 18, fontFamily: 'HelveticaNeue-Light', marginTop: 5}}>    MY FAVOURITES 🖤</Text>
+        </TouchableOpacity>  
       </View> 
-
     <View>
-      <Modal
-        animationType='slide'
-        transparent={true}
-        visible={this.state.modalVisible}>
+        <Modal
+          animationType='slide'
+          transparent={true}
+          visible={this.state.modalVisible}>
 
-      <View style={{
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        }}>
-      
-      
-      <View style={styles.modal}>
-        <View>
-        <Text style={{color:'white', fontFamily: 'HelveticaNeue-Light', fontSize: 20, marginBottom: 10, textDecorationLine: 'underline'}}>Ingredients I have:</Text>
-          {this.props.navigation.state.params.ingredients.map(item => {
-            return(
-              <Text style={{color:'white', fontFamily: 'HelveticaNeue-Light', fontSize: 20}} key={item}>{item}</Text>
-            )
-          })}
+        <View style={{
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          }}>
+        <View style={styles.modal}>
+          <View>
+            <Text style={{color:'white', fontFamily: 'HelveticaNeue-Light', fontSize: 20, marginBottom: 10, textDecorationLine: 'underline'}}>Ingredients I have:</Text>
+              {this.props.navigation.state.params.ingredients.map(item => {
+                return(
+                  <Text style={{color:'white', fontFamily: 'HelveticaNeue-Light', fontSize: 20}} key={item}>{item}</Text>
+                )
+              })}
           </View>
       
       <View style={styles.exitButton}>
@@ -378,51 +284,37 @@ setModalVisible(visible) {
       </View>
     </View>
   </Modal>
-    
 </View>      
 
-    <View style={styles.container}>
-      
-      <ScrollView>
-        
-        {this.state.list.map(item => {
-        
-          return (
-            <Card image={{uri: `${item.image}`}} key={item.id}>
-      
-              {/* <View style={{ backgroundColor: 'white', padding: 5, flexDirection: 'row' }}> */}
-            
-
-              <Button 
-                raised
-                color='black'
-                title={item.food}
-                buttonStyle={{ width: 280}}
-                textStyle={{textAlign: 'center', fontFamily: 'HelveticaNeue-Light'}}
-                onPress={
-                  this.getRecipeDetails.bind(null, item) 
-                }
-              />
-
-              <View>
-                <TouchableOpacity
-                  onPress={
-                    this.changeHeartColor.bind(null, item)
-                  }>
-                  <Text style={{fontSize: 32, color: `${item.color}`}}>♥</Text>
-                </TouchableOpacity>
-              </View>
-  
-
-              {/* </View> */}
-             
-            </Card>
-          );
-        })}
-            
-      </ScrollView>
-    </View>
-</View>
+          <View style={styles.container}>
+            <ScrollView>
+              {this.state.list.map(item => {
+                return (
+                  <Card image={{uri: `${item.image}`}} key={item.id}>
+                    <Button 
+                      raised
+                      color='black'
+                      title={item.food}
+                      buttonStyle={{ width: 280}}
+                      textStyle={{textAlign: 'center', fontFamily: 'HelveticaNeue-Light'}}
+                      onPress={
+                        this.getRecipeDetails.bind(null, item) 
+                      }
+                    />
+                    <View>
+                      <TouchableOpacity
+                        onPress={
+                          this.changeHeartColor.bind(null, item)
+                        }>
+                        <Text style={{fontSize: 32, color: `${item.color}`}}>♥</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </Card>
+                );
+              })}     
+            </ScrollView>
+          </View>
+      </View>
     );
   };
 }
@@ -475,3 +367,28 @@ const styles = StyleSheet.create({
 
 
 export default Recipes;
+
+
+
+// AJAX POST REQUEST
+// var ingredients = {ingredients: 'apple'};
+    // fetch("http://192.168.88.99:3000/recipes", {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body:  JSON.stringify(ingredients)
+    // })
+    // .then((response) => response.json())
+    // .then((responseJson) => {
+    //   let newList = {...this.state.list}
+    //   newList = responseJson.result
+    //    this.setState({
+    //       list: newList
+    //    }, () => console.log('newList is...',this.state.list))
+       
+    // })
+    // .catch((error) => {
+    //    console.error(error);
+    // });
